@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8EbMrETdojoXxKQ3aIX1GFkYujP28oB3p5H1yNpNRGf3+YmA4LanslAkTEBgvL7fdHwN2TSYsiMabMWOZs/NEQ==",
+  "dgSpecHash": "U4053ykQqOPwUwS6wuAAe2hQDHRx01/Ltj/Qftz+hzJIwE6oKBt3+GASdqWnxUk5tEb4LmdmP+jNGA6XnXHH3Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\developer\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.22\\microsoft.netcore.app.host.win-x64.3.1.22.nupkg.sha512",
-    "C:\\Users\\developer\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\developer\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\developer\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
