@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj": {}
+    "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj": {
+    "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
+        "projectUniqueName": "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
         "projectName": "capp",
-        "projectPath": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
-        "packagesPath": "C:\\Users\\ricky\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\capp\\capp\\obj\\",
+        "projectPath": "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\capp.csproj",
+        "packagesPath": "C:\\Users\\developer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\developer\\Documents\\GitHub\\SZKTeko\\capp\\capp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ricky\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\developer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,6 +49,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.22, 3.1.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

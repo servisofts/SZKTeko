@@ -1,0 +1,14 @@
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.exe
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.deps.json
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.runtimeconfig.json
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.runtimeconfig.dev.json
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.dll
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\bin\Debug\netcoreapp3.1\capp.pdb
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.csproj.AssemblyReference.cache
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.AssemblyInfoInputs.cache
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.AssemblyInfo.cs
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.csproj.CoreCompileInputs.cache
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.dll
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.pdb
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\Debug\netcoreapp3.1\capp.genruntimeconfig.cache
