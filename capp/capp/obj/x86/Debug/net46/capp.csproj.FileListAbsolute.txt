@@ -2,7 +2,6 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\lib\Intero
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\capp.exe.config
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\capp.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\capp.pdb
-C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\Interop.zkemkeeper.dll
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.AssemblyReference.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.SuggestedBindingRedirects.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.Properties.Resources.resources
@@ -11,6 +10,7 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.Gener
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.AssemblyInfoInputs.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.AssemblyInfo.cs
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.CoreCompileInputs.cache
-C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.CopyComplete
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\Interop.zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.ResolveComReference.cache
