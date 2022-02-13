@@ -1,11 +1,11 @@
 
-import proyecto from "./proyecto"
+import zkteco from "./zkteco"
 const Pages = {
-    ...proyecto.Pages
+    ...zkteco.Pages
 }
 
 const Reducers = {
-    ...proyecto.Reducers
+    ...zkteco.Reducers
 }
 
 export default {

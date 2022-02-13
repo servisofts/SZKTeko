@@ -12,7 +12,7 @@ export default class Actions {
                 component: "servicio",
                 type: "getAllHabilitados",
                 estado: "cargando",
-                key_servicio: "4269db89-9bd9-448b-9dd0-6b088431270e",
+                key_servicio: "c359d961-df99-4dba-9902-18eedbd15943",
             })
             return null;
         }

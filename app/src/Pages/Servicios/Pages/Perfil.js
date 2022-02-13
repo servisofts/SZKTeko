@@ -74,8 +74,8 @@ class Perfil extends Component {
 
                     </SView>
                     <BotonesPaginas data={[
-                        { label: "Proyectos", icon: "Servisofts", url: "proyecto", params: { key_servicio: this.key } },
-                        { label: "Tipos de cargos", icon: "Ajustes", url: "tipo_cargo", params: { key_servicio: this.key } },
+                        { label: "Puntos de venta", icon: "Servisofts", url: "punto_venta", params: { key_servicio: this.key } },
+                        // { label: "Tipos de cargos", icon: "Ajustes", url: "tipo_cargo", params: { key_servicio: this.key } },
                         // { label: "Tipos de datos", url: "tipoDato", icon: "Lock" },
                     ]} />
                 </SView>

@@ -1,5 +1,5 @@
 //  COMPONENT CONFIG
-const component = "proyecto"; // COMPONENT NAME 
+const component = "punto_venta"; // COMPONENT NAME 
 const version = "1.0";
 // ---------------------------------------
 import Actions from "./Actions";

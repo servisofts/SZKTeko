@@ -1,5 +1,5 @@
 //  COMPONENT CONFIG
-const component = "tipo_cargo"; // COMPONENT NAME 
+const component = "tipo_dispositivo"; // COMPONENT NAME 
 const version = "1.0";
 // ---------------------------------------
 import Actions from "./Actions";

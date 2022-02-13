@@ -18,7 +18,7 @@ class Lista extends Component {
             header={[
                 { key: "index", label: "#", width: 50 },
                 { key: "descripcion", label: "Descripcion", width: 150 },
-                { key: "color", label: "color", width: 150 },
+                { key: "observacion", label: "observacion", width: 150 },
                 {
                     key: "key-editar", label: "Editar", width: 50, center: true,
                     component: (item) => {
@@ -37,6 +37,24 @@ class Lista extends Component {
                         </SView>
                     }
                 },
+                // {
+                //     key: "key-ver", label: "Ver", width: 50, center: true,
+                //     component: (item) => {
+                //         return <SView onPress={() => { SNavigation.navigate(Parent.component + "/perfil", { key: item }) }}>
+                //             <SIcon name={"Salir"} width={35} />
+                //         </SView>
+                //     }
+                // },
+
+                {
+                    key: "key-dispositivos", label: "Devices", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => { SNavigation.navigate("dispositivo", { key_punto_venta: item }) }}>
+                            <SIcon name={"Ajustes"} width={35} />
+                        </SView>
+                    }
+                },
+
 
 
             ]}

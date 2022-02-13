@@ -8,7 +8,6 @@ class Lista extends Component {
         super(props);
         this.state = {
         };
-        this.key_servicio = SNavigation.getParam("key_servicio");
     }
 
     getLista() {
@@ -19,6 +18,7 @@ class Lista extends Component {
                 { key: "index", label: "#", width: 50 },
                 { key: "descripcion", label: "Descripcion", width: 150 },
                 { key: "observacion", label: "observacion", width: 150 },
+             
                 {
                     key: "key-editar", label: "Editar", width: 50, center: true,
                     component: (item) => {
@@ -37,39 +37,11 @@ class Lista extends Component {
                         </SView>
                     }
                 },
-                {
-                    key: "key-ver", label: "Ver", width: 50, center: true,
-                    component: (item) => {
-                        return <SView onPress={() => { SNavigation.navigate(Parent.component + "/perfil", { key: item }) }}>
-                            <SIcon name={"Salir"} width={35} />
-                        </SView>
-                    }
-                },
-        
-                // {
-                //     key: "key-pagos", label: "Pagos", width: 50, center: true,
-                //     component: (item) => {
-                //         return <SView onPress={() => { SNavigation.navigate("pago", { key_proyecto: item }) }}>
-                //             <SIcon name={"Caja"} width={35} />
-                //         </SView>
-                //     }
-                // },
-                {
-                    key: "key-etapas", label: "Etapas", width: 50, center: true,
-                    component: (item) => {
-                        return <SView onPress={() => { SNavigation.navigate("etapa", { key_proyecto: item }) }}>
-                            <SIcon name={"Lock"} width={35} />
-                        </SView>
-                    }
-                },
 
 
             ]}
             filter={(data) => {
                 if (data.estado != 1) return false;
-                if (this.key_servicio) {
-                    if (this.key_servicio != data.key_servicio) return false;
-                }
                 return true;
             }}
             data={data}
@@ -81,7 +53,7 @@ class Lista extends Component {
             <SPage title={'Lista de ' + Parent.component} disableScroll>
                 {this.getLista()}
                 <FloatButtom onPress={() => {
-                    SNavigation.navigate(Parent.component + "/registro", { key_servicio: this.key_servicio });
+                    SNavigation.navigate(Parent.component + "/registro");
                 }} />
             </SPage>
         );

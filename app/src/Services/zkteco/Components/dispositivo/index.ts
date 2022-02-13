@@ -1,5 +1,5 @@
 //  COMPONENT CONFIG
-const component = "tipo_seguimiento"; // COMPONENT NAME 
+const component = "dispositivo"; // COMPONENT NAME 
 const version = "1.0";
 // ---------------------------------------
 import Actions from "./Actions";

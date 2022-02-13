@@ -25,7 +25,7 @@ class InicioPage extends Component {
         var camisa = require("./Images/camisa.jpg");
         return (
             <SPage
-                title="Inicio"
+                title="Servisofts - ZKTeco"
             >
                 <SView col={"xs-12"} row center >
                         {/* {this.getPaginas()} */}
@@ -33,7 +33,7 @@ class InicioPage extends Component {
 
                 <BotonesPaginas data={[
                     { label: "Servicios", url: "servicios", icon: "Servisofts" },
-                    { label: "Tipos de seguimiento", url: "tipo_seguimiento", icon: "Lock" },
+                    { label: "Tipos de dispositivos", url: "tipo_dispositivo", icon: "Lock" },
                 ]} />
             </SPage>
         );

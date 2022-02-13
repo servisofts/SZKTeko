@@ -8,7 +8,6 @@ class Select extends Component {
         super(props);
         this.state = {
         };
-        // this.key_scene = SNavigation.getParam("key_scene");
     }
 
     getLista() {
@@ -18,17 +17,18 @@ class Select extends Component {
             header={[
                 { key: "index", label: "#", width: 50 },
                 { key: "descripcion", label: "Descripcion", width: 150 },
-                { key: "tipo", label: "Tipo", width: 100, center: true },
+                { key: "observacion", label: "observacion", width: 250 },
+              
                 {
                     key: "key-ver", label: "Ver", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                                var onSelect = SNavigation.getParam("onSelect");
-                                if(onSelect){
-                                    onSelect(data[item]);
-                                }
-                                SNavigation.goBack();
-                             }}>
+                            var onSelect = SNavigation.getParam("onSelect");
+                            if (onSelect) {
+                                onSelect(data[item]);
+                            }
+                            SNavigation.goBack();
+                        }}>
                             <SIcon name={"Salir"} width={35} />
                         </SView>
                     }

@@ -10,7 +10,6 @@ class Registro extends Component {
         this.state = {
         };
         this.key = SNavigation.getParam("key");
-        this.key_servicio = SNavigation.getParam("key_servicio");
     }
 
     getContent() {
@@ -30,7 +29,7 @@ class Registro extends Component {
             }}
             inputs={{
                 descripcion: { label: "Descripcion", isRequired: true, defaultValue: this.data["descripcion"] },
-                color: { label: "color", isRequired: false, defaultValue: this.data["color"] },
+                observacion: { label: "observacion", isRequired: false, defaultValue: this.data["observacion"] },
                 // url: { label: "url", isRequired: true, defaultValue: this.data["url"] },
             }}
             onSubmitName={"Guardar"}
@@ -38,7 +37,6 @@ class Registro extends Component {
                 if (this.key) {
                     Parent.Actions.editar({ ...this.data, ...values }, this.props);
                 } else {
-                    values.key_servicio = this.key_servicio;
                     Parent.Actions.registro(values, this.props);
                 }
             }}

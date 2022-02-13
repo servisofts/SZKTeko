@@ -76,7 +76,7 @@ class Lista extends Component {
 
     render() {
         return (
-            <SPage title={'Servicios habilitados para proyecto'} disableScroll>
+            <SPage title={'Servicios habilitados para ZKTeco'} disableScroll>
                 <SView col={"xs-12"} center height>
                     {this.getLista()}
                 </SView>
