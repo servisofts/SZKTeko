@@ -13,4 +13,4 @@ namespace capp
             device1.getDeviceInfo();
         }
     }
-}
+}   
