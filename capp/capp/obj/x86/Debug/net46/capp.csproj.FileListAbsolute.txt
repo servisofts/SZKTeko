@@ -14,3 +14,5 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.cspro
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.csproj.CopyComplete
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.pdb
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.exe
+C:\Users\developer\Documents\GitHub\SZKTeko\capp\capp\obj\x86\Debug\net46\capp.pdb
