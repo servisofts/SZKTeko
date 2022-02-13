@@ -1,0 +1,4 @@
+    "servisofts-component": "file:../../../../../../servisofts-component/dist",
+    en cmd: 
+    mklink /D C:\Users\Liceth Flores\Documents\GitHub\servisofts-component \\192.168.3.2\GitHub\servisofts-component
+    "servisofts-component": "file:../../servisofts-component/dist",
