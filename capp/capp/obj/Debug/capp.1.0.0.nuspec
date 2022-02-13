@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>capp</id>
+    <version>1.0.0</version>
+    <authors>capp</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x86\Debug\net46\capp.exe" target="lib\net46\capp.exe" />
+  </files>
+</package>
