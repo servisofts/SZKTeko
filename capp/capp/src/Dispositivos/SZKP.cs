@@ -14,7 +14,7 @@ namespace capp
     internal class SZKP{
 
 
-        IntPtr h = IntPtr.Zero;
+        private IntPtr h = IntPtr.Zero;
         [DllImport(@"C:\Windows\SysWOW64\plcommpro.dll", EntryPoint = "Connect")]
         public static extern IntPtr Connect(string Parameters);
         //public static extern IntPtr Connect(string Parameters);
@@ -85,6 +85,7 @@ namespace capp
                     objSend.put("data", this.data);
                     objSend.put("estado", "exito");
                     SSocket.Send(objSend.ToString());
+                    this.onMessagge();
                     return;
                 }
             }
@@ -93,6 +94,51 @@ namespace capp
             SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             return;
         }
+
+        private void hiloSession() {
+            Thread tmsn = new Thread(new ThreadStart(this.onMessagge));
+            tmsn.Start();
+        }
+
+        [DllImport("plcommpro.dll", EntryPoint = "GetRTLog")]
+        public static extern int GetRTLog(IntPtr h,ref byte buffer, int bufferSize, string itemvalues);
+
+        private int getRT()
+        {
+            try
+            {
+                int BUFFERSIZE= 256;
+                byte[] buffer = new byte[BUFFERSIZE];
+                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"Pin");
+                string str = Encoding.Default.GetString(buffer);
+                str = str.Replace("\0", string.Empty);
+                string[] keys = Regex.Split(str, ",");
+                if (keys[3] != "0")
+                {
+                    SConsole.log($"Ocurrio un evento {number} :: {str}");
+                }
+                else {
+                    //SConsole.log(keys[3]);
+                }
+                Thread.Sleep(1000);
+                return number;
+
+            }
+            catch (Exception ex)
+            {
+                SConsole.log("Error en el hilo onMessgge");
+                Thread.Sleep(1000);
+                return 0;
+            }
+        }
+        private void onMessagge() {
+            SConsole.log("Start Real Time event");
+            SZKP instance = this;
+            while (h != IntPtr.Zero) {
+              int number=  instance.getRT();
+            }
+        }
+
 
         [DllImport("plcommpro.dll", EntryPoint = "Disconnect")]
         public static extern void Disconnect(IntPtr h);
@@ -270,8 +316,7 @@ namespace capp
             }
         }
 
-        [DllImport("plcommpro.dll", EntryPoint = "GetRTLog")]
-        public static extern int GetRTLog(string ip, string mac);
+     
 
 
 
