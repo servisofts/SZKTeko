@@ -75,4 +75,15 @@ export default class Actions {
         return null
     }
 
+    static reboot = (data, props) => {
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "reboot",
+            estado: "exito",
+            key_usuario: "",
+            punto_venta: data
+        })
+    }
+
 }

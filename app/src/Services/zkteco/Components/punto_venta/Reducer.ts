@@ -35,6 +35,7 @@ const TypesSwitch = (state: any, action: DataProps) => {
         case "registro": return registro(state, action);
         case "editar": return editar(state, action);
         case "getByKey": return getByKey(state, action);
+        case "onChange": return onChange(state, action);
 
     }
 }
@@ -53,6 +54,12 @@ const editar = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;
     if (!state.data) return;
     state.data[action.data.key] = action.data;
+}
+const onChange = (state: any, action: DataProps) => {
+    if (action.estado != "exito") return;
+    if (!state.data) return;
+    if(!state.data[action.data.key_punto_venta]) return;
+    state.data[action.data.key_punto_venta].actividad = action.data;
 }
 const getByKey = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;

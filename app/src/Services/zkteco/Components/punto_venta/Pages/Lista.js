@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SIcon, SLoad, SNavigation, SPage, SPopup, STable2, SText, SView } from 'servisofts-component';
+import { SDate, SIcon, SLoad, SNavigation, SPage, SPopup, STable2, SText, SView } from 'servisofts-component';
 import Parent from ".."
 import FloatButtom from '../../../../../Components/FloatButtom';
 class Lista extends Component {
@@ -19,6 +19,23 @@ class Lista extends Component {
                 { key: "index", label: "#", width: 50 },
                 { key: "descripcion", label: "Descripcion", width: 150 },
                 { key: "observacion", label: "observacion", width: 150 },
+                {
+                    key: "actividad-estado", label: "Actividad", center: true, width: 70, component: (item) => {
+                        return <SView style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 4,
+                            backgroundColor: item.estado == 1 ? "#0f0" : "#f00"
+                        }}>
+
+                        </SView>
+                    }
+                },
+                {
+                    key: "actividad-hora", label: "Last Activity", width: 150, center: true, render: (item) => {
+                        return new SDate(item.fecha_on).toString("yyyy-MM-dd hh:mm:ss")
+                    }
+                },
                 {
                     key: "key-editar", label: "Editar", width: 50, center: true,
                     component: (item) => {
@@ -45,6 +62,16 @@ class Lista extends Component {
                 //         </SView>
                 //     }
                 // },
+                {
+                    key: "key-reboot", label: "Reboot", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => { 
+                            Parent.Actions.reboot(data[item],this.props);
+                         }}>
+                            <SIcon name={"Off"} width={35} />
+                        </SView>
+                    }
+                },
 
                 {
                     key: "key-dispositivos", label: "Devices", width: 50, center: true,

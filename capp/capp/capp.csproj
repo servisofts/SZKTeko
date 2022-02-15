@@ -18,6 +18,12 @@
     </COMReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
   <ItemGroup>
     <None Update="lib\Interop.zkemkeeper.dll">

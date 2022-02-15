@@ -41,6 +41,74 @@ export default class Actions {
             data: data
         })
     }
+    static conectar = (data, props) => {
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "conectar",
+            estado: "cargando",
+            key_usuario: "",
+            data: data
+        })
+    }
+    static getDataTable = (dispositivo, table = { name, header }) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "getDataTable",
+            estado: "cargando",
+            key_usuario: "",
+            table:table,
+            dispositivo: dispositivo
+        })
+    }
+    static deleteDataTable = (dispositivo, table = { name, header }) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "deleteDataTable",
+            estado: "cargando",
+            key_usuario: "",
+            table:table,
+            dispositivo: dispositivo
+        })
+    }
+    static getUsuarios = (dispositivo, props) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "getUsuarios",
+            estado: "cargando",
+            key_usuario: "",
+            dispositivo: dispositivo
+        })
+    }
+    static changeIp = (dispositivo, props) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "changeIp",
+            estado: "cargando",
+            key_usuario: "",
+            dispositivo: dispositivo,
+        })
+    }
+    static open = (dispositivo, parameters = { operID, doorOrAuxoutID, outputAddrType, doorAction }, props) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "open",
+            estado: "cargando",
+            key_usuario: "",
+            dispositivo: dispositivo,
+            parameters: parameters
+        })
+    }
     static copiar = (data, props) => {
         SSocket.send({
 

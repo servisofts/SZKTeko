@@ -9,6 +9,8 @@ import Lista from "./Pages/Lista";
 import Registro from "./Pages/Registro";
 import Perfil from "./Pages/Perfil";
 import Select from "./Pages/Select";
+import ListaUsuarios from "./Pages/ListaUsuarios";
+import DataTable from "./Pages/DataTable";
 export default {
     component,
     version,
@@ -20,6 +22,8 @@ export default {
         [component]: Lista,
         [component + "/registro"]: Registro,
         [component + "/perfil"]: Perfil,
-        [component + "/select"]: Select
+        [component + "/select"]: Select,
+        [component + "/listaUsuario"]: ListaUsuarios,
+        [component+"/dataTable"]:DataTable
     }
 }

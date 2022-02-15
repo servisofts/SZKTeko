@@ -13,6 +13,7 @@ const initialState = () => {
     var initialState: any = {
         component: Parent.component,
         version: Parent.version,
+        data_usuarios:{},
     }
     return initialState;
 }
@@ -36,6 +37,8 @@ const TypesSwitch = (state: any, action: DataProps) => {
         case "editar": return editar(state, action);
         case "getByKey": return getByKey(state, action);
         case "copiar": return copiar(state, action);
+        case "getUsuarios": return getUsuarios(state, action);
+        case "getDataTable": return getDataTable(state, action);
 
     }
 }
@@ -44,6 +47,7 @@ const getAll = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;
     state.data = action.data;
 }
+
 const registro = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;
     state.lastRegister = action.data;
@@ -66,4 +70,13 @@ const editar = (state: any, action: DataProps) => {
 const getByKey = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;
     state.data[action.data.key] = action.data;
+}
+const getUsuarios = (state: any, action: DataProps) => {
+    if (action.estado != "exito") return;
+    state.data_usuarios[action.dispositivo.key] = action.data;
+}
+const getDataTable = (state: any, action: DataProps) => {
+    if (action.estado != "exito") return;
+    state.table = action.table;
+    state.dataTable = action.data;
 }

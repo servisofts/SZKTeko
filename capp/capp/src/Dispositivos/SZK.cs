@@ -14,23 +14,51 @@ namespace capp
         private int port;
         private CZKEM CZKE;
         private int MachineNumber = 1;
-        public SZK(String ip, int port)
+        private SJSon data;
+    
+        private bool isConect = false;
+
+        public SZK(SJSon dispositivo)
         {
-            this.ip = ip;
-            this.port = port;
+            this.data = dispositivo;
+            this.ip = dispositivo.getString("ip");
+            this.port = dispositivo.getInt("puerto");
             this.CZKE = new CZKEM();
         }
+        public string getKey() {
+            return this.data.getString("key");
+        }
 
-        public Boolean connectar() {
-          
-            this.log($"Intentando Conectar {this.ip}:{this.port}");
+        public void connectar() {
+            Thread t1 = new Thread(new ThreadStart(this.hiloConectar));
+            t1.Start();
+           
+        }
+        public void hiloConectar() {
+            SConsole.log($"[SZK] Intentando Conectar {this.ip}:{this.port}");
+            isConect = false;
+            SJSon objSend = new SJSon();
+            objSend.put("component", "dispositivo");
+            objSend.put("type", "conectado");
+            this.data.put("isConected", false);
+            objSend.put("data", this.data);
             if (this.CZKE.Connect_Net(this.ip, Convert.ToInt32(this.port)) == true)
             {
-                this.log("Conexion exitosa!!!");
-                return true;
+                SConsole.log($"[SZK] Conexion exitosa {this.ip}:{this.port}");
+                isConect = true;
+                string mac= this.getMacAddress();
+                this.data.put("mac", mac);
+                this.data.put("isConected", true);
+                objSend.put("data", this.data);
+                objSend.put("estado", "exito");
+                SSocket.Send(objSend.ToString());
+                return;
             }
-            this.log("Conexion fallida");
-            return false;
+            SConsole.error($"[SZK] Conexion fallida {this.ip}:{this.port}");
+
+            objSend.put("estado", "error");
+            SSocket.Send(objSend.ToString());
+            isConect = false;
         }
         public void setUser()
         {
@@ -47,6 +75,13 @@ namespace capp
             this.CZKE.RefreshData(this.MachineNumber);
             this.CZKE.EnableDevice(1, true);//enable the device
 
+        }
+        public string getMacAddress()
+        {
+            String mac = "";
+            this.CZKE.GetDeviceMAC(1, ref mac);
+
+            return mac;
         }
         public void getDeviceInfo()
         {

@@ -8,6 +8,9 @@ namespace capp
         static void Main(string[] args)
         {
 
+             new Menu();
+
+
             // SZK device1 = new SZK("192.168.1.201", 4370);
             //device1.connectar();
             //device1.setUser();
@@ -26,13 +29,14 @@ namespace capp
             //device2.GetDeviceData_Pull();
             // device2.Desconectar();
 
-            SSocket so = new SSocket("192.168.0.199", 9000);
-     
-            while (true)
-            {
-                String Comand = Console.ReadLine();
-                so.Send(Comand);
-            }
+            SSocket.getInstance();
+
+            //while (true)
+            //{
+            //    String Comand = Console.ReadLine();
+            //    so.Send(Comand);
+            //}
+
         }
     }
 }   

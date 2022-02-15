@@ -20,7 +20,9 @@ class Registro extends Component {
             if (!this.data) return <SLoad />
             this.key_tipo_dispositivo = this.data.key_tipo_dispositivo;
         } else {
-            this.data = {};
+            this.data = {
+                puerto:"4370"
+            };
         }
         // if (this.key_etapa) {
         //     var data_etapa = etapa.Actions.getByKey(this.key_etapa, this.props);
