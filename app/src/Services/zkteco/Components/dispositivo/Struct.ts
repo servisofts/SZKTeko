@@ -50,7 +50,13 @@ export default {
     templatev10: {
         name: "templatev10",
         header: [
-           "Pin", "FingerID", "Valid", "Template", "Resverd", "EndTag"
+            "Pin", "FingerID", "Valid", "Template", "Resverd", "EndTag"
+        ]
+    },
+    template: {
+        name: "templatev10",
+        header: [
+            "Pin", "FingerID", "Valid", "Template", "Resverd", "EndTag"
         ]
     },
 
