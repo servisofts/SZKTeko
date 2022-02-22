@@ -36,6 +36,9 @@ namespace capp
                 case "deleteDataTable":
                     deleteDataTable(obj, session);
                     break;
+                case "registroDataTable":
+                    registroDataTable(obj, session);
+                    break;
             }
         }
 
@@ -95,6 +98,14 @@ namespace capp
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
             szkp.DeleteDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
             SConsole.log("delete data table");
+            obj.put("estado", "exito");
+            SSocket.Send(obj.ToString());
+        }
+        private static void registroDataTable(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+             szkp.SetDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
+            SConsole.log("insert data table");
             obj.put("estado", "exito");
             SSocket.Send(obj.ToString());
         }

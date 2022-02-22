@@ -75,6 +75,18 @@ export default class Actions {
             dispositivo: dispositivo
         })
     }
+    static registroDataTable = (dispositivo, table = { name, header }) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "registroDataTable",
+            estado: "cargando",
+            key_usuario: "",
+            table:table,
+            dispositivo: dispositivo
+        })
+    }
     static getUsuarios = (dispositivo, props) => {
         delete dispositivo["actividad"];
         SSocket.send({
