@@ -939,8 +939,16 @@ namespace StandaloneSDKDemo
             axCZKEM1.GetSysOption(GetMachineNumber(), "~PIN2Width", out strTemp);
             iPIN2Width = Convert.ToInt32(strTemp);
             axCZKEM1.GetSysOption(GetMachineNumber(), "~IsABCPinEnable", out strTemp);
+            if (strTemp.Length <= 0)
+            {
+                strTemp = "0";
+            }
             iIsABCPinEnable = Convert.ToInt32(strTemp);
             axCZKEM1.GetSysOption(GetMachineNumber(), "~T9FunOn", out strTemp);
+            if (strTemp.Length <= 0)
+            {
+                strTemp = "0";
+            }
             iT9FunOn = Convert.ToInt32(strTemp);
             /*
             axCZKEM1.GetDeviceInfo(iMachineNumber, 76, ref iPIN2Width);

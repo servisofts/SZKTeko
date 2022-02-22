@@ -1,0 +1,15 @@
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x64\Debug\net46\lib\Interop.zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x64\Debug\net46\capp.exe.config
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x64\Debug\net46\capp.exe
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\bin\x64\Debug\net46\capp.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.csproj.SuggestedBindingRedirects.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\Interop.zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.csproj.ResolveComReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.Properties.Resources.resources
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.csproj.GenerateResource.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.AssemblyInfoInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.AssemblyInfo.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.csproj.CoreCompileInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.exe
+C:\Users\ricky\Documents\GitHub\SZKTeko\capp\capp\obj\x64\Debug\net46\capp.pdb
