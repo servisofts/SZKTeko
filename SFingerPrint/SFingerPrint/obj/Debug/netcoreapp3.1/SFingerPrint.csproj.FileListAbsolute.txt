@@ -1,0 +1,17 @@
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.exe
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.deps.json
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.runtimeconfig.json
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.runtimeconfig.dev.json
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\SFingerPrint.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\libzkfpcsharp.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.csproj.AssemblyReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.AssemblyInfoInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.AssemblyInfo.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.csproj.CoreCompileInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.csproj.CopyComplete
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\netcoreapp3.1\SFingerPrint.genruntimeconfig.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\netcoreapp3.1\lib\libzkfpcsharp.dll

@@ -1,0 +1,14 @@
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\net35\lib\libzkfpcsharp.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\net35\SFingerPrint.exe.config
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\net35\SFingerPrint.exe
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\net35\SFingerPrint.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\bin\Debug\net35\libzkfpcsharp.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.csproj.AssemblyReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.csproj.SuggestedBindingRedirects.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.AssemblyInfoInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.AssemblyInfo.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.csproj.CoreCompileInputs.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.csproj.CopyComplete
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.exe
+C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\obj\Debug\net35\SFingerPrint.pdb

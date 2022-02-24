@@ -1,0 +1,13 @@
+﻿Instalando ensamblado 'C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe'.
+Los parámetros afectados son:
+   logtoconsole = 
+   logfile = C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.InstallLog
+   assemblypath = C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe
+Instalando el servicio SZKTeco...
+El servicio SZKTeco se ha instalado correctamente.
+Creando el origen de EventLog SZKTeco en el registro Application...
+Confirmando ensamblado 'C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe'.
+Los parámetros afectados son:
+   logtoconsole = 
+   logfile = C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.InstallLog
+   assemblypath = C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe

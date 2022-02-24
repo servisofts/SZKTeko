@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f1b778f8-6c84-44c2-a21d-3dbb1b64ad37": {
+      "ProjectGuid": "f1b778f8-6c84-44c2-a21d-3dbb1b64ad37",
+      "DisplayName": "SZKTeco",
+      "ColorIndex": 0
+    },
+    "bd739a5c-8ca9-4368-8538-d36f843bbd70": {
+      "ProjectGuid": "bd739a5c-8ca9-4368-8538-d36f843bbd70",
+      "DisplayName": "SZKTecoInstaller",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
