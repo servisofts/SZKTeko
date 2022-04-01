@@ -50,7 +50,11 @@ public class Dispositivo {
         try {
             String consulta = "select get_all_dispositivo() as json";
             if(obj.has("key_punto_venta")){
-                consulta = "select get_all_dispositivo('"+obj.getString("key_punto_venta")+"') as json";
+                if(obj.has("key_tipo_dispositivo")){
+                    consulta = "select get_all_dispositivo('"+obj.getString("key_punto_venta")+"', '"+obj.getString("key_tipo_dispositivo")+"') as json";
+                }else{
+                    consulta = "select get_all_dispositivo('"+obj.getString("key_punto_venta")+"') as json";
+                }
             }
             
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
