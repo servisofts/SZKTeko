@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\SFingerPrint.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\SFingerPrint.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\SFingerPrint.csproj",
+        "projectName": "SFingerPrint",
+        "projectPath": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\SFingerPrint.csproj",
+        "packagesPath": "C:\\Users\\ricky\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ricky\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ricky\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net46"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net46": {
+            "targetAlias": "net46",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net46": {
+          "targetAlias": "net46",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win7-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
