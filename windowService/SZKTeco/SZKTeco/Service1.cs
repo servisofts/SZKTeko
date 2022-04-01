@@ -31,8 +31,8 @@ namespace SZKTeco
         public void hilo() {
             while (isRun)
             {
-                SConsole.log("Hola");
-                Thread.Sleep(1000);
+                SSocket.getInstance();
+                Thread.Sleep(3000);
             }
         }
         protected override void OnStop()

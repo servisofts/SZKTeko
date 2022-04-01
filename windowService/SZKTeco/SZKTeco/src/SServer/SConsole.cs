@@ -14,10 +14,9 @@ namespace SZKTeco
             try
             {
                 //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter("C:\\Test.txt", true);
+                StreamWriter sw = new StreamWriter("C:\\SZKTeco\\LOGS.txt", true);
                 //Write a line of text
                 //Write a second line of text
-                sw.NewLine = "\r\n";
                 sw.WriteLine(msn);
                 //Close the file
                 sw.Close();

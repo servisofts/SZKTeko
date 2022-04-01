@@ -2,7 +2,6 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Releas
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\SZKTeco.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\SZKTeco.pdb
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\Newtonsoft.Json.dll
-C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.AssemblyReference.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.SuggestedBindingRedirects.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.ProjectInstaller.resources
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.GenerateResource.cache
@@ -10,3 +9,10 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Releas
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.CopyComplete
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\Interop.zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.ResolveComReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\ProjectInstaller.resx
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\ProjectInstaller.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\ProjectInstaller.Designer.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\lib\Newtonsoft.Json.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\lib\zkemkeeper.dll

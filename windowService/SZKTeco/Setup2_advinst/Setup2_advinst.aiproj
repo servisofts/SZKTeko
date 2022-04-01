@@ -2,23 +2,24 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">All</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>bd739a5c-8ca9-4368-8538-d36f843bbd70</ProjectGuid>
+    <ProjectGuid>008e0a9c-b6b2-49ae-9d4a-6ebb0418555c</ProjectGuid>
     <OutputType>msi</OutputType>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SZKTecoInstaller.aip</StartupFile>
+    <StartupFile>Setup2_advinst.aip</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <IsWindowsApplication>True</IsWindowsApplication>
-    <AssemblyName>SZKTecoInstaller</AssemblyName>
-    <Name>SZKTecoInstaller</Name>
-    <RootNamespace>SZKTecoInstaller</RootNamespace>
+    <AssemblyName>Setup2_advinst</AssemblyName>
+    <Name>Setup2_advinst</Name>
+    <RootNamespace>Setup2_advinst</RootNamespace>
     <LoadFromTemplate>
     </LoadFromTemplate>
+    <ImportedProject>{43a6200e-94a3-4335-9b2b-3b7ea4bb9134}</ImportedProject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
   <ItemGroup>
-    <Compile Include="SZKTecoInstaller.aip">
+    <Compile Include="Setup2_advinst.aip">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
