@@ -25,9 +25,6 @@ public class Dispositivo {
             case "conectar":
                 conectar(obj, session);
                 break;
-            case "getUsuarios":
-                getUsuarios(obj, session);
-                break;
             case "open":
                 open(obj, session);
                 break;
@@ -40,11 +37,11 @@ public class Dispositivo {
             case "changeIp":
                 changeIp(obj, session);
                 break;
+            case "getUsuarios":
             case "getDataTable":
-                getDataTable(obj, session);
-                break;
             case "deleteDataTable":
-                deleteDataTable(obj, session);
+            case "registroDataTable":
+                redirectZkteco(obj, session);
                 break;
         }
     }
@@ -52,6 +49,10 @@ public class Dispositivo {
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
             String consulta = "select get_all_dispositivo() as json";
+            if(obj.has("key_punto_venta")){
+                consulta = "select get_all_dispositivo('"+obj.getString("key_punto_venta")+"') as json";
+            }
+            
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -70,25 +71,12 @@ public class Dispositivo {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
 
-    public static void getUsuarios(JSONObject obj, SSSessionAbstract session) {
-        obj.put("noSend", true);
-        if(obj.getString("estado").equals("exito")){
-            SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
-            SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
-            return;
-        }
-        ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
-    }
-
     public static void conectado(JSONObject obj, SSSessionAbstract session) {
         try {
             obj.getJSONObject("data").remove("actividad");
             SPGConect.editObject(COMPONENT, obj.getJSONObject("data"));
-
             DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), obj.getJSONObject("data"));
-
             ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
-
         } catch (Exception e) {
             JSONObject error = new JSONObject();
             error.put("estado", "error");
@@ -142,16 +130,7 @@ public class Dispositivo {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
 
-    private static void getDataTable(JSONObject obj, SSSessionAbstract session) {      
-        obj.put("noSend", true); 
-        if(obj.getString("estado").equals("exito")){
-            SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
-            SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
-            return;
-        }
-        ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
-    }
-    private static void deleteDataTable(JSONObject obj, SSSessionAbstract session) {      
+    private static void redirectZkteco(JSONObject obj, SSSessionAbstract session) {      
         obj.put("noSend", true); 
         if(obj.getString("estado").equals("exito")){
             SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
