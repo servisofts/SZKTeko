@@ -67,9 +67,11 @@
   <ItemGroup>
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
@@ -79,8 +81,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Components\dispositivo.cs" />
+    <Compile Include="src\Components\punto_venta.cs" />
+    <Compile Include="src\Components\Servicio.cs" />
+    <Compile Include="src\Dispositivos\Dispositivos.cs" />
+    <Compile Include="src\Dispositivos\SZK.cs" />
+    <Compile Include="src\Dispositivos\SZKP.cs" />
+    <Compile Include="src\Manejador.cs" />
+    <Compile Include="src\SServer\SConfig.cs" />
     <Compile Include="src\SServer\SConsole.cs" />
     <Compile Include="src\SServer\SJSon.cs" />
+    <Compile Include="src\SServer\SSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -88,10 +99,16 @@
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\zkemkeeper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -104,6 +121,17 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="zkemkeeper">
+      <Guid>{FE9DED34-E159-408E-8490-B720A5E632C7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

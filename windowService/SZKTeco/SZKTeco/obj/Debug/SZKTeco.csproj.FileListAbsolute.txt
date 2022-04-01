@@ -1,7 +1,6 @@
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe.config
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\SZKTeco.pdb
-C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.AssemblyReference.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.SuggestedBindingRedirects.cache
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.ProjectInstaller.resources
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.GenerateResource.cache
@@ -10,3 +9,8 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.pdb
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\Newtonsoft.Json.dll
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.CopyComplete
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\Interop.zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.ResolveComReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\ProjectInstaller.resx
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\ProjectInstaller.cs
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\ProjectInstaller.Designer.cs
