@@ -79,7 +79,12 @@ namespace SZKTeco
 
             Thread.Sleep(3000);
             SConsole.log($"Reintentando conectar con el servidor ({ip}:{port})");
+            if (this.socket != null)
+            {   
+                this.socket.Close();
+            }
             this.Connectar();
+           // INSTANCE = null;
         }
 
         public void Receive()
@@ -88,13 +93,20 @@ namespace SZKTeco
             while (this.estado == true) {
                 try
                 {
+                   // System.Diagnostics.Debugger.Launch();
                     Byte[] bytesReceived = new Byte[(int)this.socket.ReceiveBufferSize];
                     this.stream.Read(bytesReceived, 0, (int)this.socket.ReceiveBufferSize);
                     String data = Encoding.UTF8.GetString(bytesReceived);
+                    data = data.Replace("\0", string.Empty);
+
+                    if (data.Length <= 0) {
+                        this.onClose();
+                    }
                     try
                     {
                         String[] text = Regex.Split(data, @"---SSkey---");
-                        mensaje = mensaje + text[0];
+                        mensaje = mensaje + text[0];    
+
                         if (text.Length == 2)
                         {
                             SJSon obj = new SJSon(mensaje);
@@ -116,9 +128,14 @@ namespace SZKTeco
                         SConsole.log("[ onMessagge ] "+ mensaje);
                         SConsole.log("[ onMessagge ] " + e.ToString());
                         mensaje = "";
+                        this.estado = false;
+                        //  SConsole.error(ex.Message);
+                        this.onClose();
+                        return;
                     }
                 }
                 catch (Exception ex) {
+                    SConsole.log("[ onMessagge ] " + mensaje);
                     this.estado = false;
                   //  SConsole.error(ex.Message);
                     this.onClose();

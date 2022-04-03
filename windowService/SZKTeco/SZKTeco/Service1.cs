@@ -21,7 +21,7 @@ namespace SZKTeco
         public static Boolean isRun = true;
         protected override void OnStart(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
+           
             Thread t1 = new Thread(new ThreadStart(this.hilo));
             isRun=true;
             t1.Start();

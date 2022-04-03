@@ -61,6 +61,10 @@ namespace SZKTeco
             }
         }
            
+        public bool isConnect()
+        {
+            return h != IntPtr.Zero;
+        }
 
         public void hiloConectar() {
 
