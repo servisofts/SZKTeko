@@ -4,6 +4,8 @@ import org.json.JSONObject;
 import Component.Dispositivo;
 import Component.PuntoVenta;
 import Component.TipoDispositivo;
+import Component.UsuarioDispositivo;
+import Component.UsuarioDispositivoHuella;
 import Server.SSSAbstract.SSSessionAbstract;
 
 public class Manejador {
@@ -23,6 +25,12 @@ public class Manejador {
                 break;
             case TipoDispositivo.COMPONENT:
                 TipoDispositivo.onMessage(obj, session);
+                break;
+            case UsuarioDispositivo.COMPONENT:
+                UsuarioDispositivo.onMessage(obj, session);
+                break;
+            case UsuarioDispositivoHuella.COMPONENT:
+                UsuarioDispositivoHuella.onMessage(obj, session);
                 break;
         }
     }
