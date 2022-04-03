@@ -34,6 +34,7 @@ namespace SZKTeco
                 toSend.put("component", "dispositivo");
                 toSend.put("type", "getAll");
                 toSend.put("estado", "cargando");
+                toSend.put("key_tipo_dispositivo", "607b087c-6a92-4d8a-b311-e5c105cefd08");
                 toSend.put("key_punto_venta", SConfig.get().getString("key_punto_venta"));
                 SSocket.Send(toSend.ToString());
             }

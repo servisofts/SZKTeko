@@ -25,6 +25,8 @@ namespace SZKTeco
             obj.put("type", "identificarse");
             obj.put("noSend", false);
             obj.put("key_punto_venta",SConfig.get().getString("key_punto_venta"));
+         
+
             SConsole.log($"Intentando identificarse con el punto de venta ({SConfig.get().getString("key_punto_venta")})");
         }
     }

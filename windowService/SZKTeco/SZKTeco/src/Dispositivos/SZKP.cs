@@ -118,14 +118,17 @@ namespace SZKTeco
                 int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"Pin");
                 string str = Encoding.Default.GetString(buffer);
                 str = str.Replace("\0", string.Empty);
+               // SConsole.log($"Ocurrio un evento {number} :: {str}");
+
+                /* 
                 string[] keys = Regex.Split(str, ",");
                 if (keys[3] != "0")
                 {
                     SConsole.log($"Ocurrio un evento {number} :: {str}");
                 }
                 else {
-                    //SConsole.log(keys[3]);
-                }
+                    SConsole.log(keys[3]);
+                }*/
                 Thread.Sleep(1000);
                 return number;
 
