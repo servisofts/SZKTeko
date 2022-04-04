@@ -7,7 +7,9 @@ import com.zkteco.biometric.FingerprintSensorEx;
 import org.json.JSONObject;
 
 import Observer.Observer;
+import Servisofts.SConfig;
 import Servisofts.SConsole;
+import SocketCliente.SocketCliente;
 
 public class ZKFP {
 
@@ -21,6 +23,7 @@ public class ZKFP {
     }
 
     private long mhDevice = 0;
+    private long mhDB = 0;
 
     private byte[] template = new byte[2048];
     private int[] templateLen = new int[1];
@@ -48,6 +51,14 @@ public class ZKFP {
                 FreeSensor();
                 return;
             }
+            if (0 == (mhDB = FingerprintSensorEx.DBInit())) {
+                FreeSensor();
+                return;
+            }
+            int nFmt = 0; // Ansi
+
+            FingerprintSensorEx.DBSetParameter(mhDB, 5010, nFmt);
+
             byte[] paramValue = new byte[4];
             int[] size = new int[1];
             size[0] = 4;
@@ -71,12 +82,12 @@ public class ZKFP {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        /*
-         * if (0 != mhDB) {
-         * FingerprintSensorEx.DBFree(mhDB);
-         * mhDB = 0;
-         * }
-         */
+
+        if (0 != mhDB) {
+            FingerprintSensorEx.DBFree(mhDB);
+            mhDB = 0;
+        }
+
         if (0 != mhDevice) {
             FingerprintSensorEx.CloseDevice(mhDevice);
             mhDevice = 0;
@@ -89,13 +100,43 @@ public class ZKFP {
         public void run() {
             super.run();
             int ret = 0;
+            int cantidad = 0;
+            templateLen[0] = 2048;
+            byte[][] templatesTemps = new byte[3][templateLen[0]];
             while (isRun) {
                 templateLen[0] = 2048;
                 if (0 == (ret = FingerprintSensorEx.AcquireFingerprint(mhDevice, imgbuf, template, templateLen))) {
-
                     // System.out.println("imgbuf:" + imgbuf);
-                    String b64 = Base64.getEncoder().encodeToString(template);
-                    SConsole.log(b64);
+                    System.arraycopy(template, 0, templatesTemps[cantidad], 0, 2048);
+                    if (cantidad > 0) {
+                        int presition = FingerprintSensorEx.DBMatch(mhDB, template, templatesTemps[cantidad - 1]);
+                        SConsole.log(presition);
+                        if (presition > 50) {
+                            SConsole.log("[ZKFP]", "Huella dactilar capturada.");
+                        } else {
+                            SConsole.log("[ZKFP]", "error");
+                            continue;
+                        }
+                    }
+                    cantidad++;
+                    SConsole.log(cantidad);
+
+                    if (cantidad == 3) {
+                        FingerprintSensorEx.DBMerge(mhDB, templatesTemps[0], templatesTemps[1], templatesTemps[2],
+                                template, templateLen);
+                        String b64 = FingerprintSensorEx.BlobToBase64(template, templateLen[0]);
+                        SConsole.log(b64);
+                        cantidad = 0;
+
+                        JSONObject response = new JSONObject();
+                        response.put("type", "registro_huella");
+                        response.put("component", "dispositivo");
+                        response.put("key_punto_venta", SConfig.getJSON().getString("key_punto_venta"));
+                        response.put("key_tipo_dispositivo", "096acabc-3aca-41f3-86e3-d47b0e1add17");
+                        response.put("data", b64);
+                        SocketCliente.send("zkteco", response.toString());
+
+                    }
                 }
                 try {
                     Thread.sleep(500);
