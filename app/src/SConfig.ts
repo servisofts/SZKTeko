@@ -21,7 +21,7 @@ const SThemeProps: SThemeThemes = {
 }
 
 const SocketProps: SSocketProps = {
-    name: 'proyecto',
+    name: 'zkteco',
     host: '192.168.0.199',
     port: {
         native: 10032,

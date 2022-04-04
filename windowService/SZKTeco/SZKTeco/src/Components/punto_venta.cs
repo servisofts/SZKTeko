@@ -87,7 +87,10 @@ namespace SZKTeco
                 {
                     String codigo = arr[i].ToString();
                     data_inser += $"CardNo=0\tPin={codigo}\tName=ca\tPassword=\tGroup=0\tStartTime=0\tEndTime=0";
-                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=3\tAuthorizeTimezoneId=1";
+                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=3\tAuthorizeTimezoneId=1\r\n";
+                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=1\tAuthorizeTimezoneId=1\r\n";
+                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=2\tAuthorizeTimezoneId=1\r\n";
+
                     if (i+1 < arr.Count)
                     {
                         data_inser += "\r\n";
@@ -96,6 +99,27 @@ namespace SZKTeco
                 }
                 device.SetDeviceData_Pull("user", data_inser);
                 device.SetDeviceData_Pull("userauthorize",data_inser_aut);
+
+
+                String data_inser_huellas = "";
+                device.DeleteDeviceData_Pull("templatev10", "");
+                SJSon huellas = obj.getSJSonObject("huellas");
+                String[] huellas_keys = huellas.keys();
+                for (int i = 0; i < huellas_keys.Length; i++) {
+                    String pin_usuario  = huellas_keys[i];
+                    SJSon usuario = huellas.getSJSonObject(pin_usuario);
+                    String[] usuarios_keys = usuario.keys();
+                    for (int j = 0; j < usuarios_keys.Length; j++) {
+                        if (i + j > 0)
+                        {
+                            data_inser_huellas += "\r\n";
+                        }
+                        String dedo = usuarios_keys[j];
+                        String huella = usuario.getString(dedo);
+                        data_inser_huellas += $"Pin={pin_usuario}\tFingerID={(i*j)+1}\tValid=1\tTemplate={huella}\tSize={huella.Length}";
+                    }
+                }
+                device.SetDeviceData_Pull("templatev10", data_inser_huellas);
                 obj.put("estado", "exito");
             }
             else {

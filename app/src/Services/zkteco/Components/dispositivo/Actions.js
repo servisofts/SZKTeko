@@ -12,7 +12,6 @@ export default class Actions {
         if (!data) {
             if (reducer.estado == "cargando") return null;
             SSocket.send({
-
                 component: Parent.component,
                 version: Parent.version,
                 type: "getAll",

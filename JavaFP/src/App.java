@@ -19,8 +19,9 @@ public class App {
         Config.put("cert", cert);
         SocketCliente.enableReconect(true);
         SocketCliente.StartNoSSL(Config);
-        // new FInicio();
         ZKFP.getInstance();
+
+        // new FInicio();
 
     }
 }
