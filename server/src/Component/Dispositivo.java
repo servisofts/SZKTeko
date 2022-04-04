@@ -34,6 +34,9 @@ public class Dispositivo {
             case "editar":
                 editar(obj, session);
                 break;
+            case "registro_huella":
+                registro_huella(obj, session);
+                break;
             case "changeIp":
                 changeIp(obj, session);
                 break;
@@ -63,6 +66,16 @@ public class Dispositivo {
         } catch (Exception e) {
             obj.put("estado", "error");
             e.printStackTrace();
+        }
+    }
+
+    public static JSONObject getAllKey(String key_punto_venta) {
+        try {
+            String consulta =  "select get_all_dispositivo('"+key_punto_venta+"') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -119,6 +132,18 @@ public class Dispositivo {
     }
 
     public static void editar(JSONObject obj, SSSessionAbstract session) {
+        try {
+            JSONObject data = obj.getJSONObject("data");
+            SPGConect.editObject(COMPONENT, data);
+            obj.put("data", data);
+            obj.put("estado", "exito");
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
+    public static void registro_huella(JSONObject obj, SSSessionAbstract session) {
         try {
             JSONObject data = obj.getJSONObject("data");
             SPGConect.editObject(COMPONENT, data);

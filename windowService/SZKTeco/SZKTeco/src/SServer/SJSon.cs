@@ -87,10 +87,6 @@ namespace SZKTeco
                 jObject.SelectToken(key).Replace(JObject.Parse(value.ToString()));
             }
         }
-        public JArray getArray(string key)
-        {
-            return (JArray)jObject[key];
-        }
         public SJSon getSJSonObject(string key)
         {
             return new SJSon(jObject[key].ToString());

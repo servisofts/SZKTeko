@@ -13,8 +13,9 @@ import Server.ServerSocketZkteco.SessionSocket_;
 import Server.ServerSocketZkteco.ServerSocketZkteco;
 
 public class PuntoVenta {
+    
     public static final String COMPONENT = "punto_venta";
-
+    
     public static void onMessage(JSONObject obj, SSSessionAbstract session) {
         switch (obj.getString("type")) {
             case "getAll":
@@ -28,6 +29,15 @@ public class PuntoVenta {
                 break;
             case "editar":
                 editar(obj, session);
+                break;
+            case "pingAll":
+                pingAll(obj);
+                break;
+            case "ping":
+                ping(obj);
+                break;
+            case "sincronizar":
+                sincronizar(obj);
                 break;
             case "reboot":
                 reboot(obj, session);
@@ -45,6 +55,62 @@ public class PuntoVenta {
             obj.put("estado", "error");
             e.printStackTrace();
         }
+    }
+
+    public static void pingAll(JSONObject obj) {
+        try {
+            String consulta = "select get_all_punto_venta('"+obj.getJSONObject("servicio").getString("key")+"') as json";
+        
+            JSONObject puntos_venta = SPGConect.ejecutarConsultaObject(consulta);
+
+            JSONObject punto_venta;
+
+            JSONObject send;
+            for (int i = 0; i < JSONObject.getNames(puntos_venta).length; i++) {
+                punto_venta = puntos_venta.getJSONObject(JSONObject.getNames(puntos_venta)[i]);
+                send = new JSONObject();
+                send.put("component", "punto_venta");
+                send.put("type", "ping");
+                send.put("estado", "cargando");
+                send.put("key_punto_venta", punto_venta.getString("key"));
+                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj.getJSONArray("data"),punto_venta.getString("key")));
+                ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
+            }
+            obj.put("estado", "exito");
+            
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
+    public static void ping(JSONObject obj) {
+        try {
+            if(obj.getString("estado").equals("exito")){
+                Sincronizador sinc = Sincronizador.dispositivos.get(obj.getString("key_punto_venta"));
+                String estado = sinc.sincronizar();
+
+                obj.put("estado", estado);
+            }
+            
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+        obj.put("noSend", true);
+    }
+
+    public static void sincronizar(JSONObject obj) {
+        try {
+            if(obj.getString("estado").equals("exito")){
+                //Aqui guardamos la hora de sincronizacion.
+            }
+            
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+        obj.put("noSend", true);
     }
 
     public static void identificarse(JSONObject obj, SSSessionAbstract session) {

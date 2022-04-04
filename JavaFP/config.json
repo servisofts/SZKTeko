@@ -1,0 +1,51 @@
+{
+    "ss": "servisofts.calistenia",
+    "production":true,
+    "socket_client": {
+        "servicio": {
+            "puerto": 10001,
+            "ip": "192.168.5.1",
+            "cert": {
+                "OU": "servicio",
+                "pem": "servicio.pem"
+            }
+        },
+        "reconectTime": 5000
+    },
+    "files":{
+        "url":"/u01/servisoftsFiles/calistenia/"
+    },
+    "data_base": {
+        "puerto": 5432,
+        "pass": "postgres",
+        "ip": "192.168.6.18",
+        "bd_name": "servisofts.calistenia",
+        "user": "postgres"
+    },
+    "data_base_mysql": {
+        "puerto": 3306,
+        "pass": "Calistenia123..",
+        "ip": "192.168.0.199",
+        "bd_name": "calisten_calistenia",
+        "user": "calistenia"
+    },
+    "nombre": "calistenia",
+    "ssl": {
+        "pass_jks": "Servisofts123.",
+        "cert": {
+            "ST": "Av Banzer",
+            "C": "BO",
+            "E": "ricky.paz.d.97@gmail.com",
+            "OU": "calistenia",
+            "CN": "calistenia.servisofts.com",
+            "L": "Santa Cruz",
+            "O": "Servisofts SRL"
+        },
+        "nombre_jks": "servisofts"
+    },
+    "socket_server": {
+        "puerto": 10018,
+        "ip": "192.168.0.199",
+        "ip_public": "servisofts.com"
+    }
+}

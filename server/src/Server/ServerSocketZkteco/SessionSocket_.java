@@ -91,8 +91,8 @@ public class SessionSocket_ extends SSSessionAbstract {
     @Override
     public void send(String mensaje) {
         MensajeSocket mensajeSocket = new MensajeSocket(mensaje, this);
-         outpw.write(mensaje + "---SSkey---" + mensajeSocket.getKey() +"---SSofts---");
-        // outpw.write(mensaje + "\r\n");
+        outpw.write(mensaje + "---SSkey---" + mensajeSocket.getKey() +"---SSofts---");
+        outpw.write(mensaje + "\r\n");
         System.out.println(mensaje);
         outpw.flush();
     }
