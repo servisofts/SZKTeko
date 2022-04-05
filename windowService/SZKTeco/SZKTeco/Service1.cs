@@ -18,7 +18,7 @@ namespace SZKTeco
             InitializeComponent();
         }
 
-        public static Boolean isRun = true;
+        public static bool isRun = true;
         protected override void OnStart(string[] args)
         {
            
@@ -29,7 +29,7 @@ namespace SZKTeco
         }
 
         public void hilo() {
-            while (isRun)
+            while (isRun) 
             {
                 SSocket.getInstance();
                 Thread.Sleep(3000);

@@ -127,6 +127,7 @@ public class ZKFP {
 
             int ret = 0;
             int cantidad = 0;
+            int error = 0;
             templateLen[0] = 2048;
             byte[][] templatesTemps = new byte[3][templateLen[0]];
             while (isRun) {
@@ -141,6 +142,12 @@ public class ZKFP {
                             SConsole.log("[ZKFP]", "Huella dactilar capturada.");
                         } else {
                             SConsole.log("[ZKFP]", "error");
+                            SConsole.log("[ZKFP]", "Intente nuevamente");
+                            error++;
+                            if (error > 3) {
+                                error = 0;
+                                cantidad = 0;
+                            }
                             continue;
                         }
                     }

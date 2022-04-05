@@ -64,6 +64,7 @@ namespace SZKTeco
         {
             if (obj.getString("key_punto_venta") == SConfig.get().getString("key_punto_venta"))
             {
+                SConsole.log("Respondiendo ping de sincronizacion");
                 obj.put("noSend", false);
                 obj.put("estado", "exito");
             }
@@ -71,14 +72,22 @@ namespace SZKTeco
         }
         private static void sincronizar(SJSon obj, SSocket session)
         {
-            System.Diagnostics.Debugger.Launch();
-            //SConsole.log(obj.ToString());
+            //System.Diagnostics.Debugger.Launch();
+
+            obj.put("noSend", true);
+            bool deleteAll = obj.getBool("delete_all");
+            SConsole.log("Sincronizar.");
             String key_dispositivo = obj.getString("key_dispositivo");
            SZKP device=  Dispositivos.get_SZKP(key_dispositivo);
             if (device.isConnect())
             {
-                device.DeleteDeviceData_Pull("user", "");
-                device.DeleteDeviceData_Pull("userauthorize", "");
+                if (deleteAll)
+                {
+                    device.DeleteDeviceData_Pull("user", "");
+                    device.DeleteDeviceData_Pull("userauthorize", "");
+                    device.DeleteDeviceData_Pull("templatev10", "");
+                }
+                
                 JArray arr = obj.getArray("data");
                 String data_inser = "";
                 String data_inser_aut = "";
@@ -87,9 +96,8 @@ namespace SZKTeco
                 {
                     String codigo = arr[i].ToString();
                     data_inser += $"CardNo=0\tPin={codigo}\tName=ca\tPassword=\tGroup=0\tStartTime=0\tEndTime=0";
-                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=3\tAuthorizeTimezoneId=1\r\n";
                     data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=1\tAuthorizeTimezoneId=1\r\n";
-                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=2\tAuthorizeTimezoneId=1\r\n";
+                    data_inser_aut += $"Pin={codigo}\tAuthorizeDoorId=2\tAuthorizeTimezoneId=1";
 
                     if (i+1 < arr.Count)
                     {
@@ -102,32 +110,38 @@ namespace SZKTeco
 
 
                 String data_inser_huellas = "";
-                device.DeleteDeviceData_Pull("templatev10", "");
+             //   device.DeleteDeviceData_Pull("templatev10", "");
                 SJSon huellas = obj.getSJSonObject("huellas");
                 String[] huellas_keys = huellas.keys();
+                int id_huella = device.GetDeviceDataCount_Pull("templatev10");
                 for (int i = 0; i < huellas_keys.Length; i++) {
                     String pin_usuario  = huellas_keys[i];
                     SJSon usuario = huellas.getSJSonObject(pin_usuario);
                     String[] usuarios_keys = usuario.keys();
+                    if (!deleteAll)
+                    {
+                         device.DeleteDeviceData_Pull("templatev10", $"Pin={pin_usuario}");
+                    }
                     for (int j = 0; j < usuarios_keys.Length; j++) {
                         if (i + j > 0)
                         {
                             data_inser_huellas += "\r\n";
                         }
                         String dedo = usuarios_keys[j];
+                        id_huella += 1;
                         String huella = usuario.getString(dedo);
-                        data_inser_huellas += $"Pin={pin_usuario}\tFingerID={(i*j)+1}\tValid=1\tTemplate={huella}\tSize={huella.Length}";
+                        data_inser_huellas += $"Pin={pin_usuario}\tFingerID={id_huella}\tValid=1\tTemplate={huella}\tSize={huella.Length}";
                     }
                 }
                 device.SetDeviceData_Pull("templatev10", data_inser_huellas);
                 obj.put("estado", "exito");
+                SConsole.log("Sincronizar finalizado con exito.");
             }
             else {
                 obj.put("estado", "error");
                 obj.put("error", "desconectado");
             }
 
-            //obj.put("noSend", true);
 
         }
 

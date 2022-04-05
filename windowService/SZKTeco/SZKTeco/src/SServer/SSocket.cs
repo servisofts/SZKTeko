@@ -70,15 +70,19 @@ namespace SZKTeco
             this.stream.Write(data, 0, data.Length);
             this.stream.Flush();
         }
+        int intents = 0;
         public void onClose()
         {
 
-            SConsole.warning($"Server session closed!");
-            SConsole.warning($" ");
+           // SConsole.warning($"Server session closed!");
             this.estado = false;
-
             Thread.Sleep(3000);
-            SConsole.log($"Reintentando conectar con el servidor ({ip}:{port})");
+            intents++;
+            if (intents > 3)
+            {
+                SConsole.log($"Reintent #3, con el servidor ({ip}:{port})");
+                intents = 0;
+            }
             if (this.socket != null)
             {   
                 this.socket.Close();
@@ -111,6 +115,7 @@ namespace SZKTeco
                         {
                             SJSon obj = new SJSon(mensaje);
                             mensaje = "";
+
                             //Console.WriteLine("\nMSN_IN > ");
                             //Console.WriteLine("\t"+obj);
                             //Console.WriteLine("");
@@ -137,7 +142,9 @@ namespace SZKTeco
                 catch (Exception ex) {
                     SConsole.log("[ onMessagge ] " + mensaje);
                     this.estado = false;
-                  //  SConsole.error(ex.Message);
+                    mensaje = "";
+
+                    //  SConsole.error(ex.Message);
                     this.onClose();
                     return;
                 }

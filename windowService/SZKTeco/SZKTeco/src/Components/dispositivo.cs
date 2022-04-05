@@ -108,7 +108,7 @@ namespace SZKTeco
             if (szkp == null) return;
 
             szkp.DeleteDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
-            SConsole.log("delete data table");
+           // SConsole.log("delete data table");
             obj.put("estado", "exito");
             SSocket.Send(obj.ToString());
         }
