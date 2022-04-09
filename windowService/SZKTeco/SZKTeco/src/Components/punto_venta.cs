@@ -74,7 +74,7 @@ namespace SZKTeco
         {
             //System.Diagnostics.Debugger.Launch();
 
-            obj.put("noSend", true);
+            obj.put("noSend", false);
             bool deleteAll = obj.getBool("delete_all");
             SConsole.log("Sincronizar.");
             String key_dispositivo = obj.getString("key_dispositivo");
@@ -134,10 +134,14 @@ namespace SZKTeco
                     }
                 }
                 device.SetDeviceData_Pull("templatev10", data_inser_huellas);
+                obj.put("data", false);
+                obj.put("huellas", false);
                 obj.put("estado", "exito");
                 SConsole.log("Sincronizar finalizado con exito.");
             }
             else {
+                obj.put("data", false);
+                obj.put("huellas", false);
                 obj.put("estado", "error");
                 obj.put("error", "desconectado");
             }
