@@ -38,6 +38,7 @@ public class ZKFP {
 
     public void connect() {
         int ret;
+        SConsole.log("[ZKFP]", "Intentando conectar con el sensor de huellas digitales");
         if (FingerprintSensorEx.Init() != -1) {
             SConsole.log("[ZKFP]", "Dispotivo encontrado.");
             // Observer.notify(new JSONObject().put("component", "ZKFP").put("estado",
@@ -71,11 +72,13 @@ public class ZKFP {
             SConsole.log("[ZKFP]", "Dispotivo iniciado.");
             isRun = true;
             new WorkThread().start();
+        } else {
+            FreeSensor();
         }
     }
 
     private void FreeSensor() {
-        isRun = true;
+        isRun = false;
         try { // wait for thread stopping
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -93,14 +96,38 @@ public class ZKFP {
             mhDevice = 0;
         }
         FingerprintSensorEx.Terminate();
+        new reconnectThread(this).start();
+
+    }
+
+    private class reconnectThread extends Thread {
+        private ZKFP zkfp;
+
+        public reconnectThread(ZKFP zkfp) {
+            this.zkfp = zkfp;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            try { // wait for thread stopping
+                Thread.sleep(1000);
+                zkfp.connect();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     private class WorkThread extends Thread {
         @Override
         public void run() {
             super.run();
+
             int ret = 0;
             int cantidad = 0;
+            int error = 0;
             templateLen[0] = 2048;
             byte[][] templatesTemps = new byte[3][templateLen[0]];
             while (isRun) {
@@ -115,6 +142,12 @@ public class ZKFP {
                             SConsole.log("[ZKFP]", "Huella dactilar capturada.");
                         } else {
                             SConsole.log("[ZKFP]", "error");
+                            SConsole.log("[ZKFP]", "Intente nuevamente");
+                            error++;
+                            if (error > 3) {
+                                error = 0;
+                                cantidad = 0;
+                            }
                             continue;
                         }
                     }

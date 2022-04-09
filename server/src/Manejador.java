@@ -5,7 +5,7 @@ import Component.Dispositivo;
 import Component.PuntoVenta;
 import Component.TipoDispositivo;
 import Component.UsuarioDispositivo;
-import Component.UsuarioHuella;
+import Component.UsuarioDispositivoHuella;
 import Server.SSSAbstract.SSSessionAbstract;
 
 public class Manejador {
@@ -29,8 +29,8 @@ public class Manejador {
             case UsuarioDispositivo.COMPONENT:
                 UsuarioDispositivo.onMessage(obj, session);
                 break;
-            case UsuarioHuella.COMPONENT:
-                UsuarioHuella.onMessage(obj, session);
+            case UsuarioDispositivoHuella.COMPONENT:
+                UsuarioDispositivoHuella.onMessage(obj, session);
                 break;
         }
     }

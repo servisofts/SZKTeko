@@ -34,15 +34,6 @@ public class Dispositivo {
             case "editar":
                 editar(obj, session);
                 break;
-            case "solicitud_registro_huella":
-                solicitud_registro_huella(obj, session);
-                break;
-            case "registro_huella":
-                registro_huella(obj, session);
-                break;
-            case "onEvent":
-                onEvent(obj);
-                break;
             case "changeIp":
                 changeIp(obj, session);
                 break;
@@ -75,27 +66,6 @@ public class Dispositivo {
         }
     }
 
-    public static void onEvent(JSONObject obj){
-        obj.put("component", "zkteco");
-        JSONObject usuarioDispositivo = UsuarioDispositivo.getByCodigo(obj.getJSONObject("data").getString("Pin"));
-        obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
-
-        obj.put("noSend", true);
-
-        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
-        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
-    }
-
-    public static JSONObject getAllKey(String key_punto_venta) {
-        try {
-            String consulta =  "select get_all_dispositivo('"+key_punto_venta+"') as json";
-            return SPGConect.ejecutarConsultaObject(consulta);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
@@ -118,15 +88,6 @@ public class Dispositivo {
             error.put("key_dispositivo", obj.getJSONObject("data").getString("key"));
             error.put("IdSession", session.getIdSession());
             DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), error);
-        }
-    }
-
-    public static JSONObject getAllFingerPrint(String key_punto_venta) {
-        try {
-            String consulta = "select get_all_dispositivo('"+key_punto_venta+"', '096acabc-3aca-41f3-86e3-d47b0e1add17') as json";
-            return SPGConect.ejecutarConsultaObject(consulta);
-        } catch (Exception e) {
-            return null;
         }
     }
 
@@ -161,36 +122,6 @@ public class Dispositivo {
         try {
             JSONObject data = obj.getJSONObject("data");
             SPGConect.editObject(COMPONENT, data);
-            obj.put("data", data);
-            obj.put("estado", "exito");
-        } catch (Exception e) {
-            obj.put("estado", "error");
-            e.printStackTrace();
-        }
-    }
-
-    public static void registro_huella(JSONObject obj, SSSessionAbstract session) {
-        try {
-            String huella = obj.getString("data");
-            
-            SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
-            solicitud.registrarHuella(huella);
-            obj.put("data", "");
-            obj.put("estado", "exito");
-        } catch (Exception e) {
-            obj.put("estado", "error");
-            e.printStackTrace();
-        }
-    }
-
-    public static void solicitud_registro_huella(JSONObject obj, SSSessionAbstract session) {
-        try {
-            JSONObject data = obj.getJSONObject("data");
-            JSONObject punto_venta = PuntoVenta.getByKeySucursal(data.getString("key_sucursal"));
-
-            SolicitudHuella.solicitudes.put(punto_venta.getString("key"), new SolicitudHuella(punto_venta.getString("key"), data));
-
-
             obj.put("data", data);
             obj.put("estado", "exito");
         } catch (Exception e) {
