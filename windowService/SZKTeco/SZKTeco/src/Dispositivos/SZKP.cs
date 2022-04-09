@@ -120,10 +120,10 @@ namespace SZKTeco
             {
                 int BUFFERSIZE= 256;
                 byte[] buffer = new byte[BUFFERSIZE];
-                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"Pin");
+                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"");
                 string str = Encoding.Default.GetString(buffer);
                 str = str.Replace("\0", string.Empty);
-                // SConsole.log($"Ocurrio un evento {number} :: {str}");
+               // SConsole.log($"Ocurrio un evento {number} :: {str}");
                 string[] keys = Regex.Split(str, ",");
                 if (keys[3] != "0")
                 {
