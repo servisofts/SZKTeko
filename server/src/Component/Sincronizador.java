@@ -2,21 +2,18 @@ package Component;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.UUID;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import Server.ServerSocketZkteco.ServerSocketZkteco;
-import Servisofts.SPGConect;
 
 public class Sincronizador {
     public static HashMap<String, Sincronizador> dispositivos = new HashMap<>();
 
-    public JSONArray key_usuarios;
+    public JSONObject obj;
     public String key_punto_venta;
-    public Sincronizador(JSONArray key_usuarios, String key_punto_venta) {
-        this.key_usuarios = key_usuarios;
+    
+    public Sincronizador(JSONObject obj, String key_punto_venta) {
+        this.obj = obj;
         this.key_punto_venta = key_punto_venta;
     }
 
@@ -34,7 +31,7 @@ public class Sincronizador {
             dispositivo = dispositivos.getJSONObject(JSONObject.getNames(dispositivos)[i]);
             if(dispositivo.getString("key_tipo_dispositivo").equals("607b087c-6a92-4d8a-b311-e5c105cefd08")){
 
-                UsuarioDispositivo.Sincronizar(dispositivo.getString("key"), key_usuarios);
+                UsuarioDispositivo.Sincronizar(dispositivo.getString("key"), obj.getJSONArray("data"));
                 
                 usuarios = UsuarioDispositivo.getAllCodigos(dispositivo.getString("key"));
                 
@@ -44,14 +41,26 @@ public class Sincronizador {
                 //}
                 send.put("key_dispositivo", dispositivo.getString("key"));
                 //send.put("data", usuarios);
+                
+                JSONObject usuario_huella = null;
+
+                switch(obj.getString("type")){
+                    case "sincronizarUsuario":
+                        usuario_huella = UsuarioHuella.getAllUsuario(obj.getJSONArray("data").getString(0));
+                        break;
+                    case "sincronizarAll":
+                        usuario_huella = UsuarioHuella.getAll(dispositivo.getString("key"));
+                        break;
+                }
+
+                
+                send.put("huellas", usuario_huella);
                 send.put("data", usuarios);
                 send.put("noSend", true);
+                send.put("delete_all", obj.getBoolean("delete_all"));
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
         }
-
-                
-
         return "exito";
     }
 

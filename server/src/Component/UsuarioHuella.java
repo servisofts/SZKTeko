@@ -48,8 +48,13 @@ public class UsuarioHuella {
 
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select get_all_dispositivo() as json";
+            String consulta = "select get_all('"+COMPONENT+"') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
+            if(!data.isEmpty())
+            for (int i = 0; i < JSONObject.getNames(data).length; i++) {
+                data.getJSONObject(JSONObject.getNames(data)[i]).remove("huella");
+            }
+            
             obj.put("data", data);
             obj.put("estado", "exito");
         } catch (Exception e) {
@@ -83,9 +88,18 @@ public class UsuarioHuella {
         }
     }
 
-    public static JSONObject getAll(String key_etapa) {
+    public static JSONObject getAll(String key_dispositivo) {
         try {
-            String consulta = "select get_all('" + COMPONENT + "', 'key_etapa', '"+key_etapa+"' ) as json";
+            String consulta = "select get_all_usuario_dispositivo_huella('" + key_dispositivo + "') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static JSONObject getAllUsuario(String key_usuario) {
+        try {
+            String consulta = "select get_all_usuario_dispositivo_huella_usuario('" + key_usuario + "') as json";
             return SPGConect.ejecutarConsultaObject(consulta);
         } catch (Exception e) {
             return null;
@@ -135,4 +149,5 @@ public class UsuarioHuella {
         }
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
+
 }

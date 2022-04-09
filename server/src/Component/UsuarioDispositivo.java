@@ -210,4 +210,14 @@ public class UsuarioDispositivo {
         int codigo = SPGConect.ejecutarConsultaInt(consulta);
         return codigo==0?1:codigo;
     }
+
+    public static JSONObject getByCodigo(String codigo) {
+        try {
+            String consulta = "select get_by('usuario_dispositivo', 'codigo', '" + codigo + "') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
