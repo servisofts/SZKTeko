@@ -16,3 +16,4 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Releas
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\ProjectInstaller.Designer.cs
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\lib\Newtonsoft.Json.dll
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Release\lib\zkemkeeper.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Release\SZKTeco.csproj.AssemblyReference.cache
