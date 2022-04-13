@@ -6,6 +6,7 @@ import Component.PuntoVenta;
 import Component.TipoDispositivo;
 import Component.UsuarioDispositivo;
 import Component.UsuarioDispositivoHuella;
+import Component.UsuarioHuella;
 import Server.SSSAbstract.SSSessionAbstract;
 
 public class Manejador {
@@ -31,6 +32,9 @@ public class Manejador {
                 break;
             case UsuarioDispositivoHuella.COMPONENT:
                 UsuarioDispositivoHuella.onMessage(obj, session);
+                break;
+            case UsuarioHuella.COMPONENT:
+                UsuarioHuella.onMessage(obj, session);
                 break;
         }
     }
