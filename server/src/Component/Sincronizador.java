@@ -42,6 +42,7 @@ public class Sincronizador {
                 usuarios = UsuarioDispositivo.getAllCodigos(dispositivo.getString("key"));
 
                 
+                
                 //JSONObject usuario_aux = new JSONObject();
                 //for (int j = 0; j < 5; j++) {
                 //    usuario_aux.put(JSONObject.getNames(usuarios)[j], usuarios.getJSONObject(JSONObject.getNames(usuarios)[j]));
