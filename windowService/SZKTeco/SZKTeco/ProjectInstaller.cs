@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,19 @@ namespace SZKTeco
         public ProjectInstaller()
         {
             InitializeComponent();
+            // Grab the subkey to our service
+            RegistryKey ckey = Registry.LocalMachine.OpenSubKey(
+              @"SYSTEM\CurrentControlSet\Services\SZKTeco", true);
+            // Good to always do error checking!
+            if (ckey != null)
+            {
+                // Ok now lets make sure the "Type" value is there, 
+                //and then do our bitwise operation on it.
+                if (ckey.GetValue("Type") != null)
+                {
+                    ckey.SetValue("Type", ((int)ckey.GetValue("Type") | 256));
+                }
+            }
         }
 
         private void serviceProcessInstaller1_AfterInstall(object sender, InstallEventArgs e)

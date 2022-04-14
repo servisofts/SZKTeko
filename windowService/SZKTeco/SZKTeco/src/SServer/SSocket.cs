@@ -74,19 +74,17 @@ namespace SZKTeco
         public void onClose()
         {
 
-           // SConsole.warning($"Server session closed!");
+            SConsole.warning($"Server session closed!");
             this.estado = false;
-            Thread.Sleep(3000);
-            intents++;
-            if (intents > 3)
-            {
-                SConsole.log($"Reintent #3, con el servidor ({ip}:{port})");
-                intents = 0;
-            }
             if (this.socket != null)
             {   
                 this.socket.Close();
             }
+            if (!Service1.isRun)
+            {
+                return;
+            }
+            Thread.Sleep(3000);
             this.Connectar();
            // INSTANCE = null;
         }

@@ -96,6 +96,7 @@ namespace SZKTeco
             objSend.put("estado", "error");
             SSocket.Send(objSend.ToString());
             SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+            if (!Service1.isRun) return;
             Thread tmsn = new Thread(new ThreadStart(this.reconectar));
             tmsn.Start();
             return;

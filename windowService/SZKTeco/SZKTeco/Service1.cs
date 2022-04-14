@@ -21,11 +21,10 @@ namespace SZKTeco
         public static bool isRun = true;
         protected override void OnStart(string[] args)
         {
-           
+            //Java.jar();
             Thread t1 = new Thread(new ThreadStart(this.hilo));
             isRun=true;
             t1.Start();
-       
         }
 
         public void hilo() {
@@ -38,6 +37,7 @@ namespace SZKTeco
         protected override void OnStop()
         {
             isRun = false;
+            SSocket.getInstance().onClose();
         }
     }
 }

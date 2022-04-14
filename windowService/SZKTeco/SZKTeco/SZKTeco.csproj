@@ -89,6 +89,7 @@
     <Compile Include="src\Dispositivos\Dispositivos.cs" />
     <Compile Include="src\Dispositivos\SZK.cs" />
     <Compile Include="src\Dispositivos\SZKP.cs" />
+    <Compile Include="src\Java\Java.cs" />
     <Compile Include="src\Manejador.cs" />
     <Compile Include="src\SServer\SConfig.cs" />
     <Compile Include="src\SServer\SConsole.cs" />
