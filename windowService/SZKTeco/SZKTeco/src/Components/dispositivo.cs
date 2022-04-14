@@ -71,6 +71,7 @@ namespace SZKTeco
 
             SJSon param = obj.getSJSonObject("parameters");
               szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"));
+            obj.put("noSend", true);
         }
         
         private static void changeIp(SJSon obj, SSocket session)

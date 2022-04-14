@@ -18,7 +18,13 @@ namespace SZKTeco
         public static SSocket getInstance() {
             if (INSTANCE == null) { 
                 INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
+            }else {
+                if (!INSTANCE.isConnect())
+                {
+                    INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
+                }
             }
+            
             return INSTANCE;
         }
 
@@ -45,6 +51,11 @@ namespace SZKTeco
             this.ip = ip;
             this.port = port;
             this.Connectar();
+        }
+
+        public bool isConnect()
+        {
+            return socket.Connected;
         }
 
         public void Connectar() {
