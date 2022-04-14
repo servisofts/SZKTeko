@@ -187,7 +187,10 @@ public class Dispositivo {
     public static void onEvent(JSONObject obj){
         obj.put("component", "zkteco");
         JSONObject usuarioDispositivo = UsuarioDispositivo.getByCodigo(obj.getJSONObject("data").getString("Pin"));
-        obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
+        if(!obj.getJSONObject("data").getString("Pin").equals("0")){
+            obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
+        }
+        
 
         obj.put("noSend", true);
 

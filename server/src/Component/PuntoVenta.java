@@ -23,11 +23,23 @@ public class PuntoVenta {
             case "registro":
                 registro(obj, session);
                 break;
+            case "sincronizar":
+                sincronizar(obj);
+                break;
+            case "sincronizarAll":
+                sincronizarAll(obj);
+                break;
+            case "sincronizarUsuario":
+                sincronizarUsuario(obj);
+                break;
             case "identificarse":
                 identificarse(obj, session);
                 break;
             case "editar":
                 editar(obj, session);
+                break;
+            case "ping":
+                ping(obj);
                 break;
             case "reboot":
                 reboot(obj, session);
@@ -220,6 +232,7 @@ public class PuntoVenta {
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
+            obj.put("noSend", true);
             
         } catch (Exception e) {
             obj.put("estado", "error");
@@ -237,6 +250,8 @@ public class PuntoVenta {
                 //Aqui guardamos la hora de sincronizacion.
                 System.out.println("Sincronizacion erronea");
             }
+
+            obj.put("noSend", true);
             
         } catch (Exception e) {
             obj.put("estado", "error");
