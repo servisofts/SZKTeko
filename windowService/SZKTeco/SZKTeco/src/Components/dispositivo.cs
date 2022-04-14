@@ -92,6 +92,7 @@ namespace SZKTeco
         }
         private static void getDataTable(SJSon obj, SSocket session)
         {
+            System.Diagnostics.Debugger.Launch();
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
             if (szkp == null) return;
 
@@ -100,7 +101,8 @@ namespace SZKTeco
             SConsole.log(obj.getSJSonObject("table").ToString());
             obj.put("estado", "exito");
             obj.put("data", lista);
-            SSocket.Send(obj.ToString());
+            //SSocket.Send(obj.ToString());
+            obj.put("noSend", false);
         } 
         private static void deleteDataTable(SJSon obj, SSocket session)
         {
