@@ -40,6 +40,8 @@
             // 
             // serviceInstaller1
             // 
+            this.serviceInstaller1.Description = "SZKTeco";
+            this.serviceInstaller1.DisplayName = "SZKTeco";
             this.serviceInstaller1.ServiceName = "SZKTeco";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 

@@ -68,7 +68,7 @@ namespace SZKTeco
 
         public void hiloConectar() {
 
-            SConsole.log($"[SZKP] Intentando Conectar {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+           // SConsole.log($"[SZKP] Intentando Conectar {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             int ret = 0;        // Error ID number
 
             SJSon objSend = new SJSon();
@@ -95,7 +95,8 @@ namespace SZKTeco
             }
             objSend.put("estado", "error");
             SSocket.Send(objSend.ToString());
-            SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+         //   SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+            if (!Service1.isRun) return;
             Thread tmsn = new Thread(new ThreadStart(this.reconectar));
             tmsn.Start();
             return;
@@ -160,7 +161,7 @@ namespace SZKTeco
         private void onMessagge() {
             SConsole.log("Start Real Time event");
             SZKP instance = this;
-            while (h != IntPtr.Zero) {
+            while (h != IntPtr.Zero && Service1.isRun) {
               int number=  instance.getRT();
             }
             SConsole.log("Device disconnect");
