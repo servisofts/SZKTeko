@@ -93,7 +93,7 @@ namespace SZKTeco
         }
         private static void getDataTable(SJSon obj, SSocket session)
         {
-            System.Diagnostics.Debugger.Launch();
+           // System.Diagnostics.Debugger.Launch();
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
             if (szkp == null) return;
 

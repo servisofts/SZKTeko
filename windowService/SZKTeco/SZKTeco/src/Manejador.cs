@@ -20,6 +20,9 @@ namespace SZKTeco
                 case dispositivo.COMPONENT:
                     dispositivo.onMessage(obj, session);
                     break;
+                case lector_huella.COMPONENT:
+                    lector_huella.onMessage(obj, session);
+                    break;
             }
         }
     }

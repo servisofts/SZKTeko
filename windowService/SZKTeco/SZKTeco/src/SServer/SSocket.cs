@@ -21,7 +21,8 @@ namespace SZKTeco
             }else {
                 if (!INSTANCE.isConnect())
                 {
-                    INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
+                    SConsole.warning("SOCKET DESCONES");
+                   // INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
                 }
             }
             
@@ -50,11 +51,13 @@ namespace SZKTeco
         public SSocket(String ip, int port) { 
             this.ip = ip;
             this.port = port;
+          
             this.Connectar();
         }
 
         public bool isConnect()
         {
+            if (socket == null) return false;
             return socket.Connected;
         }
 
@@ -64,12 +67,17 @@ namespace SZKTeco
             {
                 this.socket.Connect(this.ip, this.port);
                 SConsole.log($"Conectado con el servidor ({ip}:{port})");
-                this.estado = true;
                 this.stream = this.socket.GetStream();
-                t1 = new Thread(new ThreadStart(this.Receive));
-                t1.Start();
+                this.estado = true;
+                //  t1.Interrupt();
+               // if (t1 == null)
+                //{
+                    t1 = new Thread(new ThreadStart(this.Receive));
+                    t1.Start();
+                //}
             }
             catch (Exception e) {
+                SConsole.error(e.ToString());
                 this.onClose();
             }
    
@@ -87,6 +95,7 @@ namespace SZKTeco
 
             SConsole.warning($"Server session closed!");
             this.estado = false;
+            t1 = null;
             if (this.socket != null)
             {   
                 this.socket.Close();
@@ -95,15 +104,16 @@ namespace SZKTeco
             {
                 return;
             }
-            Thread.Sleep(3000);
-            this.Connectar();
+            INSTANCE = null;
+            //Thread.Sleep(3000);
+           // this.Connectar();
            // INSTANCE = null;
         }
 
         public void Receive()
         {
             string mensaje="";
-            while (this.estado == true) {
+            while (this.estado) {
                 try
                 {
                    // System.Diagnostics.Debugger.Launch();
@@ -117,10 +127,11 @@ namespace SZKTeco
                     }
                     try
                     {
-                        String[] text = Regex.Split(data, @"---SSkey---");
-                        mensaje = mensaje + text[0];    
 
-                        if (text.Length == 2)
+                        String[] text = Regex.Split(data, @"---SSkey---");
+                        mensaje = mensaje + text[0];
+
+                        if (text.Length >= 2)
                         {
                             SJSon obj = new SJSon(mensaje);
                             mensaje = "";
@@ -136,21 +147,21 @@ namespace SZKTeco
                                 this._Send(obj.ToString());
                             }
                         }
+                        else {
+                           // System.Diagnostics.Debugger.Launch();
+                        }
                     }
                     catch (Exception e) { 
-
                         SConsole.log("[ onMessagge ] "+ mensaje);
-                        SConsole.log("[ onMessagge ] " + e.ToString());
+                        SConsole.error("[ onMessagge ] " + e.ToString());
                         mensaje = "";
-                        this.estado = false;
                         //  SConsole.error(ex.Message);
-                        this.onClose();
-                        return;
+                       this.onClose();
+                        //return;
                     }
                 }
                 catch (Exception ex) {
                     SConsole.log("[ onMessagge ] " + mensaje);
-                    this.estado = false;
                     mensaje = "";
 
                     //  SConsole.error(ex.Message);

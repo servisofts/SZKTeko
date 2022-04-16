@@ -72,7 +72,7 @@ namespace SZKTeco
         }
         private static void sincronizar(SJSon obj, SSocket session)
         {
-            //System.Diagnostics.Debugger.Launch();
+            System.Diagnostics.Debugger.Launch();
 
             obj.put("noSend", false);
             bool deleteAll = obj.getBool("delete_all");
@@ -88,11 +88,11 @@ namespace SZKTeco
                     device.DeleteDeviceData_Pull("templatev10", "");
                 }
                 
-                JArray arr = obj.getArray("data");
+               //JArray arr = obj.getArray("data");
                 String data_inser = "";
                 String data_inser_aut = "";
 
-                for (int i = 0; arr.Count > i; i++)
+               /* for (int i = 0; arr.Count > i; i++)
                 {
                     String codigo = arr[i].ToString();
                     data_inser += $"CardNo=0\tPin={codigo}\tName=ca\tPassword=\tGroup=0\tStartTime=0\tEndTime=0";
@@ -107,7 +107,7 @@ namespace SZKTeco
                 }
                 device.SetDeviceData_Pull("user", data_inser);
                 device.SetDeviceData_Pull("userauthorize",data_inser_aut);
-
+               */
 
                 String data_inser_huellas = "";
              //   device.DeleteDeviceData_Pull("templatev10", "");
@@ -122,6 +122,17 @@ namespace SZKTeco
                     {
                          device.DeleteDeviceData_Pull("templatev10", $"Pin={pin_usuario}");
                     }
+                    //registramos al usuario
+                    data_inser += $"CardNo=0\tPin={pin_usuario}\tName=ca\tPassword=\tGroup=0\tStartTime=0\tEndTime=0";
+                    data_inser_aut += $"Pin={pin_usuario}\tAuthorizeDoorId=1\tAuthorizeTimezoneId=1\r\n";
+                    data_inser_aut += $"Pin={pin_usuario}\tAuthorizeDoorId=2\tAuthorizeTimezoneId=1";
+
+                    if (i + 1 < huellas_keys.Length)
+                    {
+                        data_inser += "\r\n";
+                        data_inser_aut += "\r\n";
+                    }
+
                     for (int j = 0; j < usuarios_keys.Length; j++) {
                         if (i + j > 0)
                         {
@@ -133,6 +144,8 @@ namespace SZKTeco
                         data_inser_huellas += $"Pin={pin_usuario}\tFingerID={id_huella}\tValid=1\tTemplate={huella}\tSize={huella.Length}";
                     }
                 }
+                device.SetDeviceData_Pull("user", data_inser);
+                device.SetDeviceData_Pull("userauthorize", data_inser_aut);
                 device.SetDeviceData_Pull("templatev10", data_inser_huellas);
                 obj.put("data", false);
                 obj.put("huellas", false);

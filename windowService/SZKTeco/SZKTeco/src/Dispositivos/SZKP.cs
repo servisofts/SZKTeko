@@ -128,7 +128,7 @@ namespace SZKTeco
                 string[] keys = Regex.Split(str, ",");
                 if (keys[3] != "0")
                 {
-                    SConsole.log($"Ocurrio un evento {number} :: {str}");
+                  
                     SJSon data = new SJSon();
                     data.put("Fecha", keys[0]);
                     data.put("Pin", keys[1]);
@@ -137,6 +137,7 @@ namespace SZKTeco
                     data.put("EventType", keys[4]);
                     data.put("InOutState", keys[5]);
 
+                    SConsole.log($"Ocurrio un evento {data.ToString()}");
                     SJSon dataSend = new SJSon();
                     dataSend.put("component", "dispositivo");
                     dataSend.put("type", "onEvent");

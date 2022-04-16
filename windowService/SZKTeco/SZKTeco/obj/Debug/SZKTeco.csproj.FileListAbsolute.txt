@@ -17,3 +17,5 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\lib\Newtonsoft.Json.dll
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\lib\zkemkeeper.dll
 C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\obj\Debug\SZKTeco.csproj.AssemblyReference.cache
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\lib\libzkfpcsharp.dll
+C:\Users\ricky\Documents\GitHub\SZKTeko\windowService\SZKTeco\SZKTeco\bin\Debug\libzkfpcsharp.dll

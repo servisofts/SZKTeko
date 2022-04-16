@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { SDate, SIcon, SLoad, SNavigation, SPage, SPopup, STable2, SText, SView } from 'servisofts-component';
 import Parent from ".."
 import FloatButtom from '../../../../../Components/FloatButtom';
+import SSocket from 'servisofts-socket'
 class Lista extends Component {
     constructor(props) {
         super(props);
@@ -54,20 +55,13 @@ class Lista extends Component {
                         </SView>
                     }
                 },
-                // {
-                //     key: "key-ver", label: "Ver", width: 50, center: true,
-                //     component: (item) => {
-                //         return <SView onPress={() => { SNavigation.navigate(Parent.component + "/perfil", { key: item }) }}>
-                //             <SIcon name={"Salir"} width={35} />
-                //         </SView>
-                //     }
-                // },
+
                 {
                     key: "key-reboot", label: "Reboot", width: 50, center: true,
                     component: (item) => {
-                        return <SView onPress={() => { 
-                            Parent.Actions.reboot(data[item],this.props);
-                         }}>
+                        return <SView onPress={() => {
+                            Parent.Actions.reboot(data[item], this.props);
+                        }}>
                             <SIcon name={"Off"} width={35} />
                         </SView>
                     }
@@ -81,7 +75,22 @@ class Lista extends Component {
                         </SView>
                     }
                 },
+                {
+                    key: "key-lector", label: "Lector", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => {
+                            SSocket.send({
+                                component: "lector_huella",
+                                type: "conectar",
+                                key_punto_venta: item,
+                                estado:"cargando",
 
+                            })
+                        }}>
+                            <SIcon name={"Salir"} width={35} />
+                        </SView>
+                    }
+                },
 
 
             ]}

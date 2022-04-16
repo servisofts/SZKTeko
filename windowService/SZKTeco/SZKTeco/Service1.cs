@@ -31,6 +31,7 @@ namespace SZKTeco
             while (isRun) 
             {
                 SSocket.getInstance();
+                SFP.getInstance();
                 Thread.Sleep(3000);
             }
         }
