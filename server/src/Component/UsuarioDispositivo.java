@@ -106,20 +106,23 @@ public class UsuarioDispositivo {
         }
     }
 
-    public static boolean Sincronizar(String key_dispositivo, JSONArray keys_usuarios) throws SQLException{
+    public static boolean Sincronizar(String key_dispositivo, JSONArray keys_usuarios, boolean delete_all) throws SQLException{
         
         String usuarios = keys_usuarios.toString().replaceAll("\"", "'");
 
         //Desactivar vencidos
-        String consulta = "update usuario_dispositivo \n"+
-        "set estado = 0 \n"+
-        "where key in ( \n"+
-        "    select usuario_dispositivo.key \n"+
-        "    from usuario_dispositivo \n"+
-        "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
-        "    and not usuario_dispositivo.key_usuario = ANY(ARRAY"+usuarios+") \n"+
-        ")";
-        SPGConect.ejecutarUpdate(consulta);
+        String consulta = "";
+        if(delete_all){
+            consulta = "update usuario_dispositivo \n"+
+            "set estado = 0 \n"+
+            "where key in ( \n"+
+            "    select usuario_dispositivo.key \n"+
+            "    from usuario_dispositivo \n"+
+            "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
+            "    and not usuario_dispositivo.key_usuario = ANY(ARRAY"+usuarios+") \n"+
+            ")";
+            SPGConect.ejecutarUpdate(consulta);
+        }
 
         //Activar actuales
         consulta = "update usuario_dispositivo \n"+
@@ -208,7 +211,17 @@ public class UsuarioDispositivo {
     public static int getCodigo(String key_dispositivo) throws SQLException {
         String consulta = "select max(codigo) as codigo from usuario_dispositivo where key_dispositivo = '" + key_dispositivo + "'";
         int codigo = SPGConect.ejecutarConsultaInt(consulta);
-        return codigo==0?1:codigo;
+        return codigo==0?1:codigo+1;
+    }
+
+    public static JSONObject get(String codigo, String key_dispositivo) {
+        try {
+            String consulta = "select usuario_dispositivo_get('" + codigo + "', '" + key_dispositivo + "') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static JSONObject getByCodigo(String codigo) {

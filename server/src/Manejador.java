@@ -2,6 +2,8 @@ import Servisofts.SConsole;
 import org.json.JSONObject;
 
 import Component.Dispositivo;
+import Component.DispositivoHistorico;
+import Component.LectorHuella;
 import Component.PuntoVenta;
 import Component.TipoDispositivo;
 import Component.UsuarioDispositivo;
@@ -24,6 +26,9 @@ public class Manejador {
             case Dispositivo.COMPONENT:
                 Dispositivo.onMessage(obj, session);
                 break;
+            case DispositivoHistorico.COMPONENT:
+                DispositivoHistorico.onMessage(obj, session);
+                break;
             case TipoDispositivo.COMPONENT:
                 TipoDispositivo.onMessage(obj, session);
                 break;
@@ -35,6 +40,9 @@ public class Manejador {
                 break;
             case UsuarioHuella.COMPONENT:
                 UsuarioHuella.onMessage(obj, session);
+                break;
+            case LectorHuella.COMPONENT:
+                LectorHuella.onMessage(obj, session);
                 break;
         }
     }

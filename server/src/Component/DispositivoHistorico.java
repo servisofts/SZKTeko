@@ -25,7 +25,7 @@ public class DispositivoHistorico {
 
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select get_all('" + COMPONENT + "') as json";
+            String consulta = "select get_all('" + COMPONENT + "', 'key_dispositivo', '"+obj.getString("key_dispositivo")+"') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -54,6 +54,7 @@ public class DispositivoHistorico {
             hisorico.put("estado", 1);
             hisorico.put("fecha_on", fecha_on);
             data.put("fecha_on", fecha_on);
+            
             hisorico.put("data", data);
 
             if(key_dispositivo != null && key_dispositivo.length() > 0){

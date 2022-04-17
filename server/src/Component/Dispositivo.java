@@ -1,10 +1,13 @@
 package Component;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Servisofts.SPGConect;
+import Servisofts.SUtil;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import Server.SSSAbstract.SSServerAbstract;
@@ -12,6 +15,9 @@ import Server.SSSAbstract.SSSessionAbstract;
 import Server.ServerSocketZkteco.ServerSocketZkteco;
 
 public class Dispositivo {
+
+    public static HashMap<String, SSSessionAbstract> dispositivos = new HashMap<>();
+
     public static final String COMPONENT = "dispositivo";
 
     public static void onMessage(JSONObject obj, SSSessionAbstract session) {
@@ -80,9 +86,13 @@ public class Dispositivo {
             String huella = obj.getString("data");
             
             SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
-            solicitud.registrarHuella(huella);
-            obj.put("data", "");
+            JSONObject usuario_huella = solicitud.registrarHuella(huella);
+
+            obj.put("data", usuario_huella);
             obj.put("estado", "exito");
+
+            
+
         } catch (Exception e) {
             obj.put("estado", "error");
             e.printStackTrace();
@@ -93,9 +103,7 @@ public class Dispositivo {
         try {
             JSONObject data = obj.getJSONObject("data");
             JSONObject punto_venta = PuntoVenta.getByKeySucursal(data.getString("key_sucursal"));
-
-            SolicitudHuella.solicitudes.put(punto_venta.getString("key"), new SolicitudHuella(punto_venta.getString("key"), data));
-
+            SolicitudHuella.solicitudes.put(punto_venta.getString("key"), new SolicitudHuella(punto_venta.getString("key"), data, session));
 
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -118,8 +126,24 @@ public class Dispositivo {
     public static void conectado(JSONObject obj, SSSessionAbstract session) {
         try {
             obj.getJSONObject("data").remove("actividad");
+            JSONObject dispositivo = obj.getJSONObject("data");
+
+            dispositivos.put(dispositivo.getString("key"), session);
+
             SPGConect.editObject(COMPONENT, obj.getJSONObject("data"));
-            DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), obj.getJSONObject("data"));
+
+
+            JSONObject historico = new JSONObject();
+            historico.put("Fecha", SUtil.now());
+            historico.put("Pin", "0");
+            historico.put("Cardno", "0");
+            historico.put("DoorID", "0");
+            historico.put("EventType", obj.getJSONObject("data").getBoolean("isConected")?"300":"301");
+            historico.put("InOutState", "0");
+            historico.put("key_usuario", "");
+
+            DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), historico);
+            obj.put("noSend", true);
             ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
         } catch (Exception e) {
             JSONObject error = new JSONObject();
@@ -186,11 +210,17 @@ public class Dispositivo {
 
     public static void onEvent(JSONObject obj){
         obj.put("component", "zkteco");
-        JSONObject usuarioDispositivo = UsuarioDispositivo.getByCodigo(obj.getJSONObject("data").getString("Pin"));
-        if(!obj.getJSONObject("data").getString("Pin").equals("0")){
-            obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
+        JSONObject usuarioDispositivo = UsuarioDispositivo.get(obj.getJSONObject("data").getString("Pin"), obj.getString("key_dispositivo"));
+        if(usuarioDispositivo!=null){
+            if(!usuarioDispositivo.isEmpty()){
+                obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
+            }
         }
+
         
+            
+        
+        DispositivoHistorico.registro(obj.getString("key_dispositivo"), obj.getJSONObject("data"));
 
         obj.put("noSend", true);
 

@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import Server.SSSAbstract.SSSessionAbstract;
 import Servisofts.SPGConect;
 
 public class SolicitudHuella {
@@ -14,17 +15,19 @@ public class SolicitudHuella {
 
     public String key_punto_venta;
     public JSONObject solicitud;
+    public SSSessionAbstract session;
     
-    public SolicitudHuella(String key_punto_venta, JSONObject solicitud) {
+    public SolicitudHuella(String key_punto_venta, JSONObject solicitud, SSSessionAbstract session) {
         this.key_punto_venta = key_punto_venta;
         this.solicitud = solicitud;
+        this.session = session;
     }
 
-    public boolean registrarHuella(String huella) throws SQLException{
+    public JSONObject registrarHuella(String huella) throws SQLException{
         if(solicitud.has("key")){
             solicitud.put("huella", huella);
             SPGConect.editObject("usuario_huella", solicitud);
-            return true;            
+            return null;            
         }
 
         JSONObject usuario_huella = new JSONObject();
@@ -35,7 +38,17 @@ public class SolicitudHuella {
         usuario_huella.put("codigo", this.solicitud.getInt("codigo"));
         usuario_huella.put("huella", huella);
         SPGConect.insertArray("usuario_huella", new JSONArray().put(usuario_huella));
-        return true;
+
+        usuario_huella.remove("huella");
+
+        JSONObject send = new JSONObject();
+        send.put("component", "dispositivo");
+        send.put("type", "registro");
+        send.put("data", usuario_huella);
+        send.put("estado", "exito");
+
+        this.session.send(send.toString());
+        return usuario_huella;
     }
 
 }

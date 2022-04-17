@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Servisofts.SPGConect;
+import Servisofts.SUtil;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import Server.SSSAbstract.SSServerAbstract;
@@ -50,6 +52,10 @@ public class PuntoVenta {
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
             String consulta = "select get_all_punto_venta() as json";
+            if(obj.has("servicio")){
+                consulta = "select get_all_punto_venta('"+obj.getJSONObject("servicio").getString("key")+"') as json";
+            }
+            
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -185,7 +191,7 @@ public class PuntoVenta {
                 send.put("type", "ping");
                 send.put("estado", "cargando");
                 send.put("key_punto_venta", punto_venta.getString("key"));
-                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj,punto_venta.getString("key")));
+                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj,punto_venta.getString("key"), obj.getString("key_usuario")));
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
@@ -228,7 +234,7 @@ public class PuntoVenta {
                 send.put("estado", "cargando");
                 send.put("key_punto_venta", punto_venta.getString("key"));
                 
-                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj, punto_venta.getString("key")));
+                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj, punto_venta.getString("key"), obj.getString("key_usuario")));
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
@@ -242,14 +248,23 @@ public class PuntoVenta {
 
     public static void sincronizar(JSONObject obj) {
         try {
+            JSONObject historico = new JSONObject();
+            historico.put("Fecha", SUtil.now());
+            historico.put("Pin", "0");
+            historico.put("Cardno", "0");
+            historico.put("DoorID", "0");
+            historico.put("InOutState", "0");
+            historico.put("key_usuario", obj.getString("key_usuario"));
             if(obj.getString("estado").equals("exito")){
                 //Aqui guardamos la hora de sincronizacion.
+                historico.put("EventType", "302");
                 System.out.println("Sincronizacion exitosa");
             }
             if(obj.getString("estado").equals("error")){
-                //Aqui guardamos la hora de sincronizacion.
+                historico.put("EventType", "303");
                 System.out.println("Sincronizacion erronea");
             }
+            DispositivoHistorico.registro(obj.getString("key_dispositivo"), historico);
 
             obj.put("noSend", true);
             
