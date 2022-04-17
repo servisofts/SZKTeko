@@ -33,6 +33,7 @@ namespace SZKTeco
                 SZKPs.Add(dv1.getKey(), dv1);
             }
             dv1.setData(dispositivo);
+            //dv1.connectar();
             return dv1;
         }
         public static SZKP get_SZKP(string key)

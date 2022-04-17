@@ -21,7 +21,8 @@ class Registro extends Component {
             this.key_tipo_dispositivo = this.data.key_tipo_dispositivo;
         } else {
             this.data = {
-                puerto:"4370"
+                puerto: "4370",
+                puerta_ingreso:"1",
             };
         }
         // if (this.key_etapa) {
@@ -55,6 +56,7 @@ class Registro extends Component {
             inputs={{
                 descripcion: { label: "Descripcion", isRequired: true, defaultValue: this.data["descripcion"] },
                 observacion: { label: "observacion", isRequired: true, defaultValue: this.data["observacion"] },
+                puerta_ingreso: { label: "puerta_ingreso", isRequired: true, defaultValue: this.data["puerta_ingreso"] },
                 ip: { label: "ip", isRequired: true, defaultValue: this.data["ip"] },
                 puerto: { label: "puerto", isRequired: true, defaultValue: this.data["puerto"] },
                 mac: { label: "mac", isRequired: false, defaultValue: this.data["mac"] },

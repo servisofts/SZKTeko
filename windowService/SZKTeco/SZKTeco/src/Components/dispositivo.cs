@@ -70,7 +70,7 @@ namespace SZKTeco
             if (szkp == null) return;
 
             SJSon param = obj.getSJSonObject("parameters");
-              szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"));
+              szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"), obj.getString("key_usuario"));
             obj.put("noSend", true);
         }
         

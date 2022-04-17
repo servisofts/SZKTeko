@@ -72,7 +72,7 @@ namespace SZKTeco
         }
         private static void sincronizar(SJSon obj, SSocket session)
         {
-            System.Diagnostics.Debugger.Launch();
+           // System.Diagnostics.Debugger.Launch();
 
             obj.put("noSend", false);
             bool deleteAll = obj.getBool("delete_all");
@@ -114,6 +114,10 @@ namespace SZKTeco
                 SJSon huellas = obj.getSJSonObject("huellas");
                 String[] huellas_keys = huellas.keys();
                 int id_huella = device.GetDeviceDataCount_Pull("templatev10");
+
+                int n_usuarios = 0;
+                int n_huellas = 0;
+
                 for (int i = 0; i < huellas_keys.Length; i++) {
                     String pin_usuario  = huellas_keys[i];
                     SJSon usuario = huellas.getSJSonObject(pin_usuario);
@@ -126,7 +130,7 @@ namespace SZKTeco
                     data_inser += $"CardNo=0\tPin={pin_usuario}\tName=ca\tPassword=\tGroup=0\tStartTime=0\tEndTime=0";
                     data_inser_aut += $"Pin={pin_usuario}\tAuthorizeDoorId=1\tAuthorizeTimezoneId=1\r\n";
                     data_inser_aut += $"Pin={pin_usuario}\tAuthorizeDoorId=2\tAuthorizeTimezoneId=1";
-
+                    n_usuarios++;
                     if (i + 1 < huellas_keys.Length)
                     {
                         data_inser += "\r\n";
@@ -142,13 +146,14 @@ namespace SZKTeco
                         id_huella += 1;
                         String huella = usuario.getString(dedo);
                         data_inser_huellas += $"Pin={pin_usuario}\tFingerID={id_huella}\tValid=1\tTemplate={huella}\tSize={huella.Length}";
+                        n_huellas++;
                     }
                 }
                 device.SetDeviceData_Pull("user", data_inser);
                 device.SetDeviceData_Pull("userauthorize", data_inser_aut);
                 device.SetDeviceData_Pull("templatev10", data_inser_huellas);
-                obj.put("data", false);
-                obj.put("huellas", false);
+                obj.put("data", n_usuarios);
+                obj.put("huellas", n_huellas);
                 obj.put("estado", "exito");
                 SConsole.log("Sincronizar finalizado con exito.");
             }

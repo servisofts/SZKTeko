@@ -78,8 +78,11 @@ namespace SZKTeco
                 if (nCount > 0)
                 {
                     conect_device(0);
-                   // SConsole.log("Conexion exitosa.");
-                    connected = true;
+                    // SConsole.log("Conexion exitosa.");
+                    if (!connected)
+                    {
+                        zkfp2.Terminate();
+                    }
                 }
                 else
                 {
@@ -100,16 +103,22 @@ namespace SZKTeco
             int ret = zkfp.ZKFP_ERR_OK;
             if (IntPtr.Zero == (mDevHandle = zkfp2.OpenDevice(idDevice)))
             {
+                connected = false;
+
                 SConsole.error("OpenDevice fail");
                 return;
             }
             if (IntPtr.Zero == (mDBHandle = zkfp2.DBInit()))
             {
+                connected = false;
+
                 SConsole.error("Init DB fail");
                 zkfp2.CloseDevice(mDevHandle);
                 mDevHandle = IntPtr.Zero;
                 return;
             }
+            connected = true;
+
             for (int i = 0; i < 3; i++)
             {
                 RegTmps[i] = new byte[2048];
@@ -142,6 +151,7 @@ namespace SZKTeco
         private void DoCapture()
         {
             int cantidad = 0;
+            int cant_errors = 0;
     
             while (connected && Service1.isRun)
             {
@@ -159,6 +169,13 @@ namespace SZKTeco
                         if (presition <= 0)
                         {
                             SConsole.log($"Error in match: {presition}");
+                            cant_errors++;
+                            if(cant_errors >= 3)
+                            {
+                                cantidad = 0;
+                                cant_errors = 0;
+
+                            }
                             continue;
                         }
                     }

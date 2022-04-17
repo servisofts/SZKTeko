@@ -54,9 +54,10 @@ namespace SZKTeco
                 {
                     this.Desconectar();
                     this.connectar();
+                    SConsole.log($"[SZKP] Conexion ready {this.data.getString("ip")}:{this.data.getInt("puerto")}");
                 }
                 else { 
-                  SConsole.log($"[SZKP] Conexion ready {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+                  //SConsole.log($"[SZKP] Conexion ready {this.data.getString("ip")}:{this.data.getInt("puerto")}");
                 }
             }
         }
@@ -95,7 +96,7 @@ namespace SZKTeco
             }
             objSend.put("estado", "error");
             SSocket.Send(objSend.ToString());
-         //   SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+            SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             if (!Service1.isRun) return;
             Thread tmsn = new Thread(new ThreadStart(this.reconectar));
             tmsn.Start();
@@ -135,6 +136,10 @@ namespace SZKTeco
                     data.put("Cardno", keys[2]);
                     data.put("DoorID", keys[3]);
                     data.put("EventType", keys[4]);
+                    if(keys[4] == "8"){
+                        data.put("key_usuario", key_usuario_open);
+                        key_usuario_open = "";
+                    }
                     data.put("InOutState", keys[5]);
 
                     SConsole.log($"Ocurrio un evento {data.ToString()}");
@@ -215,10 +220,13 @@ namespace SZKTeco
                 PullLastError();
         }
 
+        public static string key_usuario_open = "";
+
         [DllImport("plcommpro.dll", EntryPoint = "ControlDevice")]
         public static extern int ControlDevice(IntPtr h, int operationid, int param1, int param2, int param3, int param4, string options);
-        public void ControlDevice_Pull(int operID, int doorOrAuxoutID, int outputAddrType, int doorAction)
+        public void ControlDevice_Pull(int operID, int doorOrAuxoutID, int outputAddrType, int doorAction, string key_usuario)
         {
+            key_usuario_open = key_usuario;
             int ret = 0;
             if (IntPtr.Zero != h)
             {
