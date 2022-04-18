@@ -159,15 +159,25 @@ namespace SZKTeco
                 int ret = zkfp2.AcquireFingerprint(mDevHandle, FPBuffer, streamIn, ref streamSize);
                 if (ret == zkfp.ZKFP_ERR_OK)
                 {
-                  
-                    // SConsole.log(strShow);
 
-                   
+                    // SConsole.log(strShow);
+                    SJSon objSend = new SJSon();
+                    objSend.put("component", "lector_huella");
+                    objSend.put("type", "onEvent");
+                    objSend.put("key_punto_venta", SConfig.get().getString("key_punto_venta"));
+                    objSend.put("key_tipo_dispositivo", "096acabc-3aca-41f3-86e3-d47b0e1add17");
+                    SJSon objData = new SJSon();
+                    objData.put("i", cantidad);
+                    objData.put("ret", ret);
+                    objSend.put("data", objData);
+
                     if (cantidad > 0)
                     {
                         int presition = zkfp2.DBMatch(mDBHandle, streamIn, RegTmps[cantidad - 1]);
                         if (presition <= 0)
                         {
+                            
+
                             SConsole.log($"Error in match: {presition}");
                             cant_errors++;
                             if(cant_errors >= 3)
@@ -176,6 +186,9 @@ namespace SZKTeco
                                 cant_errors = 0;
 
                             }
+                            objSend.put("estado", "error");
+                            SSocket.Send(objSend.ToString());
+
                             continue;
                         }
                     }
@@ -204,6 +217,11 @@ namespace SZKTeco
                      //   SConsole.log("GUARDADO");
                         cantidad = 0;
                         continue;
+                    }
+                    else
+                    {
+                        objSend.put("estado", "exito");
+                        SSocket.Send(objSend.ToString());
                     }
 
                 }
