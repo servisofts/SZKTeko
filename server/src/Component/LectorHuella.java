@@ -23,6 +23,9 @@ public class LectorHuella {
             case "registro_huella":
                 registro_huella(obj, session);
                 break;
+            case "onEvent":
+                onEvent(obj, session);
+                break;
             case "registro":
                 registro(obj, session);
                 break;
@@ -42,6 +45,19 @@ public class LectorHuella {
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
             }
 
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
+    public static void onEvent(JSONObject obj, SSSessionAbstract session) {
+        try {
+            obj.put("noSend", true);   
+            JSONObject puntoVenta = PuntoVenta.getByKey(obj.getString("key_punto_venta"));
+            obj.put("key_sucursal", puntoVenta.getString("key_sucursal"));
+            SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
+            solicitud.onEvent(obj);
         } catch (Exception e) {
             obj.put("estado", "error");
             e.printStackTrace();

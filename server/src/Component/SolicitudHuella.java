@@ -27,7 +27,14 @@ public class SolicitudHuella {
         if(solicitud.has("key")){
             solicitud.put("huella", huella);
             SPGConect.editObject("usuario_huella", solicitud);
-            return null;            
+            JSONObject send = new JSONObject();
+            send.put("component", "dispositivo");
+            send.put("type", "registro");
+            send.put("data", solicitud);
+            send.put("estado", "exito");
+
+            this.session.send(send.toString());
+            return solicitud;            
         }
 
         JSONObject usuario_huella = new JSONObject();
@@ -49,6 +56,10 @@ public class SolicitudHuella {
 
         this.session.send(send.toString());
         return usuario_huella;
+    }
+
+    public void onEvent(JSONObject obj) throws SQLException{
+        this.session.send(obj.toString());
     }
 
 }

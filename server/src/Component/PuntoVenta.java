@@ -164,6 +164,15 @@ public class PuntoVenta {
             e.printStackTrace();
         }
     }
+    public static JSONObject getByKey(String key) {
+        try {
+            String consulta = "select get_by('punto_venta','key','"+key+"') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static JSONObject getByKeySucursal(String key_sucursal) {
         try {
