@@ -43,9 +43,6 @@ public class Dispositivo {
             case "changeIp":
                 changeIp(obj, session);
                 break;
-            case "solicitud_registro_huella":
-                solicitud_registro_huella(obj, session);
-                break;
             case "registro_huella":
                 registro_huella(obj, session);
                 break;
@@ -98,21 +95,6 @@ public class Dispositivo {
             e.printStackTrace();
         }
     }
-
-    public static void solicitud_registro_huella(JSONObject obj, SSSessionAbstract session) {
-        try {
-            JSONObject data = obj.getJSONObject("data");
-            JSONObject punto_venta = PuntoVenta.getByKeySucursal(data.getString("key_sucursal"));
-            SolicitudHuella.solicitudes.put(punto_venta.getString("key"), new SolicitudHuella(punto_venta.getString("key"), data, session));
-
-            obj.put("data", data);
-            obj.put("estado", "exito");
-        } catch (Exception e) {
-            obj.put("estado", "error");
-            e.printStackTrace();
-        }
-    }
-
 
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
@@ -215,10 +197,7 @@ public class Dispositivo {
             if(!usuarioDispositivo.isEmpty()){
                 obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
             }
-        }
-
-        
-            
+        }    
         
         DispositivoHistorico.registro(obj.getString("key_dispositivo"), obj.getJSONObject("data"));
 

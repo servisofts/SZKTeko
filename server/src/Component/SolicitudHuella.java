@@ -34,6 +34,7 @@ public class SolicitudHuella {
             send.put("estado", "exito");
 
             this.session.send(send.toString());
+            solicitudes.remove(this.key_punto_venta);
             return solicitud;            
         }
 
@@ -44,6 +45,7 @@ public class SolicitudHuella {
         usuario_huella.put("estado", 1);
         usuario_huella.put("codigo", this.solicitud.getInt("codigo"));
         usuario_huella.put("huella", huella);
+        usuario_huella.put("key_sucursal", this.solicitud.getString("key_sucursal"));
         SPGConect.insertArray("usuario_huella", new JSONArray().put(usuario_huella));
 
         usuario_huella.remove("huella");
@@ -55,6 +57,7 @@ public class SolicitudHuella {
         send.put("estado", "exito");
 
         this.session.send(send.toString());
+        solicitudes.remove(this.key_punto_venta);
         return usuario_huella;
     }
 

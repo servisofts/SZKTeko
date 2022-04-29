@@ -32,6 +32,23 @@ public class LectorHuella {
             case "editar":
                 editar(obj, session);
                 break;
+            case "solicitud_registro_huella":
+                solicitud_registro_huella(obj, session);
+                break;
+        }
+    }
+
+    public static void solicitud_registro_huella(JSONObject obj, SSSessionAbstract session) {
+        try {
+            JSONObject data = obj.getJSONObject("data");
+            JSONObject punto_venta = PuntoVenta.getByKeySucursal(data.getString("key_sucursal"));
+            SolicitudHuella.solicitudes.put(punto_venta.getString("key"), new SolicitudHuella(punto_venta.getString("key"), data, session));
+
+            obj.put("data", data);
+            obj.put("estado", "exito");
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            obj.put("error", "No existe punto de venta");
         }
     }
 
@@ -60,22 +77,22 @@ public class LectorHuella {
             solicitud.onEvent(obj);
         } catch (Exception e) {
             obj.put("estado", "error");
-            e.printStackTrace();
+            obj.put("error", "No existe solicitud");
         }
     }
 
     public static void registro_huella(JSONObject obj, SSSessionAbstract session) {
         try {
             String huella = obj.getString("data");
-            
             SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
             solicitud.registrarHuella(huella);
             obj.put("data", "");
             obj.put("estado", "exito");
         } catch (Exception e) {
             obj.put("estado", "error");
-            e.printStackTrace();
+            obj.put("error", "No existe punto venta");
         }
+        obj.put("noSend", true);
     }
 
 
