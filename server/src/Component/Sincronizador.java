@@ -3,6 +3,8 @@ package Component;
 import java.sql.SQLException;
 import java.util.HashMap;
 import org.json.JSONObject;
+
+import Server.SSSAbstract.SSSessionAbstract;
 import Server.ServerSocketZkteco.ServerSocketZkteco;
 
 public class Sincronizador {
@@ -11,14 +13,16 @@ public class Sincronizador {
     public JSONObject obj;
     public String key_punto_venta;
     public String key_usuario;
+    public SSSessionAbstract session;
     
-    public Sincronizador(JSONObject obj, String key_punto_venta, String key_usuario) {
+    public Sincronizador(JSONObject obj, String key_punto_venta, String key_usuario, SSSessionAbstract session) {
         this.obj = obj;
         this.key_punto_venta = key_punto_venta;
         this.key_usuario = key_usuario;
+        this.session = session;
     }
 
-    public String sincronizar() throws SQLException{
+    public String sincronizar() throws SQLException, InterruptedException{
         JSONObject dispositivos = Dispositivo.getAllKey(this.key_punto_venta);
         JSONObject dispositivo;
 
@@ -58,7 +62,8 @@ public class Sincronizador {
                 send.put("huellas", usuario_huella);
                 send.put("noSend", true);
                 send.put("delete_all", obj.getBoolean("delete_all"));
-                ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
+                session.send(send.toString());
+                Thread.sleep(1000);
             }
         }
         return "exito";

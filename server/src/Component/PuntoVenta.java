@@ -1,6 +1,7 @@
 package Component;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,6 +10,7 @@ import Servisofts.SUtil;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import Server.SSSAbstract.SSServerAbstract;
 import Server.SSSAbstract.SSSessionAbstract;
 import Server.ServerSocketZkteco.SessionSocket_;
@@ -16,6 +18,8 @@ import Server.ServerSocketZkteco.ServerSocketZkteco;
 
 public class PuntoVenta {
     public static final String COMPONENT = "punto_venta";
+
+    public static HashMap<String, SSSessionAbstract> sessions = new HashMap<>();
 
     public static void onMessage(JSONObject obj, SSSessionAbstract session) {
         switch (obj.getString("type")) {
@@ -69,6 +73,8 @@ public class PuntoVenta {
         String key_punto_venta = obj.getString("key_punto_venta");
         ((SessionSocket_)session).key_punto_venta = key_punto_venta;
 
+        sessions.put(key_punto_venta, session);
+
         try {
             String consulta = "select get_all('" + COMPONENT + "', 'key', '"+key_punto_venta+"') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
@@ -93,6 +99,9 @@ public class PuntoVenta {
             JSONObject data_ = PuntoVentaHistorico.getLast(key_punto_venta);
             data_.put("key_punto_venta", key_punto_venta);
             avisar.put("data",data_);
+
+
+
             ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET, avisar.toString());
             ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, avisar.toString());
 
@@ -200,7 +209,7 @@ public class PuntoVenta {
                 send.put("type", "ping");
                 send.put("estado", "cargando");
                 send.put("key_punto_venta", punto_venta.getString("key"));
-                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj,punto_venta.getString("key"), obj.getString("key_usuario")));
+                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj,punto_venta.getString("key"), obj.getString("key_usuario"), sessions.get(punto_venta.getString("key"))));
                 ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
@@ -243,8 +252,11 @@ public class PuntoVenta {
                 send.put("estado", "cargando");
                 send.put("key_punto_venta", punto_venta.getString("key"));
                 
-                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj, punto_venta.getString("key"), obj.getString("key_usuario")));
-                ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
+                Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj, punto_venta.getString("key"), obj.getString("key_usuario"), sessions.get(punto_venta.getString("key"))));
+
+                if(sessions.get(punto_venta.getString("key"))!=null)
+                    sessions.get(punto_venta.getString("key")).send(send.toString());;
+                //ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
             obj.put("noSend", true);

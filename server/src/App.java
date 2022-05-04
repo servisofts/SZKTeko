@@ -2,6 +2,7 @@ import Server.ServerSocketZkteco.ServerSocketZkteco;
 import Servisofts.Servisofts;
 
 public class App {
+    
     public static void main(String[] args) {
         try {
             Servisofts.ManejadorCliente = ManejadorCliente::onMessage;
