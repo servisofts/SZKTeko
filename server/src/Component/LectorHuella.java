@@ -73,7 +73,7 @@ public class LectorHuella {
             obj.put("noSend", true);   
             JSONObject puntoVenta = PuntoVenta.getByKey(obj.getString("key_punto_venta"));
             obj.put("key_sucursal", puntoVenta.getString("key_sucursal"));
-            SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
+            SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(puntoVenta.getString("key"));
             solicitud.onEvent(obj);
         } catch (Exception e) {
             obj.put("estado", "error");

@@ -51,7 +51,7 @@ public class Sincronizador {
 
                 switch(obj.getString("type")){
                     case "sincronizarUsuario":
-                        usuario_huella = UsuarioHuella.getAllUsuario(obj.getJSONArray("data").getString(0));
+                        usuario_huella = UsuarioHuella.getAllUsuario(obj.getJSONArray("data").getString(0), dispositivo.getString("key"));
                         break;
                     case "sincronizarAll":
                         usuario_huella = UsuarioHuella.getAll(dispositivo.getString("key"));

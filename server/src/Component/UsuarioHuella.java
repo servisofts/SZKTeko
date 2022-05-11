@@ -99,9 +99,9 @@ public class UsuarioHuella {
         }
     }
 
-    public static JSONObject getAllUsuario(String key_usuario) {
+    public static JSONObject getAllUsuario(String key_usuario, String key_dispositivo) {
         try {
-            String consulta = "select get_all_usuario_dispositivo_huella_usuario('" + key_usuario + "') as json";
+            String consulta = "select get_all_usuario_dispositivo_huella_usuario('" + key_usuario + "', '" + key_dispositivo + "') as json";
             return SPGConect.ejecutarConsultaObject(consulta);
         } catch (Exception e) {
             return null;
