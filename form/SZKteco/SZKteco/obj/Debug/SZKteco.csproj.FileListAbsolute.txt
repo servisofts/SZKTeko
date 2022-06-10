@@ -16,3 +16,4 @@ C:\Users\ricky\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Debug\Newtonsof
 C:\Users\ricky\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.csproj.CopyComplete
 C:\Users\ricky\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.exe
 C:\Users\ricky\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.pdb
+C:\Users\ricky\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.Form1.resources

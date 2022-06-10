@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SZKteco;
 
 namespace SZKTeco
 {
@@ -13,16 +14,18 @@ namespace SZKTeco
         {
             try
             {
-                //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter("C:\\SZKTeco\\LOGS.txt", true);
-                //Write a line of text
-                //Write a second line of text
-                sw.WriteLine(msn);
-                //Close the file
-                sw.Close();
+                //  StreamWriter sw = new StreamWriter("C:\\SZKTeco\\LOGS.txt", true);
+                // sw.WriteLine(msn);
+                //sw.Close();
+                if (Form1.INSTANCE!=null)
+                {
+                    Form1.INSTANCE.CambiarLabel(msn+"\r\n");
+                }
+               // Console.WriteLine(msn);
             }
             catch (Exception e)
             {
+               Console.WriteLine(e.Message);
             }
         }
         public static void log(string mensaje)

@@ -78,6 +78,9 @@
     <Compile Include="src\SServer\SConsole.cs" />
     <Compile Include="src\SServer\SJSon.cs" />
     <Compile Include="src\SServer\SSocket.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

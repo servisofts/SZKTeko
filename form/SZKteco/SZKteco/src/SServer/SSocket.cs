@@ -59,7 +59,14 @@ namespace SZKTeco
         public bool isConnect()
         {
             if (socket == null) return false;
-            return socket.Connected;
+            try
+            {
+                return socket.Connected;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public void Connectar() {

@@ -68,8 +68,8 @@ namespace SZKTeco
                 obj.put("noSend", false);
                 obj.put("estado", "exito");
             }
-            obj.put("noSend", false);
-            obj.put("estado", "exito");
+           // obj.put("noSend", false);
+           // obj.put("estado", "exito");
             /*else {
                 obj.put("key_punto_venta", SConfig.get().getString("key_punto_venta"));
                 obj.put("noSend", false);
