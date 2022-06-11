@@ -16,7 +16,7 @@ public class ManejadorCliente {
         }
         if (data.has("estado")) {
             if (data.getString("estado").equals("error")) {
-                SConsole.log("ERROR: " + data.get("error").toString());
+                // SConsole.log("ERROR: " + data.get("error").toString());
             }
         }
 

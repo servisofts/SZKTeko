@@ -1,10 +1,16 @@
 package Component;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+
+import com.google.zxing.Result;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Servisofts.SPGConect;
+
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import Server.SSSAbstract.SSServerAbstract;
@@ -83,13 +89,79 @@ public class UsuarioDispositivo {
         }
     }
 
-    public static JSONObject getAll(String key_etapa) {
+    public static JSONObject getAll(String key_dispositivo) {
         try {
-            String consulta = "select get_all('" + COMPONENT + "', 'key_etapa', '"+key_etapa+"' ) as json";
+            String consulta = "select get_all('" + COMPONENT + "', 'key_dispositivo', '"+key_dispositivo+"' ) as json";
             return SPGConect.ejecutarConsultaObject(consulta);
         } catch (Exception e) {
             return null;
         }
+    }
+    public static JSONArray getAllCodigos(String key_dispositivo) {
+        try {
+            String consulta = "select get_all_codigos('"+key_dispositivo+"' ) as json";
+            return SPGConect.ejecutarConsultaArray(consulta);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static boolean Sincronizar(String key_dispositivo, JSONArray keys_usuarios, boolean delete_all) throws SQLException{
+        
+        String usuarios = keys_usuarios.toString().replaceAll("\"", "'");
+
+        //Desactivar vencidos
+        String consulta = "";
+        if(delete_all){
+            consulta = "update usuario_dispositivo \n"+
+            "set estado = 0 \n"+
+            "where key in ( \n"+
+            "    select usuario_dispositivo.key \n"+
+            "    from usuario_dispositivo \n"+
+            "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
+            "    and not usuario_dispositivo.key_usuario = ANY(ARRAY"+usuarios+") \n"+
+            ")";
+            SPGConect.ejecutarUpdate(consulta);
+        }
+
+        //Activar actuales
+        consulta = "update usuario_dispositivo \n"+
+        "set estado = 1 \n"+
+        "where key in ( \n"+
+        "    select usuario_dispositivo.key \n"+
+        "    from usuario_dispositivo \n"+
+        "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
+        "    and usuario_dispositivo.key_usuario = ANY(ARRAY"+usuarios+") \n"+
+        ")";
+        SPGConect.ejecutarUpdate(consulta);
+
+        consulta = "select array_to_json(array_agg(keys.key)) as json \n"+
+        "from ( \n"+
+        "               select unnest(array"+usuarios+") as key \n"+
+        "           ) keys \n"+
+        "           where keys.key not in ( \n"+
+        "               select usuario_dispositivo.key_usuario \n"+
+        "               from usuario_dispositivo \n"+
+        "               where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
+        "           )";
+
+        JSONArray keys_usuarios_nuevos = SPGConect.ejecutarConsultaArray(consulta);
+        JSONArray nuevos = new JSONArray();
+        JSONObject nuevo;
+        int codigo = UsuarioDispositivo.getCodigo(key_dispositivo);
+        for (int i = 0; i < keys_usuarios_nuevos.length(); i++) {
+            nuevo = new JSONObject();
+            nuevo.put("key", UUID.randomUUID().toString());
+            nuevo.put("key_usuario", keys_usuarios_nuevos.get(i));
+            nuevo.put("fecha_on", "now()");
+            nuevo.put("estado", 1);
+            nuevo.put("key_dispositivo", key_dispositivo);
+            nuevo.put("codigo", codigo++);
+            nuevos.put(nuevo);
+        }
+        SPGConect.insertArray("usuario_dispositivo", nuevos);
+
+        return true;
     }
 
     public static void registro(JSONObject obj, SSSessionAbstract session) {
@@ -134,5 +206,31 @@ public class UsuarioDispositivo {
             return;
         }
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
+    }
+
+    public static int getCodigo(String key_dispositivo) throws SQLException {
+        String consulta = "select max(codigo) as codigo from usuario_dispositivo where key_dispositivo = '" + key_dispositivo + "'";
+        int codigo = SPGConect.ejecutarConsultaInt(consulta);
+        return codigo==0?1:codigo+1;
+    }
+
+    public static JSONObject get(String codigo, String key_dispositivo) {
+        try {
+            String consulta = "select usuario_dispositivo_get('" + codigo + "', '" + key_dispositivo + "') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject getByCodigo(String codigo) {
+        try {
+            String consulta = "select get_by('usuario_dispositivo', 'codigo', '" + codigo + "') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

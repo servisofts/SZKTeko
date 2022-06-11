@@ -1,10 +1,13 @@
 package Component;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Servisofts.SPGConect;
+import Servisofts.SUtil;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import Server.SSSAbstract.SSServerAbstract;
@@ -12,6 +15,9 @@ import Server.SSSAbstract.SSSessionAbstract;
 import Server.ServerSocketZkteco.ServerSocketZkteco;
 
 public class Dispositivo {
+
+    public static HashMap<String, SSSessionAbstract> dispositivos = new HashMap<>();
+
     public static final String COMPONENT = "dispositivo";
 
     public static void onMessage(JSONObject obj, SSSessionAbstract session) {
@@ -36,6 +42,12 @@ public class Dispositivo {
                 break;
             case "changeIp":
                 changeIp(obj, session);
+                break;
+            case "registro_huella":
+                registro_huella(obj, session);
+                break;
+            case "onEvent":
+                onEvent(obj);
                 break;
             case "getUsuarios":
             case "getDataTable":
@@ -66,6 +78,24 @@ public class Dispositivo {
         }
     }
 
+    public static void registro_huella(JSONObject obj, SSSessionAbstract session) {
+        try {
+            String huella = obj.getString("data");
+            
+            SolicitudHuella solicitud = SolicitudHuella.solicitudes.get(obj.getString("key_punto_venta"));
+            JSONObject usuario_huella = solicitud.registrarHuella(huella);
+
+            obj.put("data", usuario_huella);
+            obj.put("estado", "exito");
+
+            
+
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
@@ -78,8 +108,24 @@ public class Dispositivo {
     public static void conectado(JSONObject obj, SSSessionAbstract session) {
         try {
             obj.getJSONObject("data").remove("actividad");
+            JSONObject dispositivo = obj.getJSONObject("data");
+
+            dispositivos.put(dispositivo.getString("key"), session);
+
             SPGConect.editObject(COMPONENT, obj.getJSONObject("data"));
-            DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), obj.getJSONObject("data"));
+
+
+            JSONObject historico = new JSONObject();
+            historico.put("Fecha", SUtil.now());
+            historico.put("Pin", "0");
+            historico.put("Cardno", "0");
+            historico.put("DoorID", "0");
+            historico.put("EventType", obj.getJSONObject("data").getBoolean("isConected")?"300":"301");
+            historico.put("InOutState", "0");
+            historico.put("key_usuario", "");
+
+            DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), historico);
+            obj.put("noSend", true);
             ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
         } catch (Exception e) {
             JSONObject error = new JSONObject();
@@ -143,4 +189,49 @@ public class Dispositivo {
         }
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
+
+    public static void onEvent(JSONObject obj){
+        obj.put("component", "zkteco");
+        JSONObject usuarioDispositivo = UsuarioDispositivo.get(obj.getJSONObject("data").getString("Pin"), obj.getString("key_dispositivo"));
+        if(usuarioDispositivo!=null){
+            if(!usuarioDispositivo.isEmpty()){
+                obj.getJSONObject("data").put("key_usuario", usuarioDispositivo.getString("key_usuario"));
+            }
+        }    
+        
+
+        DispositivoHistorico.registro(obj.getString("key_dispositivo"), obj.getJSONObject("data"));
+
+        JSONObject punto_venta = PuntoVenta.getByKeyDispositivo(obj.getString("key_dispositivo"));
+
+        if(punto_venta!=null){
+            obj.put("key_sucursal", punto_venta.getString("key_sucursal"));
+        }
+
+
+        obj.put("noSend", true);
+
+        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
+        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
+    }
+    public static JSONObject getAllFingerPrint(String key_punto_venta) {
+        try {
+            String consulta = "select get_all_dispositivo('"+key_punto_venta+"', '096acabc-3aca-41f3-86e3-d47b0e1add17') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    
+    public static JSONObject getAllKey(String key_punto_venta) {
+        try {
+            String consulta =  "select get_all_dispositivo('"+key_punto_venta+"') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

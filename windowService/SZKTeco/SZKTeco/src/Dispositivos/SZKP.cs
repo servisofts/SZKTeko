@@ -61,10 +61,14 @@ namespace SZKTeco
             }
         }
            
+        public bool isConnect()
+        {
+            return h != IntPtr.Zero;
+        }
 
         public void hiloConectar() {
 
-            SConsole.log($"[SZKP] Intentando Conectar {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+           // SConsole.log($"[SZKP] Intentando Conectar {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             int ret = 0;        // Error ID number
 
             SJSon objSend = new SJSon();
@@ -91,7 +95,8 @@ namespace SZKTeco
             }
             objSend.put("estado", "error");
             SSocket.Send(objSend.ToString());
-            SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+         //   SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+            if (!Service1.isRun) return;
             Thread tmsn = new Thread(new ThreadStart(this.reconectar));
             tmsn.Start();
             return;
@@ -109,22 +114,38 @@ namespace SZKTeco
         [DllImport("plcommpro.dll", EntryPoint = "GetRTLog")]
         public static extern int GetRTLog(IntPtr h,ref byte buffer, int bufferSize, string itemvalues);
 
+
         private int getRT()
         {
             try
             {
                 int BUFFERSIZE= 256;
                 byte[] buffer = new byte[BUFFERSIZE];
-                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"Pin");
+                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"");
                 string str = Encoding.Default.GetString(buffer);
                 str = str.Replace("\0", string.Empty);
+               // SConsole.log($"Ocurrio un evento {number} :: {str}");
                 string[] keys = Regex.Split(str, ",");
                 if (keys[3] != "0")
                 {
                     SConsole.log($"Ocurrio un evento {number} :: {str}");
-                }
-                else {
-                    //SConsole.log(keys[3]);
+                    SJSon data = new SJSon();
+                    data.put("Fecha", keys[0]);
+                    data.put("Pin", keys[1]);
+                    data.put("Cardno", keys[2]);
+                    data.put("DoorID", keys[3]);
+                    data.put("EventType", keys[4]);
+                    data.put("InOutState", keys[5]);
+
+                    SJSon dataSend = new SJSon();
+                    dataSend.put("component", "dispositivo");
+                    dataSend.put("type", "onEvent");
+                    dataSend.put("estado", "cargando");
+                    dataSend.put("key_punto_venta", SConfig.get().getString("key_punto_venta"));
+                    dataSend.put("key_dispositivo", this.data.getString("key"));
+
+                    dataSend.put("data",data);
+                    SSocket.Send(dataSend.ToString());
                 }
                 Thread.Sleep(1000);
                 return number;
@@ -140,9 +161,10 @@ namespace SZKTeco
         private void onMessagge() {
             SConsole.log("Start Real Time event");
             SZKP instance = this;
-            while (h != IntPtr.Zero) {
+            while (h != IntPtr.Zero && Service1.isRun) {
               int number=  instance.getRT();
             }
+            SConsole.log("Device disconnect");
         }
 
 
@@ -322,10 +344,19 @@ namespace SZKTeco
             }
         }
 
-     
 
-
-
+        [DllImport("plcommpro.dll", EntryPoint = "GetDeviceDataCount")]
+        public static extern int GetDeviceDataCount(IntPtr h, string tablename, string filter, string options);
+        public int GetDeviceDataCount_Pull (string tablename)
+        {
+            int ret = 0;
+            string[] count = new string[20];
+            if (IntPtr.Zero != h)
+            {
+                ret = GetDeviceDataCount(h, tablename, "", "");
+            }
+            return ret;
+        }
 
         [DllImport("plcommpro.dll", EntryPoint = "DeleteDeviceData")]
         public static extern int DeleteDeviceData(IntPtr h, string tablename, string data, string options);
@@ -336,9 +367,9 @@ namespace SZKTeco
             {
                 ret = DeleteDeviceData(h, tablename, data, "");
                 if (ret >= 0)
-                    SConsole.error("The deleted operation succeed!");
+                    SConsole.log($"Data eliminada {tablename} {data}");
                 else
-                    SConsole.error("The deleted operation failed!");
+                    SConsole.log($"Data eliminada {tablename} {data}");
             }
         }
 

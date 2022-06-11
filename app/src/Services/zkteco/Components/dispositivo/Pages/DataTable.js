@@ -18,6 +18,7 @@ class DataTable extends Component {
         if (!this.dispositivo) return <SLoad />
 
         return Object.keys(Struct).map((key) => {
+            if(key == "timezone") return null;
             return <>
                 <SView width={8} />
                 <SButtom type='outline' onPress={() => {
@@ -33,13 +34,13 @@ class DataTable extends Component {
                     })
                 }}>{key}</SButtom>
                 <SView width={8} />
-                {/* <SButtom type='danger' variant='confirm' onPress={() => {
+                <SButtom type='danger' variant='confirm' onPress={() => {
                     var option = { ...Struct[key] };
                     //option.header = option.header.toString(); // Remplazo las , por \t por que asi nesecita PUL ZKTECO
                     option.header = "";
                     console.log(option);
                     Parent.Actions.deleteDataTable(this.dispositivo, option);
-                }}>Delete {key}</SButtom> */}
+                }}>Delete {key}</SButtom> 
                 {/* <SButtom type='danger' onPress={() => {
                      var option = { ...Struct[key] };
                      option.header = option.header.toString(); // Remplazo las , por \t por que asi nesecita PUL ZKTECO

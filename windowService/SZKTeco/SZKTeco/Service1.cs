@@ -18,18 +18,17 @@ namespace SZKTeco
             InitializeComponent();
         }
 
-        public static Boolean isRun = true;
+        public static bool isRun = true;
         protected override void OnStart(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
+            //Java.jar();
             Thread t1 = new Thread(new ThreadStart(this.hilo));
             isRun=true;
             t1.Start();
-       
         }
 
         public void hilo() {
-            while (isRun)
+            while (isRun) 
             {
                 SSocket.getInstance();
                 Thread.Sleep(3000);
@@ -38,6 +37,7 @@ namespace SZKTeco
         protected override void OnStop()
         {
             isRun = false;
+            SSocket.getInstance().onClose();
         }
     }
 }

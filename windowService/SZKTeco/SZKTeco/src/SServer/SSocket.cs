@@ -70,16 +70,23 @@ namespace SZKTeco
             this.stream.Write(data, 0, data.Length);
             this.stream.Flush();
         }
+        int intents = 0;
         public void onClose()
         {
 
             SConsole.warning($"Server session closed!");
-            SConsole.warning($" ");
             this.estado = false;
-
+            if (this.socket != null)
+            {   
+                this.socket.Close();
+            }
+            if (!Service1.isRun)
+            {
+                return;
+            }
             Thread.Sleep(3000);
-            SConsole.log($"Reintentando conectar con el servidor ({ip}:{port})");
             this.Connectar();
+           // INSTANCE = null;
         }
 
         public void Receive()
@@ -88,17 +95,25 @@ namespace SZKTeco
             while (this.estado == true) {
                 try
                 {
+                   // System.Diagnostics.Debugger.Launch();
                     Byte[] bytesReceived = new Byte[(int)this.socket.ReceiveBufferSize];
                     this.stream.Read(bytesReceived, 0, (int)this.socket.ReceiveBufferSize);
                     String data = Encoding.UTF8.GetString(bytesReceived);
+                    data = data.Replace("\0", string.Empty);
+
+                    if (data.Length <= 0) {
+                        this.onClose();
+                    }
                     try
                     {
                         String[] text = Regex.Split(data, @"---SSkey---");
-                        mensaje = mensaje + text[0];
+                        mensaje = mensaje + text[0];    
+
                         if (text.Length == 2)
                         {
                             SJSon obj = new SJSon(mensaje);
                             mensaje = "";
+
                             //Console.WriteLine("\nMSN_IN > ");
                             //Console.WriteLine("\t"+obj);
                             //Console.WriteLine("");
@@ -116,11 +131,18 @@ namespace SZKTeco
                         SConsole.log("[ onMessagge ] "+ mensaje);
                         SConsole.log("[ onMessagge ] " + e.ToString());
                         mensaje = "";
+                        this.estado = false;
+                        //  SConsole.error(ex.Message);
+                        this.onClose();
+                        return;
                     }
                 }
                 catch (Exception ex) {
+                    SConsole.log("[ onMessagge ] " + mensaje);
                     this.estado = false;
-                  //  SConsole.error(ex.Message);
+                    mensaje = "";
+
+                    //  SConsole.error(ex.Message);
                     this.onClose();
                     return;
                 }
