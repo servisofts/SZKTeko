@@ -199,7 +199,15 @@ public class Dispositivo {
             }
         }    
         
+
         DispositivoHistorico.registro(obj.getString("key_dispositivo"), obj.getJSONObject("data"));
+
+        JSONObject punto_venta = PuntoVenta.getByKeyDispositivo(obj.getString("key_dispositivo"));
+
+        if(punto_venta!=null){
+            obj.put("key_sucursal", punto_venta.getString("key_sucursal"));
+        }
+
 
         obj.put("noSend", true);
 

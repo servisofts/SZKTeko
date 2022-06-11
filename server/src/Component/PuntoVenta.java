@@ -173,6 +173,18 @@ public class PuntoVenta {
             e.printStackTrace();
         }
     }
+
+    public static JSONObject getByKeyDispositivo(String key_dispositivo) {
+        try {
+            String consulta = "select get_by('dispositivo','key','"+key_dispositivo+"') as json";
+            JSONObject dispositivo = SPGConect.ejecutarConsultaObject(consulta);
+            consulta = "select get_by('punto_venta','key','"+dispositivo.getString("key_punto_venta")+"') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public static JSONObject getByKey(String key) {
         try {
             String consulta = "select get_by('punto_venta','key','"+key+"') as json";
