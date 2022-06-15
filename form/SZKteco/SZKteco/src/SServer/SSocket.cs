@@ -22,7 +22,7 @@ namespace SZKTeco
             }else {
                 if (!INSTANCE.isConnect())
                 {
-                    SConsole.warning("SOCKET DESCONES");
+                    INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
                    // INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
                 }
             }
@@ -38,9 +38,11 @@ namespace SZKTeco
             }
             return INSTANCE;
         }
-        public static void Send(String msn)
+        public static bool Send(String msn)
         {
-            INSTANCE._Send(msn);
+            if (INSTANCE == null) return false;
+            return INSTANCE._Send(msn);
+            
         }
 
         private String ip;
@@ -91,11 +93,13 @@ namespace SZKTeco
    
         }
 
-        public void _Send(String msn) {
+        public bool _Send(String msn) {
             //SConsole.log("ENVIANDO MENSAJE >>>" + msn);
+            if(this.stream == null) return false;
             byte[] data = Encoding.UTF8.GetBytes(msn+"\n");
             this.stream.Write(data, 0, data.Length);
             this.stream.Flush();
+            return true;
         }
         int intents = 0;
         public void onClose()

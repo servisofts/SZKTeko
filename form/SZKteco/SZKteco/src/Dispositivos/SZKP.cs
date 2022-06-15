@@ -73,11 +73,13 @@ namespace SZKTeco
            // SConsole.log($"[SZKP] Intentando Conectar {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             int ret = 0;        // Error ID number
 
-            SJSon objSend = new SJSon();
+            SJSon objSend = new SJSon() ;
             objSend.put("component", "dispositivo");
             objSend.put("type", "conectado");
             this.data.put("isConected", false);
             objSend.put("data", this.data);
+
+
             if (IntPtr.Zero == h)
             {
                 h = Connect($"protocol=TCP,ipaddress={this.data.getString("ip")},port={this.data.getInt("puerto")},timeout=2000,passwd=");
@@ -96,17 +98,27 @@ namespace SZKTeco
                 }
             }
             objSend.put("estado", "error");
-            SSocket.Send(objSend.ToString());
             SConsole.error($"[SZKP] Conexion fallida {this.data.getString("ip")}:{this.data.getInt("puerto")}");
-            //if (!Service.isRun) return;
-            Thread tmsn = new Thread(new ThreadStart(this.reconectar));
-            tmsn.Start();
+
+            if (SSocket.Send(objSend.ToString()))
+            {
+                //if (!Service.isRun) return;
+                Thread tmsn = new Thread(new ThreadStart(this.reconectar));
+                tmsn.Start();
+            }
+            else
+            {
+                SConsole.error($"[SZKP] Se cancelo la reconneccion por que no hay conexion con el SOCKET");
+            }
+
             return;
         }
         private void reconectar()
         {
+            int timeReconnect = 10000;
+            SConsole.error($"[SZKP] Reconectando en {timeReconnect/1000} secs. {this.data.getString("ip")}:{this.data.getInt("puerto")}");
             if (Service.isRun) {
-                Thread.Sleep(5000);
+                Thread.Sleep(timeReconnect);
                 this.connectar();
             }
             

@@ -17,7 +17,13 @@ namespace SZKteco
         public void CambiarLabel(string texto)
         {
             if (InvokeRequired)
-                this.Invoke((MethodInvoker)(() => textBox1.Text += texto));
+                this.Invoke((MethodInvoker)(() => {
+                    textBox1.Focus();
+                    textBox1.Text += texto+"\r\n";
+                    textBox1.SelectionStart = textBox1.TextLength;
+                    textBox1.ScrollToCaret();
+                }
+                ));
             else
                 textBox1.Text += texto;
         }
@@ -41,7 +47,7 @@ namespace SZKteco
             this.BeginInvoke((MethodInvoker)delegate {
                 notifyIcon1.Text = "Calistenia Bolivia";
                 notifyIcon1.Visible = true;
-                this.Hide();
+                //this.Hide();
 
             });
         }
@@ -72,6 +78,17 @@ namespace SZKteco
         {
             textBox1.Height = this.Height;
             textBox1.Width = this.Width;
+        }
+
+        private void textBox1_VisibleChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Visible)
+            {
+                // textBox1.SelectionStart = textBox1.TextLength;
+                //textBox1.ScrollToCaret();
+                //textBox1.SelectionStart = textBox1.TextLength;
+                //textBox1.Focus();
+            }
         }
     }
 }
