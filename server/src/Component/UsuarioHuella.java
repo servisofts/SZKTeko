@@ -50,13 +50,8 @@ public class UsuarioHuella {
 
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select get_all('"+COMPONENT+"') as json";
+            String consulta = "select get_all_usuario_huella() as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
-            if(!data.isEmpty())
-            for (int i = 0; i < JSONObject.getNames(data).length; i++) {
-                data.getJSONObject(JSONObject.getNames(data)[i]).remove("huella");
-            }
-            
             obj.put("data", data);
             obj.put("estado", "exito");
         } catch (Exception e) {
