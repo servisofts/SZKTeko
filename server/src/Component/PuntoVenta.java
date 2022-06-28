@@ -222,7 +222,11 @@ public class PuntoVenta {
                 send.put("estado", "cargando");
                 send.put("key_punto_venta", punto_venta.getString("key"));
                 Sincronizador.dispositivos.put(punto_venta.getString("key"), new Sincronizador(obj,punto_venta.getString("key"), obj.getString("key_usuario"), sessions.get(punto_venta.getString("key"))));
-                ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
+
+                if(sessions.get(punto_venta.getString("key"))!=null)
+                    sessions.get(punto_venta.getString("key")).send(send.toString());;
+                    
+                //ServerSocketZkteco.sendServer("ServerSocketZkteco", send.toString());
             }
             obj.put("estado", "exito");
             

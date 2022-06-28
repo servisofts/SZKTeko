@@ -146,6 +146,7 @@ public class UsuarioDispositivo {
         "           )";
 
         JSONArray keys_usuarios_nuevos = SPGConect.ejecutarConsultaArray(consulta);
+        
         JSONArray nuevos = new JSONArray();
         JSONObject nuevo;
         int codigo = UsuarioDispositivo.getCodigo(key_dispositivo);
