@@ -50,6 +50,18 @@ export default class Actions {
             data: data
         })
     }
+    static getDeviceParam = (dispositivo, table = { header }) => {
+        delete dispositivo["actividad"];
+        SSocket.send({
+            component: Parent.component,
+            version: Parent.version,
+            type: "getDeviceParam",
+            estado: "cargando",
+            key_usuario: "",
+            table: table,
+            dispositivo: dispositivo
+        })
+    }
     static getDataTable = (dispositivo, table = { name, header }) => {
         delete dispositivo["actividad"];
         SSocket.send({
@@ -58,7 +70,7 @@ export default class Actions {
             type: "getDataTable",
             estado: "cargando",
             key_usuario: "",
-            table:table,
+            table: table,
             dispositivo: dispositivo
         })
     }
@@ -70,7 +82,7 @@ export default class Actions {
             type: "deleteDataTable",
             estado: "cargando",
             key_usuario: "",
-            table:table,
+            table: table,
             dispositivo: dispositivo
         })
     }
@@ -82,7 +94,7 @@ export default class Actions {
             type: "registroDataTable",
             estado: "cargando",
             key_usuario: "",
-            table:table,
+            table: table,
             dispositivo: dispositivo
         })
     }

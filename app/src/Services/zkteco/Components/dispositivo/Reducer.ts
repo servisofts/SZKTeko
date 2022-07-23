@@ -13,7 +13,7 @@ const initialState = () => {
     var initialState: any = {
         component: Parent.component,
         version: Parent.version,
-        data_usuarios:{},
+        data_usuarios: {},
     }
     return initialState;
 }
@@ -39,6 +39,7 @@ const TypesSwitch = (state: any, action: DataProps) => {
         case "copiar": return copiar(state, action);
         case "getUsuarios": return getUsuarios(state, action);
         case "getDataTable": return getDataTable(state, action);
+        case "getDeviceParam": return getDeviceParam(state, action);
 
     }
 }
@@ -79,4 +80,10 @@ const getDataTable = (state: any, action: DataProps) => {
     if (action.estado != "exito") return;
     state.table = action.table;
     state.dataTable = action.data;
+}
+const getDeviceParam = (state: any, action: DataProps) => {
+    if (action.estado != "exito") return;
+    // state.table = action.table;
+    state.deviceParam = action.data;
+    console.log(action.data);
 }

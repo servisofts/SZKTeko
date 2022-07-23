@@ -4,6 +4,7 @@ import { SDate, SIcon, SLoad, SNavigation, SPage, SPopup, STable2, SText, SView 
 import Parent from ".."
 import FloatButtom from '../../../../../Components/FloatButtom';
 import punto_venta from '../../punto_venta';
+const OpenTime = 1;
 class Lista extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,18 @@ class Lista extends Component {
         return <STable2
             header={[
                 { key: "index", label: "#", width: 50 },
+                {
+                    key: "key-test", label: "test", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => {
+                            Parent.Actions.getDeviceParam(data[item], {
+                                header: "GATEIPAddress,NetMask,DateTime,AuxOutCount,AuxInCount,ReaderCount,WatchDog,Door1ValidTZ"
+                            }, this.props);
+                        }}>
+                            <SIcon name={"Alert"} width={35} />
+                        </SView>
+                    }
+                },
                 { key: "descripcion", label: "Descripcion", width: 150 },
                 { key: "observacion", label: "observacion", width: 100 },
                 { key: "ip", label: "ip", width: 120 },
@@ -58,13 +71,13 @@ class Lista extends Component {
                         </SView>
                     }
                 },
-                 {
+                {
                     key: "key-dataTable", label: "dataTable", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
                             Parent.Actions.getUsuarios(data[item], this.props);
-                            SNavigation.navigate(Parent.component+"/dataTable",{
-                                key_dispositivo:item,
+                            SNavigation.navigate(Parent.component + "/dataTable", {
+                                key_dispositivo: item,
                             });
                         }}>
                             <SIcon name={"Ajustes"} width={35} />
@@ -82,51 +95,83 @@ class Lista extends Component {
                     }
                 },
                 {
-                    key: "key-open", label: "entrada", width: 50, center: true,
+                    key: "key-open-1", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
                             Parent.Actions.open(data[item], {
-                                operID: 1,
+                                operID: 4,
                                 doorOrAuxoutID: 1,
                                 outputAddrType: 1,
-                                doorAction: 3,
+                                doorAction: 0,
                             }, this.props);
                         }}>
-                            <SIcon name={"Salir"} width={35} />
+                            <SView >
+                                {1}
+                            </SView>
                         </SView>
                     }
                 },
                 {
-                    key: "key-open", label: "salida", width: 50, center: true,
+                    key: "key-open-1", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
                             Parent.Actions.open(data[item], {
                                 operID: 1,
                                 doorOrAuxoutID: 2,
                                 outputAddrType: 1,
-                                doorAction: 3,
+                                doorAction: OpenTime,
                             }, this.props);
                         }}>
-                            <SView style={{
-                                transform: [
-                                    { rotate: "180deg" }
-                                ]
-                            }}>
-                                <SIcon name={"Salir"} width={35} />
+                            <SView >
+                                {2}
                             </SView>
-
                         </SView>
                     }
                 },
                 {
+                    key: "key-open-1", label: "open", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => {
+                            Parent.Actions.open(data[item], {
+                                operID: 1,
+                                doorOrAuxoutID: 3,
+                                outputAddrType: 1,
+                                doorAction: OpenTime,
+                            }, this.props);
+                        }}>
+                            <SView >
+                                {3}
+                            </SView>
+                        </SView>
+                    }
+                },
+                {
+                    key: "key-open-1", label: "open", width: 50, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => {
+                            Parent.Actions.open(data[item], {
+                                operID: 1,
+                                doorOrAuxoutID: 4,
+                                outputAddrType: 1,
+                                doorAction: OpenTime,
+                            }, this.props);
+                        }}>
+                            <SView >
+                                {4}
+                            </SView>
+                        </SView>
+                    }
+                },
+
+                {
                     key: "key-ip", label: "Sync IP", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                            Parent.Actions.changeIp({...data[item], gateway:"255.255.255.255"}, this.props);
+                            Parent.Actions.changeIp({ ...data[item], gateway: "255.255.255.255" }, this.props);
                         }}>
                             <SView style={{
                             }}>
-                                <SIcon name={"Reload"} width={35} fill={"#f0f"}/>
+                                <SIcon name={"Reload"} width={35} fill={"#f0f"} />
                             </SView>
                         </SView>
                     }
