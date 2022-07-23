@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import Server.SSSAbstract.SSSessionAbstract;
 import Servisofts.SPGConect;
+import Servisofts.SUtil;
 
 public class SolicitudHuella {
     public static HashMap<String, SolicitudHuella> solicitudes = new HashMap<>();
@@ -26,6 +27,7 @@ public class SolicitudHuella {
     public JSONObject registrarHuella(String huella) throws SQLException{
         if(solicitud.has("key")){
             solicitud.put("huella", huella);
+            solicitud.put("fecha_edit",SUtil.now());
             SPGConect.editObject("usuario_huella", solicitud);
             JSONObject send = new JSONObject();
             send.put("component", "dispositivo");
@@ -45,6 +47,7 @@ public class SolicitudHuella {
         usuario_huella.put("estado", 1);
         usuario_huella.put("codigo", this.solicitud.getInt("codigo"));
         usuario_huella.put("huella", huella);
+        usuario_huella.put("fecha_edit", SUtil.now());
         usuario_huella.put("key_sucursal", this.solicitud.getString("key_sucursal"));
         SPGConect.insertArray("usuario_huella", new JSONArray().put(usuario_huella));
 

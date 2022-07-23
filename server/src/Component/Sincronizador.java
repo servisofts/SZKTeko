@@ -21,6 +21,7 @@ public class Sincronizador {
         this.key_usuario = key_usuario;
         this.session = session;
     }
+    
 
     public String sincronizar() throws SQLException, InterruptedException{
         JSONObject dispositivos = Dispositivo.getAllKey(this.key_punto_venta);
@@ -28,7 +29,7 @@ public class Sincronizador {
 
         JSONObject send = new JSONObject();
         send.put("component", "punto_venta");
-        send.put("type", "sincronizar");
+        send.put("type", "sincronizarMolinete");
         send.put("estado", "cargando");
         send.put("key_usuario", key_usuario);
 
