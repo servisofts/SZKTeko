@@ -31,6 +31,9 @@ public class Dispositivo {
             case "conectar":
                 conectar(obj, session);
                 break;
+            case "sincronizarMolinete":
+                sincronizarMolinete(obj, session);
+                break;
             case "open":
                 open(obj, session);
                 break;
@@ -52,6 +55,7 @@ public class Dispositivo {
             case "getUsuarios":
             case "getDataTable":
             case "deleteDataTable":
+            case "getDeviceParam":
             case "registroDataTable":
                 redirectZkteco(obj, session);
                 break;
@@ -78,6 +82,102 @@ public class Dispositivo {
         }
     }
 
+    public static void sincronizarMolinete(JSONObject obj, SSSessionAbstract session) {
+        try {
+        
+            //obj = dispositivos.get(obj.getString("key_dispositivo")).sendSync(obj);
+
+            JSONObject dispositivo = Dispositivo.getByKey(obj.getString("key_dispositivo"));
+
+            JSONObject send = new JSONObject();
+            send.put("component", "dispositivo");
+            send.put("type", "getUsers");
+            send.put("dispositivo", dispositivo);
+            send.put("estado", "cargando");
+            
+            UsuarioDispositivo.Sincronizar(dispositivo.getString("key"), obj.getJSONArray("data"), obj.getBoolean("delete_all"));
+
+            JSONArray users_dispositivo = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta")).sendSync(send).getJSONArray("data");
+            JSONArray users_base_datos = UsuarioDispositivo.getAllCodigos(dispositivo.getString("key"));
+
+            JSONArray eliminar = new JSONArray();
+            JSONArray encontrados = new JSONArray();
+
+            boolean encontrado;
+            for (int i = 0; i < users_dispositivo.length(); i++) {
+
+                encontrado = false;
+                for (int j = 0; j < users_base_datos.length(); j++) {
+                    if(users_base_datos.getInt(j)==users_dispositivo.getInt(i)){
+                        encontrados.put(users_base_datos.getInt(j));
+                        users_base_datos.remove(j);
+                        encontrado=true;
+                        break;
+                    }
+                }    
+                if(!encontrado){
+                    eliminar.put(users_dispositivo.get(i));
+                }
+            }
+
+            
+            JSONArray huellas_encontrados = UsuarioHuella.getAllHuellasActualizadas(dispositivo.getString("key"), encontrados.toString());
+            JSONArray huellas_nuevos = UsuarioHuella.getAllHuellas(dispositivo.getString("key"), users_base_datos.toString());
+
+            
+            send.put("component", "dispositivo");
+            send.put("type", "sincronizarMolinete");
+            send.put("data", users_base_datos);
+            send.put("dataRemove", eliminar);
+            send.put("huellas_nuevos", huellas_nuevos);
+            send.put("huellas_encontrados", huellas_encontrados);
+            send.put("estado", "cargando");
+
+            send = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta")).sendSync(send,3000000);
+
+            String key_usuarios_dispositivo = "";
+            for (int i = 0; i < huellas_encontrados.length(); i++) {
+                key_usuarios_dispositivo += "'"+huellas_encontrados.getJSONObject(i).getString("key_usuario_dispositivo")+"',";
+            }
+            for (int i = 0; i < huellas_nuevos.length(); i++) {
+                key_usuarios_dispositivo += "'"+huellas_nuevos.getJSONObject(i).getString("key_usuario_dispositivo")+"',";
+            }
+            if(key_usuarios_dispositivo.length()>0){
+                key_usuarios_dispositivo = key_usuarios_dispositivo.substring(0, key_usuarios_dispositivo.length()-1);
+            }
+
+            if(send.getString("estado").equals("exito")){
+                if(key_usuarios_dispositivo.length()>0){
+                    UsuarioDispositivo.updateFechaEdit(key_usuarios_dispositivo);
+                }
+            }
+
+            //System.out.println(usuario_huella);
+
+            //UsuarioDispositivo.Sincronizar(dispositivo.getString("key"), obj.getJSONArray("data"), obj.getBoolean("delete_all"));
+
+            obj.remove("data");
+            obj.put("estado", send.getString("estado"));
+            if(send.getString("estado").equals("error")){
+                obj.put("error", send.getString("error"));
+            }
+            obj.put("noSend", false);
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
+    public static JSONObject getByKey(String key) {
+        try {
+            String consulta = "select get_by('"+COMPONENT+"', 'key', '"+key+"') as json";
+            return SPGConect.ejecutarConsultaObject(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void registro_huella(JSONObject obj, SSSessionAbstract session) {
         try {
             String huella = obj.getString("data");
@@ -97,12 +197,14 @@ public class Dispositivo {
     }
 
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
-        ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
+        session = dispositivos.get(obj.getJSONObject("dispositivo").getString("key"));
+        session.send(obj.toString());
     }
 
     
     public static void open (JSONObject obj, SSSessionAbstract session) {
-        ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
+        session = dispositivos.get(obj.getJSONObject("dispositivo").getString("key"));
+        session.send(obj.toString());
     }
 
     public static void conectado(JSONObject obj, SSSessionAbstract session) {
@@ -211,8 +313,8 @@ public class Dispositivo {
 
         obj.put("noSend", true);
 
-        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
-        SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
+        SSSessionAbstract session = dispositivos.get(obj.getJSONObject("dispositivo").getString("key"));
+        session.send(obj.toString());
     }
     public static JSONObject getAllFingerPrint(String key_punto_venta) {
         try {

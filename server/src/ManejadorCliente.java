@@ -17,10 +17,10 @@ public class ManejadorCliente {
         componentes(data, config);
     }
 
-    public static void componentes(JSONObject data, JSONObject config) {
-        switch (data.getString("component")) {
+    public static void componentes(JSONObject obj, JSONObject config) {
+        switch (obj.getString("component")) {
             case "usuario":
-                usuario(data, config);
+                usuario(obj, config);
                 break;
         }
     }

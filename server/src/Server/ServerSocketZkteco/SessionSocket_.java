@@ -17,6 +17,8 @@ import Component.PuntoVentaHistorico;
 import Server.MensajeSocket;
 import Server.SSSAbstract.SSServerAbstract;
 import Server.SSSAbstract.SSSessionAbstract;
+import Server.SSSAbstract.SSSincSend;
+import Servisofts.SConfig;
 import Servisofts.SConsole;
 
 public class SessionSocket_ extends SSSessionAbstract {
@@ -46,6 +48,13 @@ public class SessionSocket_ extends SSSessionAbstract {
         data.put("noSend", false);
         if (servicio != null) {
             data.put("servicio", servicio);
+        }
+
+        String nombre = SConfig.getJSON().getString("nombre");
+        if(data.has("_sincrone_key_"+nombre)){
+            String sincrone_key_ = data.getString("_sincrone_key_"+nombre);
+            SSSincSend.mapa.get(sincrone_key_).onMesagge(data);
+            return;
         }
         
         if(ServerSocketZkteco.Manejador != null){

@@ -60,6 +60,28 @@ public class UsuarioHuella {
         }
     }
 
+    public static JSONArray getAllHuellasActualizadas(String key_dispositivo, String key_usuarios) {
+        try {
+            String consulta = "select get_all_huellas_actualizadas('"+key_usuarios+"', '"+key_dispositivo+"') as json";
+            return SPGConect.ejecutarConsultaArray(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONArray getAllHuellas(String key_dispositivo, String key_usuarios) {
+        try {
+            String consulta = "select get_all_huellas('"+key_usuarios+"', '"+key_dispositivo+"') as json";
+            return SPGConect.ejecutarConsultaArray(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    
+
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
@@ -72,7 +94,7 @@ public class UsuarioHuella {
     public static void conectado(JSONObject obj, SSSessionAbstract session) {
         try {
             obj.getJSONObject("data").remove("actividad");
-            SPGConect.editObject(COMPONENT, obj.getJSONObject("data"));
+            SPGConect.editObject(COMPONENT, obj.getJSONObject("data")); 
             DispositivoHistorico.registro(obj.getJSONObject("data").getString("key"), obj.getJSONObject("data"));
             ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
         } catch (Exception e) {
@@ -93,6 +115,7 @@ public class UsuarioHuella {
             return null;
         }
     }
+    
 
     public static JSONObject getAllUsuario(String key_usuario, String key_dispositivo) {
         try {
@@ -144,7 +167,12 @@ public class UsuarioHuella {
             SSServerAbstract.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
             return;
         }
-        ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
+
+        if(obj.getString("component").equals("getDataTable")){
+            PuntoVenta.sessions.get(obj.getJSONObject("data").getString("key")).sendSync(obj);
+        }else{
+            ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
+        }
     }
 
 }

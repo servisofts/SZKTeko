@@ -64,6 +64,15 @@ public class UsuarioDispositivo {
         }
     }
 
+    public static void updateFechaEdit(String keys_usuario_dspositivo_huella) {
+        try {
+            String consulta = "update usuario_dispositivo set fecha_edit = now() where key in ("+keys_usuario_dspositivo_huella+")";
+            SPGConect.ejecutarUpdate(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void conectar(JSONObject obj, SSSessionAbstract session) {
         ServerSocketZkteco.sendServer("ServerSocketZkteco", obj.toString());
     }
@@ -99,7 +108,7 @@ public class UsuarioDispositivo {
     }
     public static JSONArray getAllCodigos(String key_dispositivo) {
         try {
-            String consulta = "select get_all_codigos('"+key_dispositivo+"' ) as json";
+            String consulta = "select get_all_codigos_dispositivo('"+key_dispositivo+"' ) as json";
             return SPGConect.ejecutarConsultaArray(consulta);
         } catch (Exception e) {
             return null;
@@ -112,17 +121,16 @@ public class UsuarioDispositivo {
 
         //Desactivar vencidos
         String consulta = "";
-        if(delete_all){
-            consulta = "update usuario_dispositivo \n"+
-            "set estado = 0 \n"+
-            "where key in ( \n"+
-            "    select usuario_dispositivo.key \n"+
-            "    from usuario_dispositivo \n"+
-            "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
-            "    and not usuario_dispositivo.key_usuario = ANY(ARRAY"+usuarios+") \n"+
-            ")";
-            SPGConect.ejecutarUpdate(consulta);
-        }
+        
+        consulta = "update usuario_dispositivo \n"+
+        "set estado = 0 \n"+
+        "where key in ( \n"+
+        "    select usuario_dispositivo.key \n"+
+        "    from usuario_dispositivo \n"+
+        "    where usuario_dispositivo.key_dispositivo = '"+key_dispositivo+"' \n"+
+        ")";
+        SPGConect.ejecutarUpdate(consulta);
+    
 
         //Activar actuales
         consulta = "update usuario_dispositivo \n"+
