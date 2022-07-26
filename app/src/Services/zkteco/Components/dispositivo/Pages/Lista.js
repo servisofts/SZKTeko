@@ -85,6 +85,16 @@ class Lista extends Component {
                     }
                 },
                 {
+                    key: "key-sinclog", label: "Sinc Logs", width: 100, center: true,
+                    component: (item) => {
+                        return <SView onPress={() => {
+                            Parent.Actions.syncLog(item, this.props);
+                        }}>
+                            <SIcon name={"Box"} width={35} />
+                        </SView>
+                    }
+                },
+                {
                     key: "key-connect", label: "Connect", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
@@ -98,11 +108,11 @@ class Lista extends Component {
                     key: "key-open-1", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                            Parent.Actions.open(data[item], {
-                                operID: 4,
+                            Parent.Actions.open(item, {
+                                operID: 1,
                                 doorOrAuxoutID: 1,
                                 outputAddrType: 1,
-                                doorAction: 0,
+                                doorAction: OpenTime,
                             }, this.props);
                         }}>
                             <SView >
@@ -112,10 +122,10 @@ class Lista extends Component {
                     }
                 },
                 {
-                    key: "key-open-1", label: "open", width: 50, center: true,
+                    key: "key-open-2", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                            Parent.Actions.open(data[item], {
+                            Parent.Actions.open(item, {
                                 operID: 1,
                                 doorOrAuxoutID: 2,
                                 outputAddrType: 1,
@@ -129,10 +139,10 @@ class Lista extends Component {
                     }
                 },
                 {
-                    key: "key-open-1", label: "open", width: 50, center: true,
+                    key: "key-open-3", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                            Parent.Actions.open(data[item], {
+                            Parent.Actions.open(item, {
                                 operID: 1,
                                 doorOrAuxoutID: 3,
                                 outputAddrType: 1,
@@ -146,10 +156,10 @@ class Lista extends Component {
                     }
                 },
                 {
-                    key: "key-open-1", label: "open", width: 50, center: true,
+                    key: "key-open-4", label: "open", width: 50, center: true,
                     component: (item) => {
                         return <SView onPress={() => {
-                            Parent.Actions.open(data[item], {
+                            Parent.Actions.open(item, {
                                 operID: 1,
                                 doorOrAuxoutID: 4,
                                 outputAddrType: 1,

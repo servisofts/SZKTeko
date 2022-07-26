@@ -40,6 +40,20 @@ export default class Actions {
             data: data
         })
     }
+    static syncLog = (key_dispositivo, props) => {
+        SSocket.sendPromise({
+            component: Parent.component,
+            version: Parent.version,
+            type: "sincronizarLog",
+            estado: "cargando",
+            key_usuario: "",
+            key_dispositivo: key_dispositivo
+        }).then(resp => {
+            console.log(resp);
+        }).catch(e => {
+            console.log(e);
+        })
+    }
     static conectar = (data, props) => {
         SSocket.send({
             component: Parent.component,
@@ -120,16 +134,20 @@ export default class Actions {
             dispositivo: dispositivo,
         })
     }
-    static open = (dispositivo, parameters = { operID, doorOrAuxoutID, outputAddrType, doorAction }, props) => {
-        delete dispositivo["actividad"];
-        SSocket.send({
+    static open = (key_dispositivo, parameters = { operID, doorOrAuxoutID, outputAddrType, doorAction }, props) => {
+        // delete dispositivo["actividad"];
+        SSocket.sendPromise({
             component: Parent.component,
             version: Parent.version,
             type: "open",
             estado: "cargando",
             key_usuario: "",
-            dispositivo: dispositivo,
+            key_dispositivo: key_dispositivo,
             parameters: parameters
+        }, 5000).then(resp => {
+            console.log(resp);
+        }).catch((e) => {
+            alert(e.error)
         })
     }
     static copiar = (data, props) => {

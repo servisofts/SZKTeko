@@ -37,8 +37,8 @@ const App = (props) => {
                     pages: Pages,
                     title:"SS-ZKTeco"
                 }} />
-                <SSocket identificarse={(props) => {
-                    var usuario = props.state.usuarioReducer.usuarioLog;
+                <SSocket store={store}  identificarse={(props) => {
+                    var usuario = props.state.usuarioReducer?.usuarioLog;
                     return {
                         data: usuario ? usuario : {},
                         deviceKey: "as-asa-as",
