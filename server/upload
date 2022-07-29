@@ -1,0 +1,3 @@
+#!/bin/bash
+
+scp server.jar servisofts@192.168.0.10:/home/servisofts/servicios/zkteco/entornos/zkteco/servicios/zkteco/
