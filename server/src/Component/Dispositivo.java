@@ -23,7 +23,7 @@ public class Dispositivo {
     public static void onMessage(JSONObject obj, SSSessionAbstract session) {
         switch (obj.getString("type")) {
             case "getAll":
-                getAll(obj, session);
+                getAll(obj);
                 break;
             case "registro":
                 registro(obj, session);
@@ -35,7 +35,7 @@ public class Dispositivo {
                 sincronizarLog(obj, session);
                 break;
             case "sincronizarMolinete":
-                sincronizarMolinete(obj, session);
+                sincronizarMolinete(obj);
                 break;
             case "open":
                 open(obj, session);
@@ -104,7 +104,7 @@ public class Dispositivo {
         return isOpen;
     }
 
-    public static void getAll(JSONObject obj, SSSessionAbstract session) {
+    public static JSONObject getAll(JSONObject obj) {
         try {
             String consulta = "select get_all_dispositivo() as json";
             if(obj.has("key_punto_venta")){
@@ -118,9 +118,11 @@ public class Dispositivo {
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
+            return data;
         } catch (Exception e) {
             obj.put("estado", "error");
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -185,7 +187,7 @@ public class Dispositivo {
         return obj;
     }
 
-    public static void sincronizarMolinete(JSONObject obj, SSSessionAbstract session) {
+    public static void sincronizarMolinete(JSONObject obj) {
         try {
         
             //obj = dispositivos.get(obj.getString("key_dispositivo")).sendSync(obj);
