@@ -132,7 +132,15 @@ public class Dispositivo {
 
                 JSONObject dispositivo = Dispositivo.getByKey(data.getString("key_dispositivo"));
                 data.put("dispositivo", dispositivo);
-                JSONArray dispositivo_log = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta")).sendSync(data).getJSONArray("data");
+                JSONObject dispositivo_log_ = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta")).sendSync(data);
+
+                JSONArray dispositivo_log;
+
+                if(dispositivo_log_.getString("estado").equals("error")){
+                    return;
+                }
+
+                dispositivo_log = dispositivo_log_.getJSONArray("data");
 
                 
                 JSONObject usuarioDispositivo;
@@ -152,25 +160,22 @@ public class Dispositivo {
                 DispositivoHistorico.registroAsistencia(data.getString("key_dispositivo"), dispositivosLog);
 
                 JSONObject punto_venta = PuntoVenta.getByKeyDispositivo(data.getString("key_dispositivo"));
+                String key_sucursal = null;
                 if(punto_venta!=null){
                     data.put("key_sucursal", punto_venta.getString("key_sucursal"));
+                    key_sucursal = punto_venta.getString("key_sucursal");
                 }
                                 
-                data = Dispositivo.borrarLog(dispositivo);
-/*
-                obj.put("component", "zkteco");
-                obj.put("type", "asistencia");
-                obj.put("estado", "cargando");
-                obj.put("dispositivo_log", dispositivo_log);
-
-                obj = session.sendSync(obj);
-
-                open(obj, session);
-                System.out.println(dispositivo_log);
-*/
-            
+                Dispositivo.borrarLog(dispositivo);
+                
+                obj.put("estado", "exito");
+                obj.put("key_sucursal", key_sucursal);
+                obj.put("key_dispositivo", data.getString("key_dispositivo"));
+                obj.remove("data");
+                SSServerAbstract.getSessionByKeyServicio(punto_venta.getString("key_servicio")).send(obj.toString());;
 
         } catch (Exception e) {
+            e.printStackTrace();
             //TODO: handle exception
         }
     }
@@ -420,6 +425,26 @@ public class Dispositivo {
     }
 
     public static void onEvent(JSONObject obj){
+
+
+        obj.put("type", "sincronizarLog");
+        obj.put("estado", "cargando");
+        if(obj.has("key_dispositivo")){
+            new Thread(){
+                @Override
+                public void run() {
+                    try{
+                        Thread.sleep(1000);
+                        sincronizarLog(obj,null);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+        
+
+        obj.put("noSend", true);
         /*
         23/07/2022
         Ruddy Paz

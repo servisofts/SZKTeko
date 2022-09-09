@@ -17,6 +17,9 @@ public class DispositivoHistorico {
             case "getAll":
                 getAll(obj, session);
                 break;
+            case "getAsistenciasPendientes":
+                getAsistenciasPendientes(obj, session);
+                break;
             case "editar":
                 editar(obj, session);
                 break;
@@ -26,6 +29,18 @@ public class DispositivoHistorico {
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
             String consulta = "select get_all('" + COMPONENT + "', 'key_dispositivo', '"+obj.getString("key_dispositivo")+"') as json";
+            JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
+            obj.put("data", data);
+            obj.put("estado", "exito");
+        } catch (Exception e) {
+            obj.put("estado", "error");
+            e.printStackTrace();
+        }
+    }
+
+    public static void getAsistenciasPendientes(JSONObject obj, SSSessionAbstract session) {
+        try {
+            String consulta = "select getAsistenciasPendientes('"+obj.getString("key_sucursal")+"', '"+obj.getString("fecha_ultima_asistencia")+"') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
