@@ -18,7 +18,7 @@ class DataTable extends Component {
         if (!this.dispositivo) return <SLoad />
 
         return Object.keys(Struct).map((key) => {
-            if(key == "timezone") return null;
+            if (key == "timezone") return null;
             return <>
                 <SView width={8} />
                 <SButtom type='outline' onPress={() => {
@@ -40,7 +40,7 @@ class DataTable extends Component {
                     option.header = "";
                     console.log(option);
                     Parent.Actions.deleteDataTable(this.dispositivo, option);
-                }}>Delete {key}</SButtom> 
+                }}>Delete {key}</SButtom>
                 {/* <SButtom type='danger' onPress={() => {
                      var option = { ...Struct[key] };
                      option.header = option.header.toString(); // Remplazo las , por \t por que asi nesecita PUL ZKTECO
@@ -54,6 +54,13 @@ class DataTable extends Component {
         });
 
     }
+    formatstr(nm) {
+        var n = parseInt(nm);
+        if (n < 10) {
+            n = "0" + n;
+        }
+        return n + "";
+    }
     getTable() {
         var dataTable = this.props.state.dispositivoReducer.dataTable;
         var table = this.props.state.dispositivoReducer.table;
@@ -61,9 +68,18 @@ class DataTable extends Component {
         if (!table) return null;
         var headers = table.header.split(/\t/g,).map((key) => {
             var options = {};
+
             if (key == "Time_second") {
                 options.render = (itm) => {
-                    return new SDate(new Date(itm * 1000)).toString();
+                    var anho = itm / 32140800 + 2000;
+                    var mes = itm / 2678400 % 12 + 1
+                    var dia = itm / 86400 % 31 + 1
+                    var hora = itm / 3600 % 24
+                    var minuto = itm / 60 % 60
+                    var segundo = itm % 60
+                    // return new SDate(new Date(itm * 1000)).toString();
+                    return `${this.formatstr(anho)}/${this.formatstr(mes)}/${this.formatstr(dia)} ${this.formatstr(hora)}:${this.formatstr(minuto)}:${this.formatstr(segundo)}`
+
                 }
                 options.order = "desc";
             }
@@ -97,7 +113,7 @@ class DataTable extends Component {
                     <FloatButtom onPress={() => {
                         SPopup.open({
                             key: "registroDataTable",
-                            content: <RegistroDataTable key_table={this.state.select} dispositivo={this.dispositivo}/>
+                            content: <RegistroDataTable key_table={this.state.select} dispositivo={this.dispositivo} />
                         })
                     }} />}
             </SPage>
