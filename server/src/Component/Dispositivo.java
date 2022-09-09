@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import Servisofts.SConsole;
 import Servisofts.SPGConect;
 import Servisofts.SUtil;
 
@@ -80,14 +82,20 @@ public class Dispositivo {
 
     }
     public static boolean testConnection(JSONObject obj, SSSessionAbstract session) {
+        obj.put("noSend", true);
         boolean isOpen = false;
+        SConsole.log(obj.getString("key_dispositivo"));
         JSONObject dispositivo = Dispositivo.getByKey(obj.getString("key_dispositivo"));
         SSSessionAbstract sspunto_venta = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta"));
         if(sspunto_venta != null){
             obj.put("dispositivo", dispositivo);
 
             if(sspunto_venta.isOpen()){
-                obj = sspunto_venta.sendSync(obj);
+                JSONObject resp = sspunto_venta.sendSync(obj);
+                obj.put("estado",resp.getString("estado"));
+                if(resp.has("error")){
+                    obj.put("error",resp.getString("error"));
+                }
             }else{
                 obj.put("estado", "error");
                 obj.put("error", "Conexion cerrada con el punto de venta.");    
