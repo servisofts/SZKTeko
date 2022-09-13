@@ -40,7 +40,7 @@ public class DispositivoHistorico {
 
     public static void getAsistenciasPendientes(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select getAsistenciasPendientes('"+obj.getString("key_sucursal")+"', '"+obj.getString("fecha_ultima_asistencia")+"') as json";
+            String consulta = "select get_asistencias_pendientes('"+obj.getString("key_sucursal")+"', '"+obj.getString("fecha_ultima_asistencia")+"') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
