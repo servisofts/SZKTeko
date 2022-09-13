@@ -22,8 +22,8 @@ const SThemeProps: SThemeThemes = {
 
 const SocketProps: SSocketProps = {
     name: 'zkteco',
-    // host: '192.168.5.32',
-    host: '192.168.0.199',
+    host: '192.168.5.32',
+    // host: '192.168.0.199',
     ssl: false,
 
     port: {

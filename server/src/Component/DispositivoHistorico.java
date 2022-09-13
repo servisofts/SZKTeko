@@ -28,7 +28,8 @@ public class DispositivoHistorico {
 
     public static void getAll(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select get_all('" + COMPONENT + "', 'key_dispositivo', '"+obj.getString("key_dispositivo")+"') as json";
+            String consulta = "select get_all('" + COMPONENT + "', 'key_dispositivo', '"
+                    + obj.getString("key_dispositivo") + "') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -40,7 +41,12 @@ public class DispositivoHistorico {
 
     public static void getAsistenciasPendientes(JSONObject obj, SSSessionAbstract session) {
         try {
-            String consulta = "select getAsistenciasPendientes('"+obj.getString("key_sucursal")+"', '"+obj.getString("fecha_ultima_asistencia")+"') as json";
+            String fecha_ultima = obj.getString("fecha_min");
+            if (fecha_ultima.length() <= 0) {
+                fecha_ultima = "1970-01-01 00:00:01";
+            }
+            String consulta = "select get_asistencias_pendientes('" + obj.getString("key_sucursal") + "', '"
+                    + fecha_ultima + "') as json";
             JSONObject data = SPGConect.ejecutarConsultaObject(consulta);
             obj.put("data", data);
             obj.put("estado", "exito");
@@ -52,7 +58,7 @@ public class DispositivoHistorico {
 
     public static JSONObject getLast(String key_dispositivo) {
         try {
-            String consulta = "select get_last_dispositivo_historico('"+key_dispositivo+"') as json";
+            String consulta = "select get_last_dispositivo_historico('" + key_dispositivo + "') as json";
             return SPGConect.ejecutarConsultaObject(consulta);
         } catch (Exception e) {
             return null;
@@ -68,14 +74,14 @@ public class DispositivoHistorico {
 
             JSONObject hisorico;
             for (int i = 0; i < data.length(); i++) {
-                if(data.getJSONObject(i).has("key_usuario")){
-                    if(data.getJSONObject(i).getString("key_usuario").length()>0){
+                if (data.getJSONObject(i).has("key_usuario")) {
+                    if (data.getJSONObject(i).getString("key_usuario").length() > 0) {
                         hisorico = new JSONObject();
                         hisorico.put("key", UUID.randomUUID().toString());
                         hisorico.put("estado", 2);
                         hisorico.put("fecha_on", fecha_on);
                         hisorico.put("data", data.getJSONObject(i));
-                        if(key_dispositivo != null && key_dispositivo.length() > 0){
+                        if (key_dispositivo != null && key_dispositivo.length() > 0) {
                             hisorico.put("key_dispositivo", key_dispositivo);
                         }
                         historicos.put(hisorico);
@@ -83,9 +89,8 @@ public class DispositivoHistorico {
                 }
             }
 
-            
             SPGConect.insertArray(COMPONENT, historicos);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,20 +106,19 @@ public class DispositivoHistorico {
             hisorico.put("estado", 2);
             hisorico.put("fecha_on", fecha_on);
             data.put("fecha_on", fecha_on);
-            
+
             hisorico.put("data", data);
 
-            if(key_dispositivo != null && key_dispositivo.length() > 0){
+            if (key_dispositivo != null && key_dispositivo.length() > 0) {
                 hisorico.put("key_dispositivo", key_dispositivo);
             }
-            
+
             SPGConect.insertArray(COMPONENT, new JSONArray().put(hisorico));
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static void editar(JSONObject obj, SSSessionAbstract session) {
         try {
