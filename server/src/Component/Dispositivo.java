@@ -217,6 +217,12 @@ public class Dispositivo {
 
             JSONObject dispositivo = Dispositivo.getByKey(obj.getString("key_dispositivo"));
 
+            if(dispositivo==null){
+                obj.put("estado", "error");
+                obj.put("error", "No existe dispositivo");
+                return;
+            }
+
             JSONObject send = new JSONObject();
             send.put("component", "dispositivo");
             send.put("type", "getUsers");
