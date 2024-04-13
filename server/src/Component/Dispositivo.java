@@ -261,6 +261,9 @@ public class Dispositivo {
             JSONArray huellas_nuevos = UsuarioHuella.getAllHuellas(dispositivo.getString("key"),
                     users_base_datos.toString());
 
+            System.out.println("huellas actualizadas= "+huellas_encontrados.length());
+            System.out.println("huellas nuevas= "+huellas_nuevos.length());
+
             send.put("component", "dispositivo");
             send.put("type", "sincronizarMolinete");
             send.put("data", users_base_datos);
@@ -268,7 +271,7 @@ public class Dispositivo {
             send.put("huellas_nuevos", huellas_nuevos);
             send.put("huellas_encontrados", huellas_encontrados);
             send.put("estado", "cargando");
-
+            
             send = PuntoVenta.sessions.get(dispositivo.getString("key_punto_venta")).sendSync(send, 3000000);
 
             String key_usuarios_dispositivo = "";

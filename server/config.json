@@ -3,7 +3,7 @@
     "socket_client": {
         "servicio": {
             "puerto": 10001,
-            "ip": "192.168.6.1",
+            "ip": "192.168.5.1",
             "cert": {
                 "OU": "servicio",
                 "pem": "servicio.pem"
@@ -17,7 +17,7 @@
     "data_base": {
         "puerto": 5432,
         "pass": "postgres",
-        "ip": "192.168.6.32",
+        "ip": "192.168.5.32",
         "bd_name": "servisofts.zkteco",
         "user": "postgres"
     },
