@@ -35,11 +35,17 @@ class DataTable extends Component {
                 }}>{key}</SButtom>
                 <SView width={8} />
                 <SButtom type='danger' variant='confirm' onPress={() => {
-                    var option = { ...Struct[key] };
-                    //option.header = option.header.toString(); // Remplazo las , por \t por que asi nesecita PUL ZKTECO
-                    option.header = "";
-                    console.log(option);
-                    Parent.Actions.deleteDataTable(this.dispositivo, option);
+                    SPopup.confirm({
+                        title:"Seguro?",
+                        onPress:()=>{
+                            var option = { ...Struct[key] };
+                            //option.header = option.header.toString(); // Remplazo las , por \t por que asi nesecita PUL ZKTECO
+                            option.header = "";
+                            console.log(option);
+                            Parent.Actions.deleteDataTable(this.dispositivo, option);
+                        }
+                    })
+                
                 }}>Delete {key}</SButtom>
                 {/* <SButtom type='danger' onPress={() => {
                      var option = { ...Struct[key] };
