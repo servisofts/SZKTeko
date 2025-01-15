@@ -418,5 +418,44 @@ namespace SZKTeco
             this.CZKE.GetLastError(ref error);
             Console.WriteLine($"Error Code={error}");
         }
+
+        public JArray GetUsersPin()
+        {
+            int BUFFERSIZE = 1048576;
+            byte[] buffer = new byte[BUFFERSIZE];
+            string str = "Pin";
+            if (!(IntPtr.Zero != this.h))
+            {
+                this.log("Connect device failed!");
+                return null;
+            }
+            int ret = SZKP.GetDeviceData(this.h, ref buffer[0], BUFFERSIZE, "user", str, "", "");
+            str = Encoding.Default.GetString(buffer);
+            str = str.Replace("\0", string.Empty);
+            JArray lista = new JArray();
+            if (ret >= 0)
+            {
+                string[] array = Regex.Split(str, "\r\n");
+                int i = 0;
+                foreach (string v in array)
+                {
+                    if (i == 0)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        if (v.Length > 0)
+                        {
+                            lista.Add(int.Parse(v));
+                        }
+                        i++;
+                    }
+                }
+                return lista;
+            }
+            this.log("Get data failed.The error is " + ret.ToString());
+            return null;
+        }
     }
 }

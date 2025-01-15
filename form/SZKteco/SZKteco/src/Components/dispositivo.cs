@@ -123,19 +123,7 @@ namespace SZKTeco
             //SSocket.Send(obj.ToString());
             obj.put("noSend", false);
         }
-        private static void getUsers(SJSon obj, SSocket session)
-		{
-			obj.put("noSend", false);
-			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-			if (szkp == null)
-			{
-				obj.put("estado", "error");
-				return;
-			}
-			JArray lista = szkp.GetUsersPin();
-			obj.put("estado", "exito");
-			obj.put("data", lista);
-		}
+      
 
         private static void getDeviceParam(SJSon obj, SSocket session)
 		{
@@ -187,20 +175,7 @@ namespace SZKTeco
 			obj.put("data", lista);
 		}
         // Token: 0x06000009 RID: 9 RVA: 0x000025A0 File Offset: 0x000007A0
-		private static void getDeviceParam(SJSon obj, SSocket session)
-		{
-			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-			if (szkp == null)
-			{
-				return;
-			}
-			string vari = szkp.geDeviceParam(obj.getSJSonObject("table").getString("header"));
-			SConsole.log(vari);
-			SConsole.log(obj.getSJSonObject("table").ToString());
-			obj.put("estado", "exito");
-			obj.put("data", vari);
-			obj.put("noSend", false);
-		}
+		
 
         private static void limpiarLog(SJSon obj, SSocket session)
 		{
