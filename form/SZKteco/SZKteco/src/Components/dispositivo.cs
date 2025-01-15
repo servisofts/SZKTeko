@@ -15,36 +15,252 @@ namespace SZKTeco
         {
            switch (obj.getString("type"))
            {
-               case "getAll":
+               case "getAll": // ok 1
                     getAll(obj, session);
                    break;
-                case "conectar":
+                case "conectar": // ok 1
                     conectar(obj, session);
                     break;
-                case "open":
+                case "open": // ok 1
                     open(obj, session);
                     break;
-                case "getUsuarios":
+                case "getUsuarios": // ok 1
                     getUsuarios(obj, session);
                     break;
-                case "changeIp":
+                case "changeIp": // ok 1
                     changeIp(obj, session);
                     break;
-                case "getDataTable":
+                case "getDataTable": // ok 1
                     getDataTable(obj, session);
                     break;
-                case "deleteDataTable":
+                case "deleteDataTable": // ok 1
                     deleteDataTable(obj, session);
                     break;
-                case "registroDataTable":
+                case "registroDataTable": // ok 1
                     registroDataTable(obj, session);
                     break;
-
-                case "sincronizarMolinete":
+                case "sincronizarMolinete": // ok 1
                     registroDataTable(obj, session);
+                    break;
+                case "getUsers": 
+                    getUsers(obj, session);
+                    break;
+                case "getDeviceParam":  
+                    getDeviceParam(obj, session);
+                    break;
+                case "limpiarLog": 
+                    limpiarLog(obj, session);
+                    break;
+                case "testConnection": 
+                    testConnection(obj, session);
+                    break;
+                case "sincronizarLog":
+                    sincronizarLog(obj, session);
                     break;
             }
         }
+
+        
+        private static void getAll(SJSon obj, SSocket session){
+
+            if (obj.getString("estado") == "exito")
+            {
+                SJSon data = obj.getSJSonObject("data");
+              //  State.dispositivo.put("data", data);
+                SConsole.log("Todos los dispositivos");
+                foreach (string key in data.keys())
+                {
+                    Dispositivos.create_SZKP(data.getSJSonObject(key)).connectar();
+                }
+            }
+
+        }
+        private static void conectar(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("data"));
+            if (szkp == null) return;
+            szkp.connectar();
+        }
+
+        private static void open(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            SJSon param = obj.getSJSonObject("parameters");
+              szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"), obj.getString("key_usuario"));
+            obj.put("noSend", true);
+        }
+        
+        private static void changeIp(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            szkp.ModifIP(obj.getSJSonObject("dispositivo").getString("ip"),obj.getSJSonObject("dispositivo").getString("mac"), obj.getSJSonObject("dispositivo").getString("gateway"));
+        }
+        private static void getUsuarios(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            JArray lista = szkp.GetDeviceData_Pull("user", "CardNo\tPin\tPassword\tGroup\tStartTime\tEndTime");
+            obj.put("estado", "exito");
+            obj.put("data", lista);
+            SSocket.Send(obj.ToString());
+        }
+        private static void getDataTable(SJSon obj, SSocket session)
+        {
+           // System.Diagnostics.Debugger.Launch();
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            JArray lista = szkp.GetDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
+            //SConsole.log(lista.ToString());
+            SConsole.log(obj.getSJSonObject("table").ToString());
+            obj.put("estado", "exito");
+            obj.put("data", lista);
+            //SSocket.Send(obj.ToString());
+            obj.put("noSend", false);
+        }
+        private static void getUsers(SJSon obj, SSocket session)
+		{
+			obj.put("noSend", false);
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				obj.put("estado", "error");
+				return;
+			}
+			JArray lista = szkp.GetUsersPin();
+			obj.put("estado", "exito");
+			obj.put("data", lista);
+		}
+
+        private static void getDeviceParam(SJSon obj, SSocket session)
+		{
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				return;
+			}
+			string vari = szkp.geDeviceParam(obj.getSJSonObject("table").getString("header"));
+			SConsole.log(vari);
+			SConsole.log(obj.getSJSonObject("table").ToString());
+			obj.put("estado", "exito");
+			obj.put("data", vari);
+			obj.put("noSend", false);
+		}
+        
+        private static void deleteDataTable(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            szkp.DeleteDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
+           // SConsole.log("delete data table");
+            obj.put("estado", "exito");
+            SSocket.Send(obj.ToString());
+        }
+        private static void registroDataTable(SJSon obj, SSocket session)
+        {
+            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+            if (szkp == null) return;
+
+            szkp.SetDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
+            SConsole.log("insert data table");
+            obj.put("estado", "exito");
+            SSocket.Send(obj.ToString());
+        }
+
+        private static void getUsers(SJSon obj, SSocket session)
+		{
+			obj.put("noSend", false);
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				obj.put("estado", "error");
+				return;
+			}
+			JArray lista = szkp.GetUsersPin();
+			obj.put("estado", "exito");
+			obj.put("data", lista);
+		}
+        // Token: 0x06000009 RID: 9 RVA: 0x000025A0 File Offset: 0x000007A0
+		private static void getDeviceParam(SJSon obj, SSocket session)
+		{
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				return;
+			}
+			string vari = szkp.geDeviceParam(obj.getSJSonObject("table").getString("header"));
+			SConsole.log(vari);
+			SConsole.log(obj.getSJSonObject("table").ToString());
+			obj.put("estado", "exito");
+			obj.put("data", vari);
+			obj.put("noSend", false);
+		}
+
+        private static void limpiarLog(SJSon obj, SSocket session)
+		{
+			obj.put("noSend", false);
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				obj.put("estado", "error");
+				obj.put("error", "no conect to device");
+				return;
+			}
+			if (!szkp.isConnect())
+			{
+				obj.put("estado", "error");
+				obj.put("error", "no conect to device");
+				return;
+			}
+			szkp.DeleteDeviceData_Pull("transaction", "");
+			obj.put("estado", "exito");
+		}
+        
+        private static void testConnection(SJSon obj, SSocket session)
+		{
+			obj.put("noSend", false);
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				obj.put("estado", "error");
+				obj.put("error", "no conect to device szkp is null");
+				return;
+			}
+			if (!szkp.isConnect())
+			{
+				obj.put("estado", "error");
+				obj.put("error", "no conect to device skzp.isConnect is false");
+				return;
+			}
+			obj.put("estado", "exito");
+		}
+
+        private static void sincronizarLog(SJSon obj, SSocket session)
+		{
+			obj.put("noSend", false);
+			SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
+			if (szkp == null)
+			{
+				obj.put("estado", "error");
+				obj.put("error", "no conect to device");
+				return;
+			}
+			if (szkp.isConnect())
+			{
+				JArray lista = szkp.GetDeviceData_Pull("transaction", "Pin\tCardno\tVerified\tDoorID\tEventType\tInOutState\tTime_second");
+				obj.put("data", lista);
+				obj.put("estado", "exito");
+				return;
+			}
+			obj.put("estado", "error");
+			obj.put("error", "no conect to device");
+		}
 
         private static void sincronizarMolinete(SJSon obj, SSocket session)
         {
@@ -135,87 +351,5 @@ namespace SZKTeco
             obj.put("huellas_encontrados", "");
         }
 
-        private static void getAll(SJSon obj, SSocket session){
-
-            if (obj.getString("estado") == "exito")
-            {
-                SJSon data = obj.getSJSonObject("data");
-              //  State.dispositivo.put("data", data);
-                SConsole.log("Todos los dispositivos");
-                foreach (string key in data.keys())
-                {
-                    Dispositivos.create_SZKP(data.getSJSonObject(key)).connectar();
-                }
-            }
-
-        }
-        private static void conectar(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("data"));
-            if (szkp == null) return;
-            szkp.connectar();
-        }
-
-        private static void open(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            SJSon param = obj.getSJSonObject("parameters");
-              szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"), obj.getString("key_usuario"));
-            obj.put("noSend", true);
-        }
-        
-        private static void changeIp(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            szkp.ModifIP(obj.getSJSonObject("dispositivo").getString("ip"),obj.getSJSonObject("dispositivo").getString("mac"), obj.getSJSonObject("dispositivo").getString("gateway"));
-        }
-        private static void getUsuarios(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            JArray lista = szkp.GetDeviceData_Pull("user", "CardNo\tPin\tPassword\tGroup\tStartTime\tEndTime");
-            obj.put("estado", "exito");
-            obj.put("data", lista);
-            SSocket.Send(obj.ToString());
-        }
-        private static void getDataTable(SJSon obj, SSocket session)
-        {
-           // System.Diagnostics.Debugger.Launch();
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            JArray lista = szkp.GetDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
-            //SConsole.log(lista.ToString());
-            SConsole.log(obj.getSJSonObject("table").ToString());
-            obj.put("estado", "exito");
-            obj.put("data", lista);
-            //SSocket.Send(obj.ToString());
-            obj.put("noSend", false);
-        } 
-        private static void deleteDataTable(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            szkp.DeleteDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
-           // SConsole.log("delete data table");
-            obj.put("estado", "exito");
-            SSocket.Send(obj.ToString());
-        }
-        private static void registroDataTable(SJSon obj, SSocket session)
-        {
-            SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null) return;
-
-            szkp.SetDeviceData_Pull(obj.getSJSonObject("table").getString("name"), obj.getSJSonObject("table").getString("header"));
-            SConsole.log("insert data table");
-            obj.put("estado", "exito");
-            SSocket.Send(obj.ToString());
-        }
     }
 }
