@@ -221,7 +221,17 @@ namespace SZKTeco
 
         }
 
-
+        // Token: 0x0600003E RID: 62 RVA: 0x00003D38 File Offset: 0x00001F38
+        public string geDeviceParam(string param)
+        {
+            int BUFFERSIZE = 2048;
+            byte[] buffer = new byte[BUFFERSIZE];
+            SZKP.GetDeviceParam(this.h, ref buffer[0], BUFFERSIZE, param);
+            string text = Encoding.Default.GetString(buffer).Replace("\0", string.Empty);
+            SConsole.log(text);
+            return text.Replace(param + "=", string.Empty);
+        }
+        
         [DllImport("plcommpro.dll", EntryPoint = "SetDeviceParam")]
         public static extern int SetDeviceParam(IntPtr h, string itemvalues);
         public void SetDeviceParam_Pull(String ip)

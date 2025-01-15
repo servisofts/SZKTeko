@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\sfingerprint\\sfingerprint\\src\\sfp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|solutionrelative:sfingerprint\\src\\sfp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\sfingerprint\\sfingerprint\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|solutionrelative:sfingerprint\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\sfingerprint\\sfingerprint\\src\\bitmapformat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B90997DB-929C-46E8-9D52-7B93A9A32860}|SFingerPrint\\SFingerPrint.csproj|solutionrelative:sfingerprint\\src\\bitmapformat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\Program.cs",
+              "RelativeDocumentMoniker": "SFingerPrint\\Program.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\Program.cs",
+              "RelativeToolTip": "SFingerPrint\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T21:37:55.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SFP.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\src\\SFP.cs",
+              "RelativeDocumentMoniker": "SFingerPrint\\src\\SFP.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\src\\SFP.cs",
+              "RelativeToolTip": "SFingerPrint\\src\\SFP.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAgwDoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T21:37:55.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BitmapFormat.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\src\\BitmapFormat.cs",
+              "RelativeDocumentMoniker": "SFingerPrint\\src\\BitmapFormat.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\SFingerPrint\\SFingerPrint\\src\\BitmapFormat.cs",
+              "RelativeToolTip": "SFingerPrint\\src\\BitmapFormat.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T21:37:55.436Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

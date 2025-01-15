@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SFingerPrint")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+265ca0c86bbb9e8a55adb5069896b450f53a41ed")]
 [assembly: System.Reflection.AssemblyProductAttribute("SFingerPrint")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SFingerPrint")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

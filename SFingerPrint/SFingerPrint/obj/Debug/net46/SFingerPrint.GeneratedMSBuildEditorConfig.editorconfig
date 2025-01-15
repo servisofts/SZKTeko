@@ -1,3 +1,8 @@
 is_global = true
 build_property.RootNamespace = SFingerPrint
-build_property.ProjectDir = C:\Users\ricky\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\
+build_property.ProjectDir = C:\Users\Alvaro\Documents\GitHub\SZKTeko\SFingerPrint\SFingerPrint\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
