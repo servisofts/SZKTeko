@@ -13,13 +13,24 @@ namespace SZKteco
     public partial class Form1 : Form
     {
         public static Form1 INSTANCE;
-
+        const int MaxCharacters = 5000;
         public void CambiarLabel(string texto)
         {
             if (InvokeRequired)
                 this.Invoke((MethodInvoker)(() => {
-                    textBox1.Focus();
-                    textBox1.Text += texto+"\r\n";
+                    //textBox1.Focus();
+                    // Si el texto actual más el nuevo supera el límite
+                    if (textBox1.TextLength + texto.Length > MaxCharacters)
+                    {
+                        // Calcula cuántos caracteres antiguos eliminar
+                        int extraCharacters = (textBox1.TextLength + texto.Length) - MaxCharacters;
+
+                        // Recorta los caracteres más antiguos
+                        textBox1.Text = textBox1.Text.Substring(extraCharacters);
+                    }
+
+                    // Agrega el nuevo texto y ajusta la vista
+                    textBox1.Text += texto + "\r\n";
                     textBox1.SelectionStart = textBox1.TextLength;
                     textBox1.ScrollToCaret();
                 }
@@ -47,6 +58,9 @@ namespace SZKteco
             this.BeginInvoke((MethodInvoker)delegate {
                 notifyIcon1.Text = "Calistenia Bolivia";
                 notifyIcon1.Visible = true;
+                textBox1.Height = this.Height -28;
+                textBox1.Width = this.Width-20;
+             
                 //this.Hide();
 
             });
@@ -76,8 +90,8 @@ namespace SZKteco
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            textBox1.Height = this.Height;
-            textBox1.Width = this.Width;
+            textBox1.Height = this.Height - 28;
+            textBox1.Width = this.Width - 20;
         }
 
         private void textBox1_VisibleChanged(object sender, EventArgs e)

@@ -40,7 +40,7 @@ namespace SZKTeco
                     registroDataTable(obj, session);
                     break;
                 case "sincronizarMolinete": // ok 1
-                    registroDataTable(obj, session);
+                    sincronizarMolinete(obj, session);
                     break;
                 case "getUsers": 
                     getUsers(obj, session);
@@ -260,6 +260,8 @@ namespace SZKTeco
             JArray usuarios_remove = obj.getArray("dataRemove");
             JArray huellas_nuevos = obj.getArray("huellas_nuevos");
             JArray huellas_encontrados = obj.getArray("huellas_encontrados");
+            JArray huellas_eliminadas = obj.getArray("huellas_eliminadas");
+
             string user_to_remove = "";
             for (int i = 0; i < usuarios_remove.Count; i++)
             {
@@ -273,6 +275,26 @@ namespace SZKTeco
                 szkp.DeleteDeviceData_Pull("templatev10", user_to_remove);
                 SConsole.log("Se eliminaron " + usuarios_remove.Count.ToString() + " users");
             }
+
+            string huellas_to_remove = "";
+            for(int i = 0; i< huellas_eliminadas.Count; i++)
+            {
+                JObject jobject = (JObject)huellas_eliminadas[i];
+                int Pin = (int)jobject.GetValue("pin");
+                int id_huella = (int)jobject.GetValue("codigo");
+                huellas_to_remove += string.Format("Pin={0}\tFingerID={1}\r\n", new object[]
+                {
+                    Pin,
+                    id_huella,
+                });
+            }
+         
+            if (huellas_eliminadas.Count > 0)
+            {
+                szkp.DeleteDeviceData_Pull("templatev10", huellas_to_remove);
+            }
+
+
             string user_to_insert = "";
             string userauthorize_to_insert = "";
             for (int j = 0; j < usuarios.Count; j++)
@@ -313,12 +335,15 @@ namespace SZKTeco
                     huella_str.Length
                 });
             }
+
+
             szkp.SetDeviceData_Pull("user", user_to_insert, "");
             szkp.SetDeviceData_Pull("userauthorize", userauthorize_to_insert, "");
             szkp.SetDeviceData_Pull("templatev10", templatev10_to_insert, "");
             SConsole.log("Se agregaron " + usuarios.Count.ToString() + " users");
             SConsole.log("Se agregaron " + huellas_nuevos.Count.ToString() + " huellas");
             SConsole.log("Se actualizaron " + huellas_encontrados.Count.ToString() + " huellas");
+            SConsole.log("Se eliminaron " + huellas_eliminadas.Count.ToString() + " huellas");
             obj.put("estado", "exito");
             obj.put("data", "");
             obj.put("dataRemove", "");

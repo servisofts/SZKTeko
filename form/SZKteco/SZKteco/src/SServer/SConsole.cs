@@ -19,7 +19,7 @@ namespace SZKTeco
                 //sw.Close();
                 if (Form1.INSTANCE!=null)
                 {
-                    Form1.INSTANCE.CambiarLabel(msn+"\r\n");
+                    Form1.INSTANCE.CambiarLabel(msn);
                 }
                // Console.WriteLine(msn);
             }

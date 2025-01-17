@@ -128,18 +128,26 @@ namespace SZKTeco
             tmsn.Start();
         }
 
-        [DllImport("plcommpro.dll", EntryPoint = "GetRTLog")]
-        public static extern int GetRTLog(IntPtr h,ref byte buffer, int bufferSize, string itemvalues);
+        [DllImport("plcommpro.dll", EntryPoint = "GetRTLog", CallingConvention = CallingConvention.StdCall)]
+        public static extern int GetRTLog(IntPtr h,IntPtr buffer, int bufferSize, string itemvalues);
 
 
         private int getRT()
         {
+            const int BUFFERSIZE = 256;
+            IntPtr buffer = Marshal.AllocHGlobal(BUFFERSIZE);
+
             try
             {
-                int BUFFERSIZE= 256;
-                byte[] buffer = new byte[BUFFERSIZE];
-                int number = GetRTLog(h, ref buffer[0], BUFFERSIZE,"");
-                string str = Encoding.Default.GetString(buffer);
+                int number = GetRTLog(h, buffer, BUFFERSIZE,"");
+                if (number >= 0)
+                {
+                    // Convierte el contenido del buffer de IntPtr a byte[].
+                    byte[] managedBuffer = new byte[BUFFERSIZE];
+                    Marshal.Copy(buffer, managedBuffer, 0, BUFFERSIZE);
+
+                    // Procesa el contenido del buffer aquí...
+                string str = Encoding.Default.GetString(managedBuffer);
                 str = str.Replace("\0", string.Empty);
                // SConsole.log($"Ocurrio un evento {number} :: {str}");
                 string[] keys = Regex.Split(str, ",");
@@ -169,6 +177,8 @@ namespace SZKTeco
                     dataSend.put("data",data);
                     SSocket.Send(dataSend.ToString());
                 }
+                }
+
                 Thread.Sleep(1000);
                 return number;
 
