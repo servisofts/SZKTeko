@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace SZKTeco
     internal class dispositivo
     {
         public const string COMPONENT = "dispositivo";
+        private static readonly HttpClient Client = new HttpClient();
 
         public static void onMessage(SJSon obj, SSocket session)
         {
@@ -42,16 +44,16 @@ namespace SZKTeco
                 case "sincronizarMolinete": // ok 1
                     sincronizarMolinete(obj, session);
                     break;
-                case "getUsers": 
+                case "getUsers":
                     getUsers(obj, session);
                     break;
-                case "getDeviceParam":  
+                case "getDeviceParam":
                     getDeviceParam(obj, session);
                     break;
-                case "limpiarLog": 
+                case "limpiarLog":
                     limpiarLog(obj, session);
                     break;
-                case "testConnection": 
+                case "testConnection":
                     testConnection(obj, session);
                     break;
                 case "sincronizarLog":
@@ -60,7 +62,7 @@ namespace SZKTeco
             }
         }
 
-        
+
         private static void getAll(SJSon obj, SSocket session){
 
             if (obj.getString("estado") == "exito")
@@ -91,7 +93,7 @@ namespace SZKTeco
               szkp.ControlDevice_Pull(param.getInt("operID"), param.getInt("doorOrAuxoutID"), param.getInt("outputAddrType"), param.getInt("doorAction"), obj.getString("key_usuario"));
             obj.put("noSend", true);
         }
-        
+
         private static void changeIp(SJSon obj, SSocket session)
         {
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
@@ -123,7 +125,7 @@ namespace SZKTeco
             //SSocket.Send(obj.ToString());
             obj.put("noSend", false);
         }
-      
+
 
         private static void getDeviceParam(SJSon obj, SSocket session)
 		{
@@ -139,7 +141,7 @@ namespace SZKTeco
 			obj.put("data", vari);
 			obj.put("noSend", false);
 		}
-        
+
         private static void deleteDataTable(SJSon obj, SSocket session)
         {
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
@@ -175,7 +177,7 @@ namespace SZKTeco
 			obj.put("data", lista);
 		}
         // Token: 0x06000009 RID: 9 RVA: 0x000025A0 File Offset: 0x000007A0
-		
+
 
         private static void limpiarLog(SJSon obj, SSocket session)
 		{
@@ -196,7 +198,7 @@ namespace SZKTeco
 			szkp.DeleteDeviceData_Pull("transaction", "");
 			obj.put("estado", "exito");
 		}
-        
+
         private static void testConnection(SJSon obj, SSocket session)
 		{
 			obj.put("noSend", false);
@@ -215,6 +217,23 @@ namespace SZKTeco
 			}
 			obj.put("estado", "exito");
 		}
+        public static void SendDiscordMessage(string webhookUrl, string message)
+        {
+            var jsonPayload = $"{{\"content\": \"{message}\"}}"; // Cuerpo del mensaje en formato JSON
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Hacer la solicitud POST de forma sincrónica
+                var response = Client.PostAsync(webhookUrl, content).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode(); // Asegurar que la respuesta sea correcta (código 2xx)
+                Console.WriteLine($"Mensaje enviado, código de respuesta: {response.StatusCode}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar el mensaje: {ex.Message}");
+            }
+        }
 
         private static void sincronizarLog(SJSon obj, SSocket session)
 		{
@@ -240,6 +259,8 @@ namespace SZKTeco
         private static void sincronizarMolinete(SJSon obj, SSocket session)
         {
             obj.put("noSend", false);
+            string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
+
             SConsole.log("Iniciando sincronizacion");
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
             if (szkp == null)
@@ -288,7 +309,7 @@ namespace SZKTeco
                     id_huella,
                 });
             }
-         
+
             if (huellas_eliminadas.Count > 0)
             {
                 szkp.DeleteDeviceData_Pull("templatev10", huellas_to_remove);
@@ -335,15 +356,37 @@ namespace SZKTeco
                     huella_str.Length
                 });
             }
+           // string message1 =  ("Usuarios Nuevos" + usuarios.Count.ToString() + " users");
+//            string message2 = ("Se registraron " + huellas_nuevos.Count.ToString() + " huellas" { huellas_nuevos.Count.ToString()>0 ? "✔":"❌❌" });
+            //string message2 = $"Se registraron {huellas_nuevos.Count} huellas {(huellas_nuevos.Count > 0 ? "✔" : "❌❌")}";
+            //string message3 = ("Se actualizaron " + huellas_encontrados.Count.ToString() + " huellas");
+            //string message4 = ("Se eliminaron " + huellas_eliminadas.Count.ToString() + " huellas");
+
+            /*string message1 = $"Usuarios Nuevos {usuarios.Count} users {(usuarios.Count > 0 ? "✔" : "❌ ✅")}";
+            string message2 = $"Se registraron {huellas_nuevos.Count} huellas {(huellas_nuevos.Count > 0 ? "✔" : "❌")}";
+            string message3 = $"Se actualizaron {huellas_encontrados.Count} huellas {(huellas_encontrados.Count > 0 ? "✔" : "❌❌")}";
+            string message4 = $"Se eliminaron {huellas_eliminadas.Count} huellas {(huellas_eliminadas.Count > 0 ? "✔" : "❌❌")}";
+            */
+
+            string message1 = $"{(usuarios.Count > 0 ? "[✅]" : "[✅❌]")} Usuarios Nuevos {usuarios.Count} users";
+            string message2 = $"{(huellas_nuevos.Count > 0 ? "[✅]" : "[❌]")} Se registraron {huellas_nuevos.Count} huellas";
+            string message3 = $"{(huellas_encontrados.Count > 0 ? "[✅]" : "[❌]")} Se actualizaron {huellas_encontrados.Count} huellas";
+            string message4 = $"{(huellas_eliminadas.Count > 0 ? "[✅]" : "[❌]")} Se eliminaron {huellas_eliminadas.Count} huellas";
 
 
-            szkp.SetDeviceData_Pull("user", user_to_insert, "");
-            szkp.SetDeviceData_Pull("userauthorize", userauthorize_to_insert, "");
             szkp.SetDeviceData_Pull("templatev10", templatev10_to_insert, "");
-            SConsole.log("Se agregaron " + usuarios.Count.ToString() + " users");
-            SConsole.log("Se agregaron " + huellas_nuevos.Count.ToString() + " huellas");
-            SConsole.log("Se actualizaron " + huellas_encontrados.Count.ToString() + " huellas");
-            SConsole.log("Se eliminaron " + huellas_eliminadas.Count.ToString() + " huellas");
+
+ 
+            SConsole.error(message1);
+            SConsole.warning(message2);
+            SConsole.log(message3);
+            SConsole.error(message4);
+
+            SendDiscordMessage(webhookUrl, message1);
+            SendDiscordMessage(webhookUrl, message2);
+            SendDiscordMessage(webhookUrl, message3);
+            SendDiscordMessage(webhookUrl, message4);
+
             obj.put("estado", "exito");
             obj.put("data", "");
             obj.put("dataRemove", "");

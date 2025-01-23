@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SZKteco
 {
@@ -14,8 +15,57 @@ namespace SZKteco
     {
         public static Form1 INSTANCE;
         const int MaxCharacters = 5000;
-        public void CambiarLabel(string texto)
+
+        public void CambiarLabel(string texto, string colorText)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)(() => CambiarLabel(texto, colorText)));
+                return;
+            }
+
+            // Convierte el color proporcionado a un objeto de tipo Color
+            Color color;
+            try
+            {
+                color = Color.FromName(colorText);
+            }
+            catch
+            {
+                color = Color.Black; // Color predeterminado si el nombre es inválido
+            }
+
+            // Si el texto actual más el nuevo supera el límite
+            if (textBox1.TextLength + texto.Length > MaxCharacters)
+            {
+                int extraCharacters = (textBox1.TextLength + texto.Length) - MaxCharacters;
+                textBox1.Text = textBox1.Text.Substring(extraCharacters); // Recorta los caracteres antiguos
+            }
+
+            // Establece el color para el texto nuevo
+            textBox1.SelectionStart = textBox1.TextLength;
+            textBox1.SelectionLength = 0; // Sin seleccionar texto previo
+            textBox1.ForeColor = Color.FromName(colorText);
+
+            // Agrega el texto y el salto de línea
+            textBox1.AppendText(texto + "\r\n");
+
+            // Restablece el color predeterminado para futuros textos
+            textBox1.ForeColor = Color.White;
+
+
+            // Asegura que el caret esté visible al final
+            textBox1.SelectionStart = textBox1.TextLength;
+            textBox1.ScrollToCaret();
+        }
+
+
+        public void CambiarLabeliii(string texto, string colorText)
+        {
+
+           // this.textBox1.ForeColor = Color.FromName(colorText);
+          //  this.textBox1.ForeColor = Color.Pink;
+
             if (InvokeRequired)
                 this.Invoke((MethodInvoker)(() => {
                     //textBox1.Focus();

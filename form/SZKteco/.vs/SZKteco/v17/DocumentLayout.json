@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\sserver\\sconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\sserver\\sconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +19,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\Form1.cs",
-              "RelativeDocumentMoniker": "SZKteco\\Form1.cs",
-              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\Form1.cs",
-              "RelativeToolTip": "SZKteco\\Form1.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAswFQAAAAgAAAAAAAAAA==",
+              "Title": "SConsole.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SConsole.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\SServer\\SConsole.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SConsole.cs",
+              "RelativeToolTip": "SZKteco\\src\\SServer\\SConsole.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAUwDEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T10:31:00.758Z",
+              "WhenOpened": "2025-01-23T22:33:56.612Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\Form1.cs",
-              "RelativeDocumentMoniker": "SZKteco\\Form1.cs",
-              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\Form1.cs [Dise\u00F1o]",
-              "RelativeToolTip": "SZKteco\\Form1.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T10:28:35.39Z",
-              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }

@@ -9,10 +9,12 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using SZKteco;
+using System.Net.Http;
 
 namespace SZKTeco
 {
     internal class SZKP{
+        private static readonly HttpClient Client = new HttpClient();
 
 
         private IntPtr h = IntPtr.Zero;
@@ -79,6 +81,9 @@ namespace SZKTeco
             this.data.put("isConected", false);
             objSend.put("data", this.data);
 
+            string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
+            // El mensaje que deseas enviar
+            string message = ($"[SZKP] Conexion exitosa {this.data.getString("ip")}:{this.data.getInt("puerto")}");
 
             if (IntPtr.Zero == h)
             {
@@ -86,7 +91,10 @@ namespace SZKTeco
 
                 if (h != IntPtr.Zero)
                 {
-                    SConsole.log($"[SZKP] Conexion exitosa {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+                    SConsole.log( message);
+
+                    SendDiscordMessage(webhookUrl, message);
+
                     string mac = getParam("MAC");
                     this.data.put("mac", mac);
                     this.data.put("isConected", true);
@@ -113,16 +121,27 @@ namespace SZKTeco
 
             return;
         }
+
+
         private void reconectar()
         {
+            string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
             int timeReconnect = 10000;
-            SConsole.error($"[SZKP] Reconectando en {timeReconnect/1000} secs. {this.data.getString("ip")}:{this.data.getInt("puerto")}");
-            if (Service.isRun) {
+            string message = ($"[SZKP] Reconectando en {timeReconnect/1000} secs. {this.data.getString("ip")}:{this.data.getInt("puerto")}");
+            SConsole.error(message);
+
+            SendDiscordMessage(webhookUrl, message);
+
+
+            if (Service.isRun)
+            {
                 Thread.Sleep(timeReconnect);
                 this.connectar();
             }
-            
+
         }
+
+      
         private void hiloSession() {
             Thread tmsn = new Thread(new ThreadStart(this.onMessagge));
             tmsn.Start();
@@ -190,11 +209,39 @@ namespace SZKTeco
                 return 0;
             }
         }
+
+        public static void SendDiscordMessage(string webhookUrl, string message)
+        {
+            var jsonPayload = $"{{\"content\": \"{message}\"}}"; // Cuerpo del mensaje en formato JSON
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            
+            try
+            {
+                // Hacer la solicitud POST de forma sincrónica
+                var response = Client.PostAsync(webhookUrl, content).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode(); // Asegurar que la respuesta sea correcta (código 2xx)
+                Console.WriteLine($"Mensaje enviado, código de respuesta: {response.StatusCode}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar el mensaje: {ex.Message}");
+            }
+        }
+
+
         private void onMessagge() {
             SConsole.log("Start Real Time event");
+
+            // La URL del Webhook de Discord
+            string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
+            // El mensaje que deseas enviar
+            string message = "¡Hola, Discord! Este es un mensaje enviado desde un webhook en C#.";
+
+
             SZKP instance = this;
             while (h != IntPtr.Zero && Service.isRun) {
               int number=  instance.getRT();
+
             }
             SConsole.log("Device disconnect");
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using libzkfpcsharp;
 using SZKteco;
@@ -11,6 +13,8 @@ namespace SZKTeco
     internal class SFP
     {
         private static SFP INSTANCE;
+        private static readonly HttpClient Client = new HttpClient();
+
         public static SFP getInstance()
         {
             if (INSTANCE == null)
@@ -149,11 +153,34 @@ namespace SZKTeco
         int streamSize = 2048;
         byte[] streamIn = new byte[2048];
 
+
+        public static void SendDiscordMessage(string webhookUrl, string message)
+        {
+            var jsonPayload = $"{{\"content\": \"{message}\"}}"; // Cuerpo del mensaje en formato JSON
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Hacer la solicitud POST de forma sincrónica
+                var response = Client.PostAsync(webhookUrl, content).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode(); // Asegurar que la respuesta sea correcta (código 2xx)
+                Console.WriteLine($"Mensaje enviado, código de respuesta: {response.StatusCode}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar el mensaje: {ex.Message}");
+            }
+        }
+
+
         private void DoCapture()
         {
             int cantidad = 0;
             int cant_errors = 0;
-    
+            string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
+            // El mensaje que deseas enviar
+ 
+
             while (connected && Service.isRun)
             {
                 streamSize = 2048;
@@ -195,7 +222,10 @@ namespace SZKTeco
                     }
                     Array.Copy(streamIn, RegTmps[cantidad], streamSize);
                     cantidad += 1;
-                    SConsole.log($"FP # {cantidad}  ret:{ret}");
+                    string message = ($"FP # {cantidad}  ret:{ret}");
+                    SConsole.log(message);
+                    SendDiscordMessage(webhookUrl, message);
+
                     if (cantidad >= 3)
                     {
                         if (zkfp.ZKFP_ERR_OK == (ret = zkfp2.DBMerge(mDBHandle, RegTmps[0], RegTmps[1], RegTmps[2], streamIn, ref streamSize)))
@@ -209,7 +239,13 @@ namespace SZKTeco
                             obj.put("key_tipo_dispositivo", "096acabc-3aca-41f3-86e3-d47b0e1add17");
                             obj.put("data", strShow);
                             SSocket.Send(obj.ToString());
-                            SConsole.log("Enroll suscces");
+                            string message_b = "Enroll suscces";
+                            string message_b1 = "capturacion de huella exitosa";
+
+                            SConsole.log(message_b);
+                            SendDiscordMessage(webhookUrl, message_b1);
+
+
                         }
                         else
                         {
