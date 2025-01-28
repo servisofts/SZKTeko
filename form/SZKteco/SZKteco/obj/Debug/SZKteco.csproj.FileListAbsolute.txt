@@ -35,3 +35,6 @@ C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.csproj.Up2Date
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.exe
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.pdb
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Debug\es\SZKteco.resources.dll
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\SZKteco.Form1.es.resources
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Debug\es\SZKteco.resources.dll
