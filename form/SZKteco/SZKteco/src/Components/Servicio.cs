@@ -46,7 +46,7 @@ namespace SZKTeco
             // El mensaje que deseas enviar
             string message = ($"Intentando identificarse con el punto de venta ({SConfig.get().getString("key_punto_venta")})");
 
-            string message123 = ($"Punto de venta ({SConfig.get().getString("key_punto_venta")})");
+            string message123 = $"Punto de venta ({SConfig.get().getString("key_punto_venta")})";
 
             obj.put("component", "punto_venta");
             obj.put("type", "identificarse");

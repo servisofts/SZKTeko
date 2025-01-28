@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\components\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\components\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\dispositivos\\dispositivos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\dispositivos\\dispositivos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\manejador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\manejador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\sserver\\sconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\sserver\\sconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\sserver\\ssocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\sserver\\ssocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|c:\\users\\alvaro\\documents\\github\\szkteko\\form\\szkteco\\szkteco\\src\\components\\servicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{600179B4-E469-4D15-AEFA-94A610970928}|SZKteco\\SZKteco.csproj|solutionrelative:szkteco\\src\\components\\servicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,17 +34,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Servicio.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Components\\Servicio.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\Components\\Servicio.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Components\\Servicio.cs",
+              "RelativeToolTip": "SZKteco\\src\\Components\\Servicio.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwDAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T23:48:38.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SSocket.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SSocket.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\SServer\\SSocket.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SSocket.cs",
+              "RelativeToolTip": "SZKteco\\src\\SServer\\SSocket.cs",
+              "ViewState": "AgIAAJgAAAAAAAAAAAApwK4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T23:47:55.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "dispositivo.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Components\\dispositivo.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\Components\\dispositivo.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Components\\dispositivo.cs",
+              "RelativeToolTip": "SZKteco\\src\\Components\\dispositivo.cs",
+              "ViewState": "AgIAADwBAAAAAAAAAAAmwFABAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T23:35:50.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Manejador.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Manejador.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\Manejador.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Manejador.cs",
+              "RelativeToolTip": "SZKteco\\src\\Manejador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T23:33:50.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Dispositivos.cs",
+              "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Dispositivos\\Dispositivos.cs",
+              "RelativeDocumentMoniker": "SZKteco\\src\\Dispositivos\\Dispositivos.cs",
+              "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\Dispositivos\\Dispositivos.cs",
+              "RelativeToolTip": "SZKteco\\src\\Dispositivos\\Dispositivos.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T23:33:44.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "SConsole.cs",
               "DocumentMoniker": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SConsole.cs",
               "RelativeDocumentMoniker": "SZKteco\\src\\SServer\\SConsole.cs",
               "ToolTip": "C:\\Users\\Alvaro\\Documents\\GitHub\\SZKTeko\\form\\SZKteco\\SZKteco\\src\\SServer\\SConsole.cs",
               "RelativeToolTip": "SZKteco\\src\\SServer\\SConsole.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAUwDEAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAmwCwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T22:33:56.612Z",
               "EditorCaption": ""

@@ -258,12 +258,16 @@ namespace SZKTeco
 
         private static void sincronizarMolinete(SJSon obj, SSocket session)
         {
-            obj.put("noSend", false);
+            try
+            {
+                obj.put("noSend", false);
             string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
 
             SConsole.log("Iniciando sincronizacion");
             SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
-            if (szkp == null)
+
+               
+                if (szkp == null)
             {
                 obj.put("estado", "error");
                 obj.put("data", "");
@@ -273,6 +277,7 @@ namespace SZKTeco
                 SConsole.log("dispositivo no conectado");
                 return;
             }
+                
 
             //SZKP szkp = Dispositivos.create_SZKP(obj.getSJSonObject("dispositivo"));
 
@@ -368,19 +373,20 @@ namespace SZKTeco
             string message4 = $"Se eliminaron {huellas_eliminadas.Count} huellas {(huellas_eliminadas.Count > 0 ? "✔" : "❌❌")}";
             */
 
-            string message1 = $"{(usuarios.Count > 0 ? "[✅]" : "[✅❌]")} Usuarios Nuevos {usuarios.Count} users";
+            string message1 = $"{(usuarios.Count > 0 ? "[✅]" : "[❌]")} Usuarios Nuevos {usuarios.Count} users";
             string message2 = $"{(huellas_nuevos.Count > 0 ? "[✅]" : "[❌]")} Se registraron {huellas_nuevos.Count} huellas";
             string message3 = $"{(huellas_encontrados.Count > 0 ? "[✅]" : "[❌]")} Se actualizaron {huellas_encontrados.Count} huellas";
             string message4 = $"{(huellas_eliminadas.Count > 0 ? "[✅]" : "[❌]")} Se eliminaron {huellas_eliminadas.Count} huellas";
 
+                szkp.SetDeviceData_Pull("user", user_to_insert, "");
+                szkp.SetDeviceData_Pull("userauthorize", userauthorize_to_insert, "");
+                szkp.SetDeviceData_Pull("templatev10", templatev10_to_insert, "");
 
-            szkp.SetDeviceData_Pull("templatev10", templatev10_to_insert, "");
 
- 
-            SConsole.error(message1);
-            SConsole.warning(message2);
+            SConsole.log(message1);
+            SConsole.log(message2);
             SConsole.log(message3);
-            SConsole.error(message4);
+            SConsole.log(message4);
 
             SendDiscordMessage(webhookUrl, message1);
             SendDiscordMessage(webhookUrl, message2);
@@ -394,5 +400,20 @@ namespace SZKTeco
             obj.put("huellas_encontrados", "");
         }
 
+
+            catch (Exception ex)
+            {
+                SConsole.log($"Error: {ex.Message}");
+                obj.put("estado", "error");
+                obj.put("data", "");
+                obj.put("dataRemove", "");
+                obj.put("huellas_nuevos", "");
+                obj.put("huellas_encontrados", "");
+
+                string errorMessage = $"[❌] Ocurrió un error durante la sincronización: {ex.Message}";
+                string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
+                SendDiscordMessage(webhookUrl, errorMessage);
+            }
+        }
     }
 }

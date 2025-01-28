@@ -17,7 +17,7 @@ namespace SZKTeco
 
         private static SSocket INSTANCE;
         public static SSocket getInstance() {
-            if (INSTANCE == null) { 
+            if (INSTANCE == null) {
                 INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
             }else {
                 if (!INSTANCE.isConnect())
@@ -26,7 +26,7 @@ namespace SZKTeco
                    // INSTANCE = new SSocket(SConfig.get().getString("ip"), SConfig.get().getInt("puerto"));
                 }
             }
-            
+
             return INSTANCE;
         }
 
@@ -42,7 +42,7 @@ namespace SZKTeco
         {
             if (INSTANCE == null) return false;
             return INSTANCE._Send(msn);
-            
+
         }
 
         private String ip;
@@ -51,10 +51,10 @@ namespace SZKTeco
         private NetworkStream stream;
         private bool estado;
         private Thread t1;
-        public SSocket(String ip, int port) { 
+        public SSocket(String ip, int port) {
             this.ip = ip;
             this.port = port;
-          
+
             this.Connectar();
         }
 
@@ -76,6 +76,26 @@ namespace SZKTeco
             try
             {
                 this.socket.Connect(this.ip, this.port);
+                 SConsole.log("==================================================");
+        SConsole.log("            BIENVENIDO AL SISTEMA ZKTECO          ");
+        SConsole.log("==================================================\n");
+
+        string fechaHora = DateTime.Now.ToString("dd/MM/yyyy | HH:mm");
+        SConsole.log($"Fecha: {fechaHora}\n");
+
+        SConsole.log("--------------------------------------------------");
+        SConsole.log("              CONFIGURACIÓN DEL SISTEMA          ");
+        SConsole.log("--------------------------------------------------");
+        SConsole.log("  - VERSIÓN: 1.2.5");
+        SConsole.log("  - DISPOSITIVOS: 2 (Molinete, Lector)");
+        SConsole.log("  - MODO OPERACIÓN: AUTÓNOMO");
+        SConsole.log("  - update by alvaro siles");
+        SConsole.log("SERVIDOR ZKTECO:          ACTIVO");
+        SConsole.log("DISPOSITIVOS:             CONECTADOS\n");
+
+        SConsole.log("  - MOLINETE:             OK");
+        SConsole.log("  - LECTOR DE HUELLA:     OK");
+
                 SConsole.log($"Conectado con el servidor ({ip}:{port})");
                 this.stream = this.socket.GetStream();
                 this.estado = true;
@@ -90,7 +110,7 @@ namespace SZKTeco
                 SConsole.error(e.ToString());
                 this.onClose();
             }
-   
+
         }
 
         public bool _Send(String msn) {
@@ -109,7 +129,7 @@ namespace SZKTeco
             this.estado = false;
             t1 = null;
             if (this.socket != null)
-            {   
+            {
                 this.socket.Close();
             }
             if (!Service.isRun)
@@ -163,7 +183,7 @@ namespace SZKTeco
                            // System.Diagnostics.Debugger.Launch();
                         }
                     }
-                    catch (Exception e) { 
+                    catch (Exception e) {
                         SConsole.log("[ onMessagge ] "+ mensaje);
                         SConsole.error("[ onMessagge ] " + e.ToString());
                         mensaje = "";
@@ -180,7 +200,7 @@ namespace SZKTeco
                     this.onClose();
                     return;
                 }
-            
+
 
             }
         }
