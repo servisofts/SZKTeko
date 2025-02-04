@@ -35,7 +35,11 @@ namespace SZKTeco
 
             if (obj.getString("estado") == "exito")
             {
-                SConsole.log("Identificado con exito!!!");
+                SConsole.log("");
+                SConsole.log("========================================");
+                SConsole.log("Conexión exitosa con el servidor ZKteco");
+                SConsole.log("========================================");
+                SConsole.log("");
                 //State.punto_venta.put("data", obj.getSJSonObject("data"));
                 SJSon toSend = new SJSon();
                 toSend.put("component", "dispositivo");
@@ -95,7 +99,7 @@ namespace SZKTeco
                     device.DeleteDeviceData_Pull("userauthorize", "");
                     device.DeleteDeviceData_Pull("templatev10", "");
                 }
-                
+
                //JArray arr = obj.getArray("data");
                 String data_inser = "";
                 String data_inser_aut = "";

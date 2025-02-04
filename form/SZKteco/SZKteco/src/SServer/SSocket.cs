@@ -86,10 +86,10 @@ namespace SZKTeco
         SConsole.log("--------------------------------------------------");
         SConsole.log("              CONFIGURACIÓN DEL SISTEMA          ");
         SConsole.log("--------------------------------------------------");
-        SConsole.log("  - VERSIÓN: 1.2.5");
+        SConsole.log("  - VERSIÓN: 2.1");
         SConsole.log("  - DISPOSITIVOS: 2 (Molinete, Lector)");
-        SConsole.log("  - MODO OPERACIÓN: AUTÓNOMO");
-        SConsole.log("  - update by alvaro siles");
+        // SConsole.log("  - MODO OPERACIÓN: AUTÓNOMO");
+        SConsole.log("  - UPDATE BY ING. ALVARO SILES");
         SConsole.log("SERVIDOR ZKTECO:          ACTIVO");
         SConsole.log("DISPOSITIVOS:             CONECTADOS\n");
 

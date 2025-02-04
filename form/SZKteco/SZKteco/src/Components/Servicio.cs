@@ -44,7 +44,7 @@ namespace SZKTeco
 
             string webhookUrl = "https://discord.com/api/webhooks/1332018978289356880/-lJEg1lIwH9joSQx5jGdVl9nRslvwxCwOyymCAvKiaMMSaRG5RlkXtK6JAfNiqIpOKB9";
             // El mensaje que deseas enviar
-            string message = ($"Intentando identificarse con el punto de venta ({SConfig.get().getString("key_punto_venta")})");
+            string message = ($"Punto de venta ({SConfig.get().getString("key_punto_venta")})");
 
             string message123 = $"Punto de venta ({SConfig.get().getString("key_punto_venta")})";
 

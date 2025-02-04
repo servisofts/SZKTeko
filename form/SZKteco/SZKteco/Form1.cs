@@ -51,8 +51,10 @@ namespace SZKteco
             textBox1.AppendText(texto + "\r\n");
 
             // Restablece el color predeterminado para futuros textos
-            textBox1.ForeColor = Color.White;
-
+            // textBox1.ForeColor = Color.White;
+            // textBox1.ForeColor = System.Drawing.ColorTranslator.FromHtml("blue");
+            textBox1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#00a67d");
+            // textBox1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#00cc00");
 
             // Asegura que el caret esté visible al final
             textBox1.SelectionStart = textBox1.TextLength;
@@ -106,11 +108,11 @@ namespace SZKteco
         private void Form1_Load(object sender, EventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate {
-                notifyIcon1.Text = "Calistenia Bolivia";
+                notifyIcon1.Text = "Calistenia Bolivia SRL";
                 notifyIcon1.Visible = true;
                 textBox1.Height = this.Height -28;
                 textBox1.Width = this.Width-20;
-             
+
                 //this.Hide();
 
             });
@@ -130,12 +132,19 @@ namespace SZKteco
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+ Service.isRun = false;
+            Service.t1.Abort();
+            Application.Exit();
+
+            /*
             if (Service.isRun)
             {
                 e.Cancel = true;
                 this.Hide();
             }
-            
+            */
+
         }
 
         private void Form1_Resize(object sender, EventArgs e)

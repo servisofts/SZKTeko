@@ -27,7 +27,9 @@ namespace SZKTeco
                     switch (color.ToLower())
                     {
                         case "green":
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            // Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            // Console.ForegroundColor = "#00b300";
                             break;
                         case "red":
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -62,7 +64,7 @@ namespace SZKTeco
         public static void error(string mensaje)
         {
             string formattedMessage = $"[ {DateTime.Now.ToString("HH:mm:ss.fff")} ][ ERROR ]: {mensaje}";
-            write(formattedMessage, "red"); // Llama a write con el color "red"
+            write(formattedMessage, "green"); // Llama a write con el color "red"
         }
 
         public static void warning(string mensaje)

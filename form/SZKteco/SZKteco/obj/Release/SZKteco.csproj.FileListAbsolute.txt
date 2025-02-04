@@ -23,6 +23,7 @@ C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\lib\zk
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\SZKteco.exe.config
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\SZKteco.exe
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\SZKteco.pdb
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\es\SZKteco.resources.dll
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\libzkfpcsharp.dll
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\bin\Release\Newtonsoft.Json.dll
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.csproj.AssemblyReference.cache
@@ -30,8 +31,10 @@ C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\Intero
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.csproj.ResolveComReference.cache
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.Form1.resources
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.Properties.Resources.resources
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.Form1.es.resources
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.csproj.GenerateResource.cache
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.csproj.CoreCompileInputs.cache
+C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\es\SZKteco.resources.dll
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.csproj.Up2Date
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.exe
 C:\Users\Alvaro\Documents\GitHub\SZKTeko\form\SZKteco\SZKteco\obj\Release\SZKteco.pdb

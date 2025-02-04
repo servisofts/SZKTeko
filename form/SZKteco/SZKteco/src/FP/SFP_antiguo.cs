@@ -8,7 +8,7 @@ using System.Threading;
 using libzkfpcsharp;
 using SZKteco;
 
-namespace SZKTeco
+namespace SFP_antiguo
 {
     internal class SFP
     {
@@ -18,12 +18,12 @@ namespace SZKTeco
         public static SFP getInstance()
         {
 
-         // return  INSTANCE ?? = new SFP();
-             if (INSTANCE == null)
-             {
-                 INSTANCE = new SFP();
-             }
-             return INSTANCE;
+          return  INSTANCE ?? = new SFP();
+            // if (INSTANCE == null)
+            // {
+            //     INSTANCE = new SFP();
+            // }
+            // return INSTANCE;
         }
 
 
@@ -74,7 +74,6 @@ namespace SZKTeco
 
         }
 
-
         public void connectar()
         {
 
@@ -112,16 +111,15 @@ namespace SZKTeco
             if (IntPtr.Zero == (mDevHandle = zkfp2.OpenDevice(idDevice)))
             {
                 connected = false;
-                 SConsole.error("Problemas en dispositivo Molinete");
+                // SConsole.error("OpenDevice fail");
+                SConsole.error("Problemas en dispositivo Molinete");
                 return;
             }
             if (IntPtr.Zero == (mDBHandle = zkfp2.DBInit()))
             {
                 connected = false;
 
-                // SConsole.error("Init DB fail");
-                                SConsole.error("No se pudo inicializar la base de datos de huellas.");
-
+                SConsole.error("Init DB fail");
                 zkfp2.CloseDevice(mDevHandle);
                 mDevHandle = IntPtr.Zero;
                 return;
