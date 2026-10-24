@@ -1,4 +1,4 @@
-package Server.ServerSocketZkteco;
+package ServerSocketZkteco;
 
 import java.net.ServerSocket;
 import java.net.Socket;

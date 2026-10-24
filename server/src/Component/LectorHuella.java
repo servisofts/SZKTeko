@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 
 import Server.SSSAbstract.SSServerAbstract;
 import Server.SSSAbstract.SSSessionAbstract;
-import Server.ServerSocketZkteco.ServerSocketZkteco;
+import ServerSocketZkteco.ServerSocketZkteco;
 
 public class LectorHuella {
     public static final String COMPONENT = "lector_huella";

@@ -1,13 +1,13 @@
-import Server.ServerSocketZkteco.ServerSocketZkteco;
+import ServerSocketZkteco.ServerSocketZkteco;
 import Servisofts.Servisofts;
 
 public class App {
-    
+    //java -jar server.jar
     public static void main(String[] args) {
         try {
             Servisofts.ManejadorCliente = ManejadorCliente::onMessage;
             Servisofts.Manejador = Manejador::onMessage;
-            // Servisofts.DEBUG = false;
+            Servisofts.DEBUG = false;
             Servisofts.initialize();
             ServerSocketZkteco.Manejador = Manejador::onMessage;
             new ServerSocketZkteco(40032);

@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import Server.SSSAbstract.SSServerAbstract;
 import Server.SSSAbstract.SSSessionAbstract;
-import Server.ServerSocketZkteco.ServerSocketZkteco;
+import ServerSocketZkteco.ServerSocketZkteco;
 
 public class UsuarioDispositivo {
     public static final String COMPONENT = "usuario_dispositivo";

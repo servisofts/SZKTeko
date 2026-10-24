@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import Server.SSSAbstract.SSServerAbstract;
 import Server.SSSAbstract.SSSessionAbstract;
-import Server.ServerSocketZkteco.ServerSocketZkteco;
+import ServerSocketZkteco.ServerSocketZkteco;
 import Servisofts.SPGConect;
 
 public class UsuarioHuella {
@@ -63,6 +63,15 @@ public class UsuarioHuella {
     public static JSONArray getAllHuellasActualizadas(String key_dispositivo, String key_usuarios) {
         try {
             String consulta = "select get_all_huellas_actualizadas('"+key_usuarios+"', '"+key_dispositivo+"') as json";
+            return SPGConect.ejecutarConsultaArray(consulta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static JSONArray getAllHuellasEliminadas(String key_dispositivo, String key_usuarios) {
+        try {
+            String consulta = "select get_all_huellas_eliminadas('"+key_usuarios+"', '"+key_dispositivo+"') as json";
             return SPGConect.ejecutarConsultaArray(consulta);
         } catch (Exception e) {
             e.printStackTrace();

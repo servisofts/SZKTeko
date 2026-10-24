@@ -1,4 +1,4 @@
-package Server.ServerSocketZkteco;
+package ServerSocketZkteco;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import Servisofts.SConfig;
 import Servisofts.SConsole;
 
 public class SessionSocket_ extends SSSessionAbstract {
-    
+
     private java.net.Socket miSession;
     private PrintWriter outpw = null;
     public String key_punto_venta = null;
@@ -36,25 +36,34 @@ public class SessionSocket_ extends SSSessionAbstract {
 
     @Override
     public void onMessage(String mensaje) {
-        System.out.println(mensaje);
         JSONObject data = new JSONObject(mensaje);
+        SConsole.succes("ServerSocketZkteco", "[IN]", data.getString("component"), data.getString("type"), "kpv:",
+                this.key_punto_venta);
+        // SConsole.log(("null"), "\t|\t", "ServerSocketZkteco", data.toString());
         data.put("id", getIdSession());
         data.put("noSend", false);
         if (servicio != null) {
             data.put("servicio", servicio);
         }
 
+        if (data.getString("type").equals("sincronizarMolinete")) {
+            System.out.println(data);
+        }
+
         String nombre = SConfig.getJSON().getString("nombre");
-        if(data.has("_sincrone_key_"+nombre)){
-            String sincrone_key_ = data.getString("_sincrone_key_"+nombre);
-            SSSincSend.mapa.get(sincrone_key_).onMesagge(data);
+        if (data.has("_sincrone_key_" + nombre)) {
+            String sincrone_key_ = data.getString("_sincrone_key_" + nombre);
+            SSSincSend sends = SSSincSend.mapa.get(sincrone_key_);
+            if (sends != null) {
+                sends.onMesagge(data);
+            }
             return;
         }
-        
-        if(ServerSocketZkteco.Manejador != null){
+
+        if (ServerSocketZkteco.Manejador != null) {
             ServerSocketZkteco.Manejador.apply(data, this);
         }
-        
+
         if (!data.getBoolean("noSend")) {
             if (data.has("servicio")) {
                 data.remove("servicio");
@@ -78,7 +87,7 @@ public class SessionSocket_ extends SSSessionAbstract {
         try {
             miSession.close();
             super.onClose(obj);
-            //Energy.closeSession(getKeyDevice());
+            // Energy.closeSession(getKeyDevice());
             printLog("Conexion cerrada: ip = " + getIdSession() + " )");
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,7 +100,7 @@ public class SessionSocket_ extends SSSessionAbstract {
         try {
             miSession.close();
             super.onClose(obj);
-            //Energy.closeSession(getKeyDevice());
+            // Energy.closeSession(getKeyDevice());
             printLog("Error: ip = " + getIdSession() + " )");
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,10 +110,18 @@ public class SessionSocket_ extends SSSessionAbstract {
     @Override
     public void send(String mensaje) {
 
+        try {
+            JSONObject obj = new JSONObject(mensaje);
+            SConsole.warning("ServerSocketZkteco", "[OUT]", obj.getString("component"), obj.getString("type"), "kpv:",
+                    this.key_punto_venta);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         MensajeSocket mensajeSocket = new MensajeSocket(mensaje, this);
-         outpw.write(mensaje + "---SSkey---" + mensajeSocket.getKey() +"---SSofts---");
+        outpw.write(mensaje + "---SSkey---" + mensajeSocket.getKey() + "---SSofts---");
         // outpw.write(mensaje + "\r\n");
-        System.out.println(mensaje);
         outpw.flush();
     }
 
@@ -151,23 +168,23 @@ public class SessionSocket_ extends SSSessionAbstract {
                                     JSONObject obj = new JSONObject();
                                     obj.put("estado", "error");
                                     obj.put("error", e.getLocalizedMessage());
-                                    //if(e.getLocalizedMessage().contains("Connection reset")){
-                                        isRun = false;
-                                        JSONObject error = new JSONObject();
-                                        error.put("estado", 0);
-                                        error.put("key_punto_venta", key_punto_venta);
-                                        error.put("error", "desconectado");
-                                        error.put("IdSession", miSession.getRemoteSocketAddress().toString());
-                                        PuntoVentaHistorico.registro(key_punto_venta, error);
+                                    // if(e.getLocalizedMessage().contains("Connection reset")){
+                                    isRun = false;
+                                    JSONObject error = new JSONObject();
+                                    error.put("estado", 0);
+                                    error.put("key_punto_venta", key_punto_venta);
+                                    error.put("error", "desconectado");
+                                    error.put("IdSession", miSession.getRemoteSocketAddress().toString());
+                                    PuntoVentaHistorico.registro(key_punto_venta, error);
 
-                                        obj.put("component","punto_venta");
-                                        obj.put("type","onChange");
-                                        obj.put("estado","exito");
-                                        obj.put("data",PuntoVentaHistorico.getLast(key_punto_venta));
-                                        
-                                        ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
-                                        ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
-                                    //}
+                                    obj.put("component", "punto_venta");
+                                    obj.put("type", "onChange");
+                                    obj.put("estado", "exito");
+                                    obj.put("data", PuntoVentaHistorico.getLast(key_punto_venta));
+
+                                    ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET, obj.toString());
+                                    ServerSocketZkteco.sendServer(SSServerAbstract.TIPO_SOCKET_WEB, obj.toString());
+                                    // }
                                     onError(obj);
                                 } else {
                                     isRun = false;
@@ -201,16 +218,17 @@ public class SessionSocket_ extends SSSessionAbstract {
 
     }
 
-    @Override
-    public void send(String arg0, MensajeSocket arg1) {
-        // TODO Auto-generated method stub
-        
-    }
+    // @Override
+    // public void send(String arg0, MensajeSocket arg1) {
+    // // TODO Auto-generated method stub
+
+    // }
 
     @Override
     public boolean isOpen() {
         // TODO Auto-generated method stub
-        if(miSession == null) return false;
+        if (miSession == null)
+            return false;
         return !miSession.isClosed();
 
     }
